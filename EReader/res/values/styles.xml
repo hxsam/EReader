@@ -11,10 +11,26 @@
             backward-compatibility can go here.
         -->
     </style>
-
-    <!-- Application theme. -->
+    
+    
+      <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@color/transparent_color</item>
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    
+      <style name="tab_rb_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center_horizontal|bottom</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:textColor">@color/tabs_tv_color_select</item>
+        <item name="android:background">@color/tabs_color</item>
+        <item name="android:textSize">@dimen/new_size_1</item>
+        <item name="android:padding">@dimen/dimen_small</item>
     </style>
 
 </resources>
