@@ -4,5 +4,27 @@
     <string name="app_name">EReader</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    
+    <string-array name="myBook">
+        <item>我的订单</item>
+        <item>我的收藏</item>
+        <item>我的推荐</item>
+        <item>我的书评</item>
+        <item>我的优惠劵</item>
+        <item>我的积分</item>
+        <item>账户设置</item>
+        <item>我的消息</item>
+        <item>我的好友</item>
+    </string-array>
+    
+    <string-array name="store">
+        <item>最新上架</item>
+        <item>推荐阅读</item>
+        <item>经典热销</item>
+        <item>特价专区</item>
+        <item>好评榜</item>
+        <item>热销榜</item>
+        <item>全部分类</item>
+    </string-array>
 
 </resources>

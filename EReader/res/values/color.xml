@@ -7,10 +7,10 @@
 	<color name = "new_color_3">#9C9C9C</color>
 	<color name = "new_color_4">#CCCCCC</color>
 	<color name = "new_color_5">#E95847</color>
+	<color name = "new_color_6">#FFFFFF</color><!-- 纯白 -->
 	<color name = "new_color_7">#88E95847</color><!-- 半透明 -->
 	<color name = "new_color_yrb_color">#ff9c7a</color><!-- 宜人币title -->
-	<color name = "new_color_6">#FFFFFF</color><!-- 纯白 -->
-	<color name="red_main">#E95847</color><!-- bar主背景 -->
+	<color name="main_bar">#43a8d7</color><!-- bar主背景 -->
 	<color name="spilt_line_color">#c8c8c8</color><!-- 分割线-->
 	<color name="main_bg">#F4F4F4</color> <!-- 背景色  灰色 -->
 	

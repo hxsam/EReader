@@ -26,7 +26,7 @@
 	<dimen name = "new_size_3">14.0sp</dimen>
 	<dimen name = "new_size_4">16.0sp</dimen>
 	<dimen name = "new_size_5">18.0sp</dimen>
-	<dimen name = "new_size_6">17.0sp</dimen>
+	<dimen name = "new_size_6">20.0sp</dimen>
 	<!--产品列表  强调的数字或字体-->
 	<dimen name = "new_size_7">36.6sp</dimen><!--86pt(磅)-->
 	<dimen name = "new_size_percent">21.6sp</dimen><!--50pt-->

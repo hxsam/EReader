@@ -28,7 +28,7 @@
         <item name="android:gravity">center_horizontal|bottom</item>
         <item name="android:layout_gravity">bottom</item>
         <item name="android:textColor">@color/tabs_tv_color_select</item>
-        <item name="android:background">@color/tabs_color</item>
+        <item name="android:background">@color/white</item>
         <item name="android:textSize">@dimen/new_size_1</item>
         <item name="android:padding">@dimen/dimen_small</item>
     </style>
