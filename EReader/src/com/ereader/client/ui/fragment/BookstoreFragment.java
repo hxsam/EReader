@@ -35,7 +35,7 @@ public class BookstoreFragment  extends Fragment{
 	private void findView() {
 		lv_book_store = (ListView)view.findViewById(R.id.lv_book_store);
 		main_top_right= (Button)view.findViewById(R.id.main_top_right);
-		main_top_left= (Button)view.findViewById(R.id.main_top_left);
+		main_top_left= (Button)view.findViewById(R.id.main_top_left_text);
 	}
 	private void initView() {
 		((TextView) view.findViewById(R.id.tv_main_top_title)).setText("电子书城");

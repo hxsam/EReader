@@ -23,7 +23,7 @@
     <color name="red"> #d72839</color>
     <color name="transparent_color">#00000000</color> <!-- 透明色 -->
     
-    <color name="window_bg">#ededed</color>
+    <color name="window_bg">#F2F2F2</color>
     <color name="tabs_color">#EFEFEF</color>
 
 

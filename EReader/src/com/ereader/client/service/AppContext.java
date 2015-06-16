@@ -14,17 +14,6 @@ public class AppContext {
 	/** 缓存运行时业务数据 **/
 	private Map<String, Object> businessData;
 
-	/** 客户端配置信息 **/
-	private Properties configProerties;
-
-	public String getSystemProperty(String name) {
-		return configProerties.getProperty(name);
-	}
-
-	public void setConfigProerties(Properties configProerties) {
-		this.configProerties = configProerties;
-	}
-
 	public AppContext() {
 		businessData = new Hashtable<String, Object>();
 		// /** 初始化测试数据 **/

@@ -61,21 +61,6 @@ public class AppController {
 	 */
 	private void createContext() {
 		context = new AppContext();
-		context.setConfigProerties(getProperties());
-	}
-
-	private Properties getProperties() {
-		Properties pro = new Properties();
-
-		try {
-			// 建立资源对象 读取资源
-			AssetManager am = currentActivity.getAssets();
-			InputStream in = am.open("config/client_config.properties");
-			pro.load(in);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return pro;
 	}
 
 	/**
