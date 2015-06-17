@@ -26,6 +26,6 @@
     <color name="window_bg">#F2F2F2</color>
     <color name="tabs_color">#EFEFEF</color>
 
-
+ <color name="holo_blue_light">#ff33b5e5</color>
 	
 </resources>

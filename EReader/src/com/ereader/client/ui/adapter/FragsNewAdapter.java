@@ -2,6 +2,8 @@ package com.ereader.client.ui.adapter;
 
 import java.util.ArrayList;
 
+import com.ereader.client.ui.bookstore.NewBookFragment;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -12,10 +14,10 @@ public class FragsNewAdapter extends FragmentStatePagerAdapter {
 
 	public FragsNewAdapter(FragmentManager fm) {
 		super(fm);
-		/*fragments = new ArrayList<Fragment>();
-		for (int i = 0; i < scrollingTabsAdapter.mTitles.length; i++) {
-			fragments.add(new MyFragment(i));
-		}*/
+		fragments = new ArrayList<Fragment>();
+		for (int i = 0; i < 7; i++) {
+			fragments.add(new NewBookFragment()); 
+		}
 	}
 
 	@Override

@@ -1,16 +1,18 @@
 package com.ereader.client.ui.adapter;
 
-import com.ereader.client.R;
-import com.ereader.client.ui.view.TabsAdapter;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.ereader.client.R;
+import com.ereader.client.ui.view.TabsAdapter;
 
 public class BookNewAdapter implements TabsAdapter{
 	private LayoutInflater inflater;
-	public String[] mTitles = { "首页", "推荐", "最新", "娱乐", "设置" };
+	public String[] mTitles = { "首页", "推荐", "最新", "娱乐", "设置","更多","原木"};
 	
 	public BookNewAdapter(Context mContext) {
 		inflater=LayoutInflater.from(mContext);
@@ -18,8 +20,8 @@ public class BookNewAdapter implements TabsAdapter{
 	
 	@Override
 	public View getView(int position) {
-		TextView title = (TextView)inflater.inflate(R.layout.book_my_item, null).findViewById(R.id.tv_book_title);
-		title.setText(mTitles[position]);
-		return title;
+		Button layout = (Button)inflater.inflate(R.layout.book_store_new_tab, null);
+		layout.setText(mTitles[position]);
+		return layout;
 	}
 }

@@ -9,10 +9,12 @@ import android.widget.TextView;
 import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseActivity;
+import com.ereader.client.ui.BaseFragmentActivity;
 import com.ereader.client.ui.adapter.BookNewAdapter;
+import com.ereader.client.ui.adapter.FragsNewAdapter;
 import com.ereader.client.ui.view.ScrollingTabsView;
 
-public class NewBookActivity extends BaseActivity implements OnClickListener {
+public class NewBookActivity extends BaseFragmentActivity implements OnClickListener {
 	private AppController controller;
 	private ScrollingTabsView st_book_new;
 	private ViewPager vp_book_store;
@@ -46,11 +48,18 @@ public class NewBookActivity extends BaseActivity implements OnClickListener {
 		((TextView) findViewById(R.id.tv_main_top_title)).setText("最新上架");
 		
 		
+		FragsNewAdapter pageAdapter = new FragsNewAdapter(getSupportFragmentManager());
+		vp_book_store.setAdapter(pageAdapter);
+		
+		// 设置缓存fragment的数量
+		vp_book_store.setOffscreenPageLimit(2);
+		vp_book_store.setCurrentItem(0);
+		vp_book_store.setPageMargin(4);
 		
 		
 		BookNewAdapter adapter = new BookNewAdapter(this);
 		st_book_new.setAdapter(adapter);
-	//	st_book_new.setViewPager(pager);
+		st_book_new.setViewPager(vp_book_store);
 	}
 
 	@Override
