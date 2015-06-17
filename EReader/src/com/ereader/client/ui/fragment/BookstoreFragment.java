@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -14,6 +16,8 @@ import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.adapter.BookStoreAdapter;
 import com.ereader.client.ui.adapter.MyBookAdapter;
+import com.ereader.client.ui.bookstore.NewBookActivity;
+import com.ereader.common.util.IntentUtil;
 
 public class BookstoreFragment  extends Fragment{
 	private View view;
@@ -45,7 +49,21 @@ public class BookstoreFragment  extends Fragment{
 		String[] mList  = getResources().getStringArray(R.array.store);
 		BookStoreAdapter adapter = new BookStoreAdapter(mContext, mList);
 		lv_book_store.setAdapter(adapter);
-		
+		lv_book_store.setOnItemClickListener(storeItemListener);
 	}
-
+	
+	private OnItemClickListener storeItemListener = new  OnItemClickListener() {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			switch (position) {
+			case 0:
+				IntentUtil.intent(mContext, NewBookActivity.class);
+				break;
+			default:
+				break;
+			}
+			
+		}
+	};
 }

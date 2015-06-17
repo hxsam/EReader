@@ -1,6 +1,5 @@
 package com.ereader.client.ui.adapter;
 
-import java.util.List;
 
 import android.content.Context;
 import android.view.LayoutInflater;
