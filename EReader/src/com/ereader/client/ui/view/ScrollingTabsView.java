@@ -30,6 +30,7 @@ import android.widget.LinearLayout;
 
 import com.ereader.client.R;
 
+// http://www.it165.net/pro/html/201410/24734.html
 public class ScrollingTabsView extends HorizontalScrollView implements OnPageChangeListener {
 	
 	@SuppressWarnings("unused")
