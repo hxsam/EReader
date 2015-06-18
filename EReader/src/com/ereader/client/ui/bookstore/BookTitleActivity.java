@@ -1,23 +1,29 @@
 package com.ereader.client.ui.bookstore;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.ereader.client.R;
 import com.ereader.client.service.AppController;
-import com.ereader.client.ui.BaseActivity;
 import com.ereader.client.ui.BaseFragmentActivity;
-import com.ereader.client.ui.adapter.BookNewAdapter;
+import com.ereader.client.ui.adapter.BookNewTabsAdapter;
 import com.ereader.client.ui.adapter.FragsNewAdapter;
 import com.ereader.client.ui.view.ScrollingTabsView;
 
-public class NewBookActivity extends BaseFragmentActivity implements OnClickListener {
+public class BookTitleActivity extends BaseFragmentActivity implements OnClickListener {
 	private AppController controller;
 	private ScrollingTabsView st_book_new;
 	private ViewPager vp_book_store;
+	private Button main_top_right;
+	private List<String> mListTitle;
+		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,6 +39,7 @@ public class NewBookActivity extends BaseFragmentActivity implements OnClickList
 	  * @time: 2015-2-10 下午1:37:06
 	 */
 	private void findView() {
+		main_top_right = (Button)findViewById(R.id.main_top_right);
 		st_book_new = (ScrollingTabsView)findViewById(R.id.st_book_new);
 		vp_book_store = (ViewPager)findViewById(R.id.vp_book_store);
 	}
@@ -45,10 +52,25 @@ public class NewBookActivity extends BaseFragmentActivity implements OnClickList
 	  * @time: 2015-2-10 下午1:37:06
 	 */
 	private void initView() {
-		((TextView) findViewById(R.id.tv_main_top_title)).setText("最新上架");
+		String title = getIntent().getExtras().getString("title");
+		((TextView) findViewById(R.id.tv_main_top_title)).setText(title);
+		main_top_right.setText("购物车");
+		mListTitle = new ArrayList<String>();
+		if("最新上架".equals(title)){
+			mListTitle.add("小说");
+			mListTitle.add("历史");
+			mListTitle.add("小说");
+			mListTitle.add("青春");
+			mListTitle.add("小说");
+			mListTitle.add("科幻");
+		}else if("特价专区".equals(title)){
+			mListTitle.add("免费");
+			mListTitle.add("1-2元区");
+			mListTitle.add("2-5元区");
+			mListTitle.add("5元以上");
+		}
 		
-		
-		FragsNewAdapter pageAdapter = new FragsNewAdapter(getSupportFragmentManager());
+		FragsNewAdapter pageAdapter = new FragsNewAdapter(getSupportFragmentManager(),mListTitle.size());
 		vp_book_store.setAdapter(pageAdapter);
 		
 		// 设置缓存fragment的数量
@@ -57,7 +79,7 @@ public class NewBookActivity extends BaseFragmentActivity implements OnClickList
 		vp_book_store.setPageMargin(4);
 		
 		
-		BookNewAdapter adapter = new BookNewAdapter(this);
+		BookNewTabsAdapter adapter = new BookNewTabsAdapter(this,mListTitle);
 		st_book_new.setAdapter(adapter);
 		st_book_new.setViewPager(vp_book_store);
 	}

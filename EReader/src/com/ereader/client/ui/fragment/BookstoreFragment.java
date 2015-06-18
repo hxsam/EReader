@@ -6,8 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -15,8 +15,8 @@ import android.widget.TextView;
 import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.adapter.BookStoreAdapter;
-import com.ereader.client.ui.adapter.MyBookAdapter;
-import com.ereader.client.ui.bookstore.NewBookActivity;
+import com.ereader.client.ui.bookstore.BookActivity;
+import com.ereader.client.ui.bookstore.BookTitleActivity;
 import com.ereader.common.util.IntentUtil;
 
 public class BookstoreFragment  extends Fragment{
@@ -26,6 +26,7 @@ public class BookstoreFragment  extends Fragment{
 	private ListView lv_book_store;
 	private Button main_top_right;
 	private Button main_top_left;
+	private String[] mList;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class BookstoreFragment  extends Fragment{
 		main_top_right.setText("搜索");
 		main_top_left.setText("购物车");
 		
-		String[] mList  = getResources().getStringArray(R.array.store);
+		mList  = getResources().getStringArray(R.array.store);
 		BookStoreAdapter adapter = new BookStoreAdapter(mContext, mList);
 		lv_book_store.setAdapter(adapter);
 		lv_book_store.setOnItemClickListener(storeItemListener);
@@ -56,9 +57,26 @@ public class BookstoreFragment  extends Fragment{
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
+			Bundle bundle = new Bundle();
+			bundle.putString("title", mList[position]);
 			switch (position) {
 			case 0:
-				IntentUtil.intent(mContext, NewBookActivity.class);
+				IntentUtil.intent(mContext, bundle,BookTitleActivity.class,false);
+				break;
+			case 1:
+				IntentUtil.intent(mContext, bundle,BookActivity.class,false);
+				break;
+			case 2:
+				IntentUtil.intent(mContext, bundle,BookActivity.class,false);
+				break;
+			case 3:
+				IntentUtil.intent(mContext, bundle,BookTitleActivity.class,false);
+				break;
+			case 4:
+				IntentUtil.intent(mContext, bundle,BookActivity.class,false);
+				break;
+			case 5:
+				IntentUtil.intent(mContext, bundle,BookActivity.class,false);
 				break;
 			default:
 				break;

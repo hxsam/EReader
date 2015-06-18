@@ -8,5 +8,5 @@
     android:paddingLeft="30dip"
     android:paddingRight="30dip"
     android:paddingTop="8dp"
-    android:textColor="@color/holo_blue_light"
+    android:textColor="@color/tabs_title_color"
     android:textSize="16sp" />

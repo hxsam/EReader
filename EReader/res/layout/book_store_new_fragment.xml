@@ -3,15 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/window_bg"
-            android:gravity="center"
+    android:gravity="center"
     android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/tv_book_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="@dimen/new_size_5"
-            android:textColor="@color/new_color_2"
-             />
+       <com.ereader.client.ui.view.PullToRefreshView
+        android:id="@+id/pull_refresh_book"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dimen_normal"
+        android:orientation="vertical" >
+        <ListView
+            android:id="@+id/lv_book"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/main_bg"
+            android:dividerHeight="@dimen/dimen_xnormal"
+            android:listSelector="@android:color/transparent"
+             >
+        </ListView>
+    </com.ereader.client.ui.view.PullToRefreshView>
 </LinearLayout>

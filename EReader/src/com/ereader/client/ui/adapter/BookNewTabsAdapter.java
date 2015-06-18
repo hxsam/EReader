@@ -1,5 +1,7 @@
 package com.ereader.client.ui.adapter;
 
+import java.util.List;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,18 +12,19 @@ import android.widget.TextView;
 import com.ereader.client.R;
 import com.ereader.client.ui.view.TabsAdapter;
 
-public class BookNewAdapter implements TabsAdapter{
+public class BookNewTabsAdapter implements TabsAdapter{
 	private LayoutInflater inflater;
-	public String[] mTitles = { "首页", "推荐", "最新", "娱乐", "设置","更多","原木"};
+	public List<String> mlist;
 	
-	public BookNewAdapter(Context mContext) {
+	public BookNewTabsAdapter(Context mContext,List<String> mlist) {
 		inflater=LayoutInflater.from(mContext);
+		this.mlist = mlist;
 	}
 	
 	@Override
 	public View getView(int position) {
 		Button layout = (Button)inflater.inflate(R.layout.book_store_new_tab, null);
-		layout.setText(mTitles[position]);
+		layout.setText(mlist.get(position));
 		return layout;
 	}
 }

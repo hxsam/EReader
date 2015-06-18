@@ -12,10 +12,10 @@ public class FragsNewAdapter extends FragmentStatePagerAdapter {
 
 	private ArrayList<Fragment> fragments;
 
-	public FragsNewAdapter(FragmentManager fm) {
+	public FragsNewAdapter(FragmentManager fm,int length) {
 		super(fm);
 		fragments = new ArrayList<Fragment>();
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < length; i++) {
 			fragments.add(new NewBookFragment()); 
 		}
 	}

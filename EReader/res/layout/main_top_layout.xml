@@ -37,6 +37,6 @@
         android:background="@null"
         android:textColor="@drawable/text_top_xml"
         android:textSize="@dimen/new_size_4"
-        android:visibility="gone" />
+         />
 
 </RelativeLayout>
