@@ -60,12 +60,19 @@
 
         <EditText
             android:id="@+id/et_buy_num"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="35dp"
             android:layout_marginRight="8dp"
             android:layout_alignParentRight="true"
-            android:ems="10" />
+            android:inputType="number"
+            android:gravity="center"
+            android:background="@drawable/b8_07"
+            android:maxLength="5"
+            android:text="5"
+            android:textSize="@dimen/new_size_3"
+            android:textColor="@color/new_color_2"
+             />
 
     </RelativeLayout>
 

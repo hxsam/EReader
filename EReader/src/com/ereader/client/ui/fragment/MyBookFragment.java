@@ -17,19 +17,19 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.adapter.MyBookAdapter;
+import com.ereader.client.ui.login.LoginActivity;
 import com.ereader.client.ui.more.MoreActivity;
 import com.ereader.common.util.IntentUtil;
 import com.ereader.common.util.ToastUtil;
 
-public class MyBookFragment  extends Fragment implements OnClickListener {
+public class MyBookFragment extends Fragment implements OnClickListener {
 	private View view;
 	private Context mContext;
 	private AppController controller;
-	private ListView  lv_mybook;
+	private ListView lv_mybook;
 	private Button main_top_right;
 	private Button main_top_left;
-	
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -40,39 +40,58 @@ public class MyBookFragment  extends Fragment implements OnClickListener {
 		initView();
 		return view;
 	}
+
 	private void findView() {
-		lv_mybook = (ListView)view.findViewById(R.id.lv_mybook);
-		main_top_right= (Button)view.findViewById(R.id.main_top_right);
-		main_top_left= (Button)view.findViewById(R.id.main_top_left_text);
+		lv_mybook = (ListView) view.findViewById(R.id.lv_mybook);
+		main_top_right = (Button) view.findViewById(R.id.main_top_right);
+		main_top_left = (Button) view.findViewById(R.id.main_top_left_text);
 	}
+
 	private void initView() {
 		((TextView) view.findViewById(R.id.tv_main_top_title)).setText("用户名");
 		main_top_right.setText("充值");
 		main_top_left.setText("更多");
-		String[] mList  = getResources().getStringArray(R.array.myBook);
+		String[] mList = getResources().getStringArray(R.array.myBook);
 		MyBookAdapter adapter = new MyBookAdapter(mContext, mList);
 		lv_mybook.setAdapter(adapter);
 		main_top_left.setOnClickListener(this);
 		main_top_right.setOnClickListener(this);
 		lv_mybook.setOnItemClickListener(bookItemListener);
 	}
-	
-	private OnItemClickListener bookItemListener = new  OnItemClickListener() {
+
+	private OnItemClickListener bookItemListener = new OnItemClickListener() {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			ToastUtil.showToast(mContext, getResources().getStringArray(R.array.myBook)[position], ToastUtil.LENGTH_LONG);
+			switch (position) {
+			case 0:
+
+				break;
+			case 1:
+
+				break;
+			case 2:
+
+				break;
+			case 6:
+				IntentUtil.intent(mContext, LoginActivity.class);
+				break;
+			default:
+				break;
+			}
+
+			ToastUtil.showToast(mContext,
+					getResources().getStringArray(R.array.myBook)[position],
+					ToastUtil.LENGTH_LONG);
 		}
 	};
-	
-	
-	
+
 	@Override
 	public void onClick(View v) {
 
 		switch (v.getId()) {
-		case  R.id.main_top_left_text:
+		case R.id.main_top_left_text:
 			IntentUtil.intent(mContext, MoreActivity.class);
 			break;
 		default:

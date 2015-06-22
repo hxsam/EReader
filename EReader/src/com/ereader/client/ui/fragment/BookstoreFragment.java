@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -17,9 +18,10 @@ import com.ereader.client.service.AppController;
 import com.ereader.client.ui.adapter.BookStoreAdapter;
 import com.ereader.client.ui.bookstore.BookActivity;
 import com.ereader.client.ui.bookstore.BookTitleActivity;
+import com.ereader.client.ui.buycar.BuyCarActivity;
 import com.ereader.common.util.IntentUtil;
 
-public class BookstoreFragment  extends Fragment{
+public class BookstoreFragment  extends Fragment implements OnClickListener{
 	private View view;
 	private Context mContext;
 	private AppController controller;
@@ -46,6 +48,7 @@ public class BookstoreFragment  extends Fragment{
 		((TextView) view.findViewById(R.id.tv_main_top_title)).setText("电子书城");
 		main_top_right.setText("搜索");
 		main_top_left.setText("购物车");
+		main_top_left.setOnClickListener(this);
 		
 		mList  = getResources().getStringArray(R.array.store);
 		BookStoreAdapter adapter = new BookStoreAdapter(mContext, mList);
@@ -84,4 +87,15 @@ public class BookstoreFragment  extends Fragment{
 			
 		}
 	};
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.main_top_left:
+			IntentUtil.intent(mContext, BuyCarActivity.class);
+			break;
+
+		default:
+			break;
+		}
+	}
 }
