@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/com.ereader.client"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical" >
 <include layout="@layout/main_top_layout" />
     <TextView
@@ -17,7 +19,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:padding="15dp" >
 
         <ImageView
@@ -30,7 +31,6 @@
             android:id="@+id/tv_book_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_book_name"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/iv_book"
             android:text="作者：严歌苓"
@@ -74,12 +74,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
         android:weightSum="4" >
 
         <Button
             android:id="@+id/button1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_weight="1"
             android:background="@drawable/b_14"
             android:textSize="@dimen/new_size_2"
@@ -89,7 +90,7 @@
         <Button
             android:id="@+id/button1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_weight="1"
             android:background="@drawable/b_16"
             android:textSize="@dimen/new_size_2"
@@ -99,9 +100,9 @@
         <Button
             android:id="@+id/button1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_weight="1"
-            android:background="@drawable/b_16"
+            android:background="@drawable/b_18"
             android:textSize="@dimen/new_size_2"
             android:layout_marginLeft="15dp"
             android:text="试读" />
@@ -109,7 +110,7 @@
         <Button
             android:id="@+id/button1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_weight="1"
             android:background="@drawable/b_20"
             android:textSize="@dimen/new_size_2"
@@ -117,5 +118,18 @@
             android:layout_marginRight="15dp"
             android:text="推荐好友" />
     </LinearLayout>
+    
+    
+      <com.ereader.client.ui.view.ScrollingTabsView
+        android:id="@+id/st_book_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/window_bg"
+        />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_book_store"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 
 </LinearLayout>

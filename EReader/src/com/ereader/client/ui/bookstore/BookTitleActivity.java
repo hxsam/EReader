@@ -13,9 +13,11 @@ import android.widget.TextView;
 import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseFragmentActivity;
-import com.ereader.client.ui.adapter.BookNewTabsAdapter;
-import com.ereader.client.ui.adapter.FragsNewAdapter;
+import com.ereader.client.ui.adapter.BookTabsAdapter;
+import com.ereader.client.ui.adapter.BookFragsAdapter;
+import com.ereader.client.ui.buycar.BuyCarActivity;
 import com.ereader.client.ui.view.ScrollingTabsView;
+import com.ereader.common.util.IntentUtil;
 
 public class BookTitleActivity extends BaseFragmentActivity implements OnClickListener {
 	private AppController controller;
@@ -55,6 +57,7 @@ public class BookTitleActivity extends BaseFragmentActivity implements OnClickLi
 		String title = getIntent().getExtras().getString("title");
 		((TextView) findViewById(R.id.tv_main_top_title)).setText(title);
 		main_top_right.setText("购物车");
+		main_top_right.setOnClickListener(this);
 		mListTitle = new ArrayList<String>();
 		if("最新上架".equals(title)){
 			mListTitle.add("小说");
@@ -70,7 +73,7 @@ public class BookTitleActivity extends BaseFragmentActivity implements OnClickLi
 			mListTitle.add("5元以上");
 		}
 		
-		FragsNewAdapter pageAdapter = new FragsNewAdapter(getSupportFragmentManager(),mListTitle.size());
+		BookFragsAdapter pageAdapter = new BookFragsAdapter(getSupportFragmentManager(),mListTitle.size());
 		vp_book_store.setAdapter(pageAdapter);
 		
 		// 设置缓存fragment的数量
@@ -79,7 +82,7 @@ public class BookTitleActivity extends BaseFragmentActivity implements OnClickLi
 		vp_book_store.setPageMargin(4);
 		
 		
-		BookNewTabsAdapter adapter = new BookNewTabsAdapter(this,mListTitle);
+		BookTabsAdapter adapter = new BookTabsAdapter(this,mListTitle);
 		st_book_new.setAdapter(adapter);
 		st_book_new.setViewPager(vp_book_store);
 	}
@@ -88,7 +91,8 @@ public class BookTitleActivity extends BaseFragmentActivity implements OnClickLi
 	public void onClick(View v) {
 
 		switch (v.getId()) {
-		case  R.id.textView1:
+		case  R.id.main_top_right:
+			IntentUtil.intent(this, BuyCarActivity.class);
 			break;
 		default:
 			break;

@@ -17,6 +17,7 @@ import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseActivity;
 import com.ereader.client.ui.adapter.BookAdapter;
+import com.ereader.client.ui.buycar.BuyCarActivity;
 import com.ereader.client.ui.view.PullToRefreshView;
 import com.ereader.client.ui.view.PullToRefreshView.OnFooterRefreshListener;
 import com.ereader.client.ui.view.PullToRefreshView.OnHeaderRefreshListener;
@@ -90,6 +91,7 @@ OnHeaderRefreshListener, OnFooterRefreshListener{
 		String title = getIntent().getExtras().getString("title");
 		((TextView) findViewById(R.id.tv_main_top_title)).setText(title);
 		main_top_right.setText("购物车");
+		main_top_right.setOnClickListener(this);
 		pull_refresh_book.setOnHeaderRefreshListener(this);
 		pull_refresh_book.setOnFooterRefreshListener(this);
 		mList.add("赢");
@@ -119,7 +121,8 @@ OnHeaderRefreshListener, OnFooterRefreshListener{
 	public void onClick(View v) {
 
 		switch (v.getId()) {
-		case  R.id.textView1:
+		case  R.id.main_top_right:
+			IntentUtil.intent(this, BuyCarActivity.class);
 			break;
 		default:
 			break;
