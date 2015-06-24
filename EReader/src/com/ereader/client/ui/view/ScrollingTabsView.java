@@ -24,6 +24,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
@@ -88,10 +89,10 @@ public class ScrollingTabsView extends HorizontalScrollView implements OnPageCha
 		this.setHorizontalFadingEdgeEnabled(false);
 		
 		mContainer = new LinearLayout(context);
-		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		mContainer.setLayoutParams(params);
 		mContainer.setOrientation(LinearLayout.HORIZONTAL);
-		
+		mContainer.setGravity(Gravity.CENTER);
 		this.addView(mContainer);
 		
 	}

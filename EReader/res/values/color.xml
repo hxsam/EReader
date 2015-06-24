@@ -21,6 +21,7 @@
     <color name="white">#FFFFFF</color> 
     <color name="black">#000000</color> <!-- 纯黑 -->
     <color name="red"> #d72839</color>
+    <color name="holo_green_dark">#ff669900</color>
     <color name="transparent_color">#00000000</color> <!-- 透明色 -->
     
     <color name="window_bg">#F2F2F2</color>
