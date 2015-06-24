@@ -12,16 +12,13 @@ import com.ereader.client.ui.BaseActivity;
 import com.ereader.common.util.IntentUtil;
 import com.ereader.common.util.ToastUtil;
 
-public class LoginActivity extends BaseActivity implements OnClickListener {
+public class FindPwd2Activity extends BaseActivity implements OnClickListener {
 	private AppController controller;
-	private Button bt_login;
-	private TextView tv_login_register;
-	private TextView tv_login_findpwd;
-	
+	private Button bt_findpwd;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.login_layout);
+		setContentView(R.layout.login_findpwd2_layout);
 		controller = AppController.getController(this);
 		findView();
 		initView();
@@ -33,10 +30,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	  * @time: 2015-2-10 下午1:37:06
 	 */
 	private void findView() {
-		bt_login = (Button)findViewById(R.id.bt_login);
-		tv_login_register = (TextView)findViewById(R.id.tv_login_register);
-		tv_login_findpwd = (TextView)findViewById(R.id.tv_login_findpwd);
-
+		bt_findpwd = (Button)findViewById(R.id.bt_findpwd);
 	}
 	
 
@@ -47,25 +41,17 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	  * @time: 2015-2-10 下午1:37:06
 	 */
 	private void initView() {
-		((TextView) findViewById(R.id.tv_main_top_title)).setText("登录");
-		bt_login.setOnClickListener(this);
-		tv_login_findpwd.setOnClickListener(this);
-		tv_login_register.setOnClickListener(this);
+		((TextView) findViewById(R.id.tv_main_top_title)).setText("找回密码");
+		bt_findpwd.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 
 		switch (v.getId()) {
-		case  R.id.bt_login:
-			ToastUtil.showToast(this, "登录成功", ToastUtil.LENGTH_LONG);
-			this.finish();
-			break;
-		case R.id.tv_login_findpwd:
-			IntentUtil.intent(this, FindPwdActivity.class);
-			break;
-		case R.id.tv_login_register:
-			IntentUtil.intent(this, RegisterActivity.class);
+		case  R.id.bt_findpwd:
+			ToastUtil.showToast(this, "密码修改成功", ToastUtil.LENGTH_LONG);
+			IntentUtil.intent(this, LoginActivity.class);
 			break;
 		default:
 			break;

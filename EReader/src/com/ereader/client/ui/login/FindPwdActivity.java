@@ -13,12 +13,14 @@ import android.widget.TextView;
 import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseActivity;
+import com.ereader.client.ui.login.RegisterActivity.RegisterCountDownTimer;
+import com.ereader.common.util.IntentUtil;
 
-public class RegisterActivity extends BaseActivity implements OnClickListener {
+public class FindPwdActivity extends BaseActivity implements OnClickListener {
 	private AppController controller;
-	private TextView tv_regisrer_code;
+	private TextView tv_login_findpwd;
+	private EditText et_findpwd_code;
 	private Button bt_register;
-	private EditText et_register_code;
 	
 	private RegisterCountDownTimer timer;
 	private boolean is_validate_tip = true;
@@ -43,7 +45,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.login_register_layout);
+		setContentView(R.layout.login_findpwd_layout);
 		controller = AppController.getController(this);
 		findView();
 		initView();
@@ -55,30 +57,32 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	  * @time: 2015-2-10 下午1:37:06
 	 */
 	private void findView() {
-		bt_register= (Button)findViewById(R.id.bt_register);
-		tv_regisrer_code = (TextView)findViewById(R.id.tv_regisrer_code);
-		et_register_code = (EditText)findViewById(R.id.et_register_code);
+		tv_login_findpwd = (TextView)findViewById(R.id.tv_login_findpwd);
+		et_findpwd_code = (EditText)findViewById(R.id.et_findpwd_code);
+		bt_register = (Button)findViewById(R.id.bt_register);
 	}
 	
 
 	/**
-	 * 
 	  * 方法描述：初始化 View
 	  * @author: why
 	  * @time: 2015-2-10 下午1:37:06
 	 */
 	private void initView() {
-		((TextView) findViewById(R.id.tv_main_top_title)).setText("注册");
+		((TextView) findViewById(R.id.tv_main_top_title)).setText("找回密码");
+		tv_login_findpwd.setOnClickListener(this);
 		bt_register.setOnClickListener(this);
-		tv_regisrer_code.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 
 		switch (v.getId()) {
-		case  R.id.tv_regisrer_code:
+		case  R.id.tv_login_findpwd:
 			mHandler.obtainMessage(CODE_OK).sendToTarget();
+			break;
+		case  R.id.bt_register:
+			IntentUtil.intent(this, FindPwd2Activity.class);
 			break;
 		default:
 			break;
@@ -94,14 +98,13 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		@Override
 		public void onFinish() {
 			is_validate_tip = true;
-			tv_regisrer_code.setText("获取验证码");
+			tv_login_findpwd.setText("获取验证码");
 		}
 
 		@Override
 		public void onTick(long millisUntilFinished) {
 			is_validate_tip = false;
-			tv_regisrer_code.setText("倒计时"+millisUntilFinished / 1000 + "s");
+			tv_login_findpwd.setText("倒计时"+millisUntilFinished / 1000 + "s");
 		}
 	}
-
 }

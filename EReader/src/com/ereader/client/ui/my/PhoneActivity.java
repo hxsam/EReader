@@ -1,4 +1,4 @@
-package com.ereader.client.ui.login;
+package com.ereader.client.ui.my;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -7,18 +7,17 @@ import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseActivity;
+import com.ereader.common.util.ToastUtil;
 
-public class RegisterActivity extends BaseActivity implements OnClickListener {
+public class PhoneActivity extends BaseActivity implements OnClickListener {
 	private AppController controller;
-	private TextView tv_regisrer_code;
-	private Button bt_register;
-	private EditText et_register_code;
+	private Button main_top_right;
+	private TextView tv_pwd_get_code;
 	
 	private RegisterCountDownTimer timer;
 	private boolean is_validate_tip = true;
@@ -43,7 +42,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.login_register_layout);
+		setContentView(R.layout.my_phone_layout);
 		controller = AppController.getController(this);
 		findView();
 		initView();
@@ -55,9 +54,8 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	  * @time: 2015-2-10 下午1:37:06
 	 */
 	private void findView() {
-		bt_register= (Button)findViewById(R.id.bt_register);
-		tv_regisrer_code = (TextView)findViewById(R.id.tv_regisrer_code);
-		et_register_code = (EditText)findViewById(R.id.et_register_code);
+		main_top_right = (Button)findViewById(R.id.main_top_right);
+		tv_pwd_get_code = (TextView)findViewById(R.id.tv_pwd_get_code);
 	}
 	
 
@@ -68,23 +66,29 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	  * @time: 2015-2-10 下午1:37:06
 	 */
 	private void initView() {
-		((TextView) findViewById(R.id.tv_main_top_title)).setText("注册");
-		bt_register.setOnClickListener(this);
-		tv_regisrer_code.setOnClickListener(this);
+		((TextView) findViewById(R.id.tv_main_top_title)).setText("手机号");
+		main_top_right.setText("保存");
+		main_top_right.setOnClickListener(this);
+		tv_pwd_get_code.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 
 		switch (v.getId()) {
-		case  R.id.tv_regisrer_code:
+		case  R.id.tv_login_findpwd:
 			mHandler.obtainMessage(CODE_OK).sendToTarget();
+			break;
+		case  R.id.main_top_right:
+			ToastUtil.showToast(this, "保存成功", ToastUtil.LENGTH_LONG);
+			this.finish();
 			break;
 		default:
 			break;
 		}
 	}
 	
+
 	/* 定义一个倒计时的内部类 */
 	class RegisterCountDownTimer extends CountDownTimer {
 		public RegisterCountDownTimer(long millisInFuture, long countDownInterval) {
@@ -94,13 +98,13 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		@Override
 		public void onFinish() {
 			is_validate_tip = true;
-			tv_regisrer_code.setText("获取验证码");
+			tv_pwd_get_code.setText("获取验证码");
 		}
 
 		@Override
 		public void onTick(long millisUntilFinished) {
 			is_validate_tip = false;
-			tv_regisrer_code.setText("倒计时"+millisUntilFinished / 1000 + "s");
+			tv_pwd_get_code.setText("倒计时"+millisUntilFinished / 1000 + "s");
 		}
 	}
 

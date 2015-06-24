@@ -70,7 +70,8 @@
         android:layout_marginLeft="@dimen/dimen_xnormal"
         android:layout_marginRight="@dimen/dimen_xnormal"
         android:textColor="@color/main_bar"
-        android:textSize="@dimen/new_size_4"
+        android:textSize="@dimen/new_size_5"
+        android:background="@drawable/bt12_03"
         android:text="登录" />
 
 </LinearLayout>

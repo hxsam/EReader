@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -19,6 +20,7 @@ import com.ereader.client.service.AppController;
 import com.ereader.client.ui.adapter.MyBookAdapter;
 import com.ereader.client.ui.login.LoginActivity;
 import com.ereader.client.ui.more.MoreActivity;
+import com.ereader.client.ui.my.AccountActivity;
 import com.ereader.common.util.IntentUtil;
 import com.ereader.common.util.ToastUtil;
 
@@ -27,6 +29,7 @@ public class MyBookFragment extends Fragment implements OnClickListener {
 	private Context mContext;
 	private AppController controller;
 	private ListView lv_mybook;
+	private TextView tv_main_top_title;
 	private Button main_top_right;
 	private Button main_top_left;
 
@@ -45,10 +48,11 @@ public class MyBookFragment extends Fragment implements OnClickListener {
 		lv_mybook = (ListView) view.findViewById(R.id.lv_mybook);
 		main_top_right = (Button) view.findViewById(R.id.main_top_right);
 		main_top_left = (Button) view.findViewById(R.id.main_top_left_text);
+		tv_main_top_title = (TextView)view.findViewById(R.id.tv_main_top_title);
 	}
 
 	private void initView() {
-		((TextView) view.findViewById(R.id.tv_main_top_title)).setText("用户名");
+		tv_main_top_title.setText("用户名");
 		main_top_right.setText("充值");
 		main_top_left.setText("更多");
 		String[] mList = getResources().getStringArray(R.array.myBook);
@@ -56,6 +60,7 @@ public class MyBookFragment extends Fragment implements OnClickListener {
 		lv_mybook.setAdapter(adapter);
 		main_top_left.setOnClickListener(this);
 		main_top_right.setOnClickListener(this);
+		tv_main_top_title.setOnClickListener(this);
 		lv_mybook.setOnItemClickListener(bookItemListener);
 	}
 
@@ -75,15 +80,11 @@ public class MyBookFragment extends Fragment implements OnClickListener {
 
 				break;
 			case 6:
-				IntentUtil.intent(mContext, LoginActivity.class);
+				IntentUtil.intent(mContext, AccountActivity.class);
 				break;
 			default:
 				break;
 			}
-
-			ToastUtil.showToast(mContext,
-					getResources().getStringArray(R.array.myBook)[position],
-					ToastUtil.LENGTH_LONG);
 		}
 	};
 
@@ -93,6 +94,9 @@ public class MyBookFragment extends Fragment implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.main_top_left_text:
 			IntentUtil.intent(mContext, MoreActivity.class);
+			break;
+		case R.id.tv_main_top_title:
+			IntentUtil.intent(mContext, LoginActivity.class);
 			break;
 		default:
 			break;
