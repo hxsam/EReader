@@ -34,7 +34,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/iv_book"
-            android:text="订单编号：D01-593859-aaah348"
+            android:text="收藏时间：2015-05-06"
             android:textColor="@color/new_color_3"
             android:textSize="@dimen/new_size_2" />
 
@@ -45,23 +45,13 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="8dp"
             android:layout_toRightOf="@+id/iv_book" >
-
-            <TextView
-                android:id="@+id/tv_book_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="2"
-                android:text="2015-6-24 23:56:57"
-                android:textColor="@color/new_color_3"
-                android:textSize="@dimen/new_size_2" />
-            
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="2"
                 android:text="$2.00"
                 android:textColor="@color/main_bar"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentLeft="true"
                 android:textSize="@dimen/new_size_2" />
         </RelativeLayout>
         
@@ -71,22 +61,13 @@
             android:layout_below="@+id/iv_book"
             android:layout_marginTop="8dp"
              >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="2"
-                android:text="交易成功"
-                android:layout_centerVertical="true"
-                android:textColor="@color/holo_green_dark"
-                android:textSize="@dimen/new_size_2" />
             
             <Button
-                android:id="@+id/tv_order_left"
+                android:id="@+id/tv_collection_buycar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="2"
-                android:text="立即阅读"
+                android:text="+购物车"
                 android:textColor="@color/main_bar"
                 android:layout_toLeftOf="@+id/tv_order_right"
                 android:textSize="@dimen/new_size_2" />
@@ -96,9 +77,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="2"
-                android:text="写书评"
+                android:text="删除"
                 android:textColor="@color/main_bar"
                 android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
                 android:textSize="@dimen/new_size_2" />
         </RelativeLayout>
     </RelativeLayout>

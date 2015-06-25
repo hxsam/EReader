@@ -44,7 +44,6 @@ public class AccountActivity extends BaseActivity implements OnClickListener {
 	 */
 	private void initView() {
 		((TextView) findViewById(R.id.tv_main_top_title)).setText("账户设置");
-		
 		String[] mList = getResources().getStringArray(R.array.account);
 		MyBookAdapter adapter = new MyBookAdapter(this, mList);
 		lv_my_account.setAdapter(adapter);

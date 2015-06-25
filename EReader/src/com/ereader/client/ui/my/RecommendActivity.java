@@ -1,23 +1,27 @@
 package com.ereader.client.ui.my;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseActivity;
-import com.ereader.common.util.ToastUtil;
-// 写书评
-public class SPActivity extends BaseActivity implements OnClickListener {
+import com.ereader.client.ui.adapter.CollectionAdapter;
+import com.ereader.client.ui.adapter.RecommendAdapter;
+// 推荐
+public class RecommendActivity extends BaseActivity implements OnClickListener {
 	private AppController controller;
-	private Button bt_sp_submint;
+	private ListView lv_my_recommend;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.my_sp_layout);
+		setContentView(R.layout.my_recommend_layout);
 		controller = AppController.getController(this);
 		findView();
 		initView();
@@ -29,7 +33,7 @@ public class SPActivity extends BaseActivity implements OnClickListener {
 	  * @time: 2015-2-10 下午1:37:06
 	 */
 	private void findView() {
-		bt_sp_submint = (Button)findViewById(R.id.bt_sp_submint);
+		lv_my_recommend = (ListView)findViewById(R.id.lv_my_recommend);
 	}
 	
 
@@ -40,18 +44,22 @@ public class SPActivity extends BaseActivity implements OnClickListener {
 	  * @time: 2015-2-10 下午1:37:06
 	 */
 	private void initView() {
-		((TextView) findViewById(R.id.tv_main_top_title)).setText("写书评");
-		bt_sp_submint.setOnClickListener(this);
+		((TextView) findViewById(R.id.tv_main_top_title)).setText("我的推荐");
+		List<String> mList = new ArrayList<String>();
+		mList.add("");
+		mList.add("");
+		mList.add("");
+		mList.add("");
+		mList.add("");
+		mList.add("");
+		RecommendAdapter adapter = new RecommendAdapter(this, mList);
+		lv_my_recommend.setAdapter(adapter);
 	}
 
 	@Override
 	public void onClick(View v) {
-
 		switch (v.getId()) {
-		case  R.id.bt_sp_submint:
-			
-			ToastUtil.showToast(SPActivity.this, "提交成功", ToastUtil.LENGTH_LONG);
-			this.finish();
+		case  R.id.textView1:
 			break;
 		default:
 			break;

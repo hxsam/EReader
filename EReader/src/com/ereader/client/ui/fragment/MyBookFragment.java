@@ -21,7 +21,9 @@ import com.ereader.client.ui.adapter.MyBookAdapter;
 import com.ereader.client.ui.login.LoginActivity;
 import com.ereader.client.ui.more.MoreActivity;
 import com.ereader.client.ui.my.AccountActivity;
+import com.ereader.client.ui.my.CollectionActivity;
 import com.ereader.client.ui.my.OrderActivity;
+import com.ereader.client.ui.my.RecommendActivity;
 import com.ereader.common.util.IntentUtil;
 import com.ereader.common.util.ToastUtil;
 
@@ -75,10 +77,10 @@ public class MyBookFragment extends Fragment implements OnClickListener {
 				IntentUtil.intent(mContext, OrderActivity.class);
 				break;
 			case 1:
-
+				IntentUtil.intent(mContext, CollectionActivity.class);
 				break;
 			case 2:
-
+				IntentUtil.intent(mContext, RecommendActivity.class);
 				break;
 			case 6:
 				IntentUtil.intent(mContext, AccountActivity.class);

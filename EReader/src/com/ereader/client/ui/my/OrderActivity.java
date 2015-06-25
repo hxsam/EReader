@@ -13,12 +13,9 @@ import android.widget.TextView;
 import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseFragmentActivity;
-import com.ereader.client.ui.adapter.BookFragsAdapter;
 import com.ereader.client.ui.adapter.BookTabsAdapter;
 import com.ereader.client.ui.adapter.OrderFragsAdapter;
-import com.ereader.client.ui.buycar.BuyCarActivity;
 import com.ereader.client.ui.view.ScrollingTabsView;
-import com.ereader.common.util.IntentUtil;
 
 public class OrderActivity extends BaseFragmentActivity implements OnClickListener {
 	private AppController controller;
@@ -77,7 +74,6 @@ public class OrderActivity extends BaseFragmentActivity implements OnClickListen
 
 	@Override
 	public void onClick(View v) {
-
 		switch (v.getId()) {
 		case  R.id.main_top_right:
 			break;
