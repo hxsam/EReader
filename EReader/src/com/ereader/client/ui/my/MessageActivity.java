@@ -14,20 +14,20 @@ import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseFragmentActivity;
 import com.ereader.client.ui.adapter.BookTabsAdapter;
-import com.ereader.client.ui.adapter.OrderFragsAdapter;
+import com.ereader.client.ui.adapter.MessageFragsAdapter;
 import com.ereader.client.ui.view.ScrollingTabsView;
-// 订单
-public class OrderActivity extends BaseFragmentActivity implements OnClickListener {
+// 我的消息
+public class MessageActivity extends BaseFragmentActivity implements OnClickListener {
 	private AppController controller;
-	private ScrollingTabsView st_order;
-	private ViewPager vp_order;
+	private ScrollingTabsView stabs_message;
+	private ViewPager vpager_message;
 	private Button main_top_right;
 	private List<String> mListTitle;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.my_order_layout);
+		setContentView(R.layout.my_message_layout);
 		controller = AppController.getController(this);
 		findView();
 		initView();
@@ -40,8 +40,8 @@ public class OrderActivity extends BaseFragmentActivity implements OnClickListen
 	 */
 	private void findView() {
 		main_top_right = (Button)findViewById(R.id.main_top_right);
-		st_order = (ScrollingTabsView)findViewById(R.id.st_order);
-		vp_order = (ViewPager)findViewById(R.id.vp_order);
+		stabs_message = (ScrollingTabsView)findViewById(R.id.stabs_message);
+		vpager_message = (ViewPager)findViewById(R.id.vpager_message);
 	}
 	
 
@@ -52,24 +52,26 @@ public class OrderActivity extends BaseFragmentActivity implements OnClickListen
 	  * @time: 2015-2-10 下午1:37:06
 	 */
 	private void initView() {
-		((TextView) findViewById(R.id.tv_main_top_title)).setText("我的订单");
+		((TextView) findViewById(R.id.tv_main_top_title)).setText("我的消息");
+		main_top_right.setText("清空消息");
 		mListTitle = new ArrayList<String>();
-			mListTitle.add("全部");
-			mListTitle.add("正在处理");
-			mListTitle.add("取消");
+			mListTitle.add("好友消息");
+			mListTitle.add("好友推荐");
+			mListTitle.add("连载更新");
+			mListTitle.add("系统消息");
 		
-		OrderFragsAdapter orderAdapter = new OrderFragsAdapter(getSupportFragmentManager(),mListTitle.size());
-		vp_order.setAdapter(orderAdapter);
+		MessageFragsAdapter orderAdapter = new MessageFragsAdapter(getSupportFragmentManager(),mListTitle.size());
+		vpager_message.setAdapter(orderAdapter);
 		
 		// 设置缓存fragment的数量
-		vp_order.setOffscreenPageLimit(2);
-		vp_order.setCurrentItem(0);
-		vp_order.setPageMargin(4);
+		vpager_message.setOffscreenPageLimit(2);
+		vpager_message.setCurrentItem(0);
+		vpager_message.setPageMargin(4);
 		
 		
 		BookTabsAdapter adapter = new BookTabsAdapter(this,mListTitle);
-		st_order.setAdapter(adapter);
-		st_order.setViewPager(vp_order);
+		stabs_message.setAdapter(adapter);
+		stabs_message.setViewPager(vpager_message);
 	}
 
 	@Override

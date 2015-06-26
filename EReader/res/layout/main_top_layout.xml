@@ -25,7 +25,8 @@
         android:ellipsize="end"
         android:text="@string/app_name"
         android:textColor="@color/new_color_6"
-        android:textSize="@dimen/new_size_5" />
+        android:textStyle="bold"
+        android:textSize="@dimen/new_size_6" />
 
     <Button
         android:id="@+id/main_top_right"

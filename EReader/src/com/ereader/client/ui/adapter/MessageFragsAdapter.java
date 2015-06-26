@@ -6,18 +6,20 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.ereader.client.ui.my.OrderFragment;
+import com.ereader.client.ui.my.MessageFragment;
+import com.ereader.client.ui.my.MessageFriendsFragment;
 
-public class OrderFragsAdapter extends FragmentStatePagerAdapter {
+public class MessageFragsAdapter extends FragmentStatePagerAdapter {
 
 	private ArrayList<Fragment> fragments;
 
-	public OrderFragsAdapter(FragmentManager fm,int length) {
+	public MessageFragsAdapter(FragmentManager fm,int length) {
 		super(fm);
 		fragments = new ArrayList<Fragment>();
-		for (int i = 0; i < length; i++) {
-			fragments.add(new OrderFragment()); 
-		}
+			fragments.add(new MessageFriendsFragment()); 
+			fragments.add(new MessageFragment()); 
+			fragments.add(new MessageFragment()); 
+			fragments.add(new MessageFragment()); 
 	}
 
 	@Override

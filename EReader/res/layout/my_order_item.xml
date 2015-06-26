@@ -69,7 +69,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/iv_book"
-            android:layout_marginTop="8dp"
              >
 
             <TextView
@@ -83,21 +82,24 @@
             
             <Button
                 android:id="@+id/tv_order_left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="32dp"
                 android:maxLines="2"
                 android:text="立即阅读"
                 android:textColor="@color/main_bar"
+                android:background="@drawable/b_14"
                 android:layout_toLeftOf="@+id/tv_order_right"
                 android:textSize="@dimen/new_size_2" />
             
             <Button
                 android:id="@+id/tv_order_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="10dp"
                 android:maxLines="2"
                 android:text="写书评"
-                android:textColor="@color/main_bar"
+                android:textColor="@color/new_color_5"
+                android:background="@drawable/b_16"
                 android:layout_alignParentRight="true"
                 android:textSize="@dimen/new_size_2" />
         </RelativeLayout>
