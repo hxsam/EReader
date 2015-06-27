@@ -15,21 +15,21 @@ import android.widget.ListView;
 
 import com.ereader.client.R;
 import com.ereader.client.service.AppController;
-import com.ereader.client.ui.adapter.MessageAdapter;
+import com.ereader.client.ui.adapter.PointsAdapter;
 import com.ereader.client.ui.view.PullToRefreshView;
 import com.ereader.client.ui.view.PullToRefreshView.OnFooterRefreshListener;
 import com.ereader.client.ui.view.PullToRefreshView.OnHeaderRefreshListener;
 import com.ereader.common.util.ToastUtil;
 
-public class MessageFragment extends Fragment implements OnClickListener,
+public class PointsFragment extends Fragment implements OnClickListener,
 OnHeaderRefreshListener, OnFooterRefreshListener{
 	private View view;
 	private Context mContext;
 	private AppController controller;
-	private ListView lv_order;
-	private PullToRefreshView pull_refresh_order;
+	private ListView lv_points;
+	private PullToRefreshView pull_refresh_points;
 	private List<String> mList = new ArrayList<String>();
-	private MessageAdapter adapter;
+	private PointsAdapter adapter;
 	
 	public static final int REFRESH_DOWN_OK = 1; // 向下刷新
 	public static final int REFRESH_UP_OK = 2;  //向上拉
@@ -38,7 +38,7 @@ OnHeaderRefreshListener, OnFooterRefreshListener{
 			switch (msg.what) {
 			case REFRESH_DOWN_OK:
 				ToastUtil.showToast(mContext, "刷新成功！", ToastUtil.LENGTH_LONG);
-				pull_refresh_order.onHeaderRefreshComplete();
+				pull_refresh_points.onHeaderRefreshComplete();
 				break;
 			case REFRESH_UP_OK:
 				mList.add("赢");
@@ -47,7 +47,7 @@ OnHeaderRefreshListener, OnFooterRefreshListener{
 				mList.add("赢");
 				mList.add("赢");
 				adapter.notifyDataSetChanged();
-				pull_refresh_order.onFooterRefreshComplete();
+				pull_refresh_points.onFooterRefreshComplete();
 				break;
 
 			default:
@@ -60,7 +60,7 @@ OnHeaderRefreshListener, OnFooterRefreshListener{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.my_message_fragment, container, false);
+		view = inflater.inflate(R.layout.my_points_fragment, container, false);
 		controller = AppController.getController(getActivity());
 		mContext = getActivity();
 		findView();
@@ -68,12 +68,12 @@ OnHeaderRefreshListener, OnFooterRefreshListener{
 		return view;
 	}
 	private void findView() {
-		lv_order= (ListView)view.findViewById(R.id.lv_order);
-		pull_refresh_order = (PullToRefreshView)view.findViewById(R.id.pull_refresh_order);
+		lv_points= (ListView)view.findViewById(R.id.lv_points);
+		pull_refresh_points = (PullToRefreshView)view.findViewById(R.id.pull_refresh_points);
 	}
 	private void initView() {
-		pull_refresh_order.setOnHeaderRefreshListener(this);
-		pull_refresh_order.setOnFooterRefreshListener(this);
+		pull_refresh_points.setOnHeaderRefreshListener(this);
+		pull_refresh_points.setOnFooterRefreshListener(this);
 		mList.add("赢");
 		mList.add("赢");
 		mList.add("赢");
@@ -83,8 +83,8 @@ OnHeaderRefreshListener, OnFooterRefreshListener{
 		mList.add("赢");
 		mList.add("赢");
 		mList.add("赢");
-		adapter = new MessageAdapter(mContext, mList);
-		lv_order.setAdapter(adapter);
+		adapter = new PointsAdapter(mContext, mList);
+		lv_points.setAdapter(adapter);
 	}
 	
 	

@@ -1,19 +1,17 @@
 package com.ereader.client.ui.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.ereader.client.R;
 import com.ereader.client.service.AppController;
@@ -22,12 +20,14 @@ import com.ereader.client.ui.login.LoginActivity;
 import com.ereader.client.ui.more.MoreActivity;
 import com.ereader.client.ui.my.AccountActivity;
 import com.ereader.client.ui.my.CollectionActivity;
+import com.ereader.client.ui.my.CouponsActivity;
 import com.ereader.client.ui.my.FriendsActivity;
 import com.ereader.client.ui.my.MessageActivity;
+import com.ereader.client.ui.my.MySPActivity;
 import com.ereader.client.ui.my.OrderActivity;
+import com.ereader.client.ui.my.PointsActivity;
 import com.ereader.client.ui.my.RecommendActivity;
 import com.ereader.common.util.IntentUtil;
-import com.ereader.common.util.ToastUtil;
 
 public class MyBookFragment extends Fragment implements OnClickListener {
 	private View view;
@@ -83,6 +83,14 @@ public class MyBookFragment extends Fragment implements OnClickListener {
 				break;
 			case 2:
 				IntentUtil.intent(mContext, RecommendActivity.class);
+			case 3:
+				IntentUtil.intent(mContext, MySPActivity.class);
+				break;
+			case 4:
+				IntentUtil.intent(mContext, CouponsActivity.class);
+				break;
+			case 5:
+				IntentUtil.intent(mContext, PointsActivity.class);
 				break;
 			case 6:
 				IntentUtil.intent(mContext, AccountActivity.class);

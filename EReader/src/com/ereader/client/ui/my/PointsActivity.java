@@ -14,21 +14,21 @@ import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseFragmentActivity;
 import com.ereader.client.ui.adapter.BookTabsAdapter;
-import com.ereader.client.ui.adapter.MessageFragsAdapter;
+import com.ereader.client.ui.adapter.PointsFragsAdapter;
 import com.ereader.client.ui.view.ScrollingTabsView;
-import com.ereader.common.util.ToastUtil;
-// 我的消息
-public class MessageActivity extends BaseFragmentActivity implements OnClickListener {
+
+// 我的积分
+public class PointsActivity extends BaseFragmentActivity implements OnClickListener {
 	private AppController controller;
-	private ScrollingTabsView stabs_message;
-	private ViewPager vpager_message;
+	private ScrollingTabsView stabs_points;
+	private ViewPager vpager_points;
 	private Button main_top_right;
 	private List<String> mListTitle;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.my_message_layout);
+		setContentView(R.layout.my_points_layout);
 		controller = AppController.getController(this);
 		findView();
 		initView();
@@ -41,8 +41,8 @@ public class MessageActivity extends BaseFragmentActivity implements OnClickList
 	 */
 	private void findView() {
 		main_top_right = (Button)findViewById(R.id.main_top_right);
-		stabs_message = (ScrollingTabsView)findViewById(R.id.stabs_message);
-		vpager_message = (ViewPager)findViewById(R.id.vpager_message);
+		stabs_points = (ScrollingTabsView)findViewById(R.id.stabs_points);
+		vpager_points = (ViewPager)findViewById(R.id.vpager_points);
 	}
 	
 
@@ -53,34 +53,30 @@ public class MessageActivity extends BaseFragmentActivity implements OnClickList
 	  * @time: 2015-2-10 下午1:37:06
 	 */
 	private void initView() {
-		((TextView) findViewById(R.id.tv_main_top_title)).setText("我的消息");
-		main_top_right.setText("清空消息");
-		main_top_right.setOnClickListener(this);
+		((TextView) findViewById(R.id.tv_main_top_title)).setText("我的积分");
 		mListTitle = new ArrayList<String>();
-			mListTitle.add("好友消息");
-			mListTitle.add("好友推荐");
-			mListTitle.add("连载更新");
-			mListTitle.add("系统消息");
+			mListTitle.add("全部");
+			mListTitle.add("积分收入");
+			mListTitle.add("积分支出");
 		
-		MessageFragsAdapter orderAdapter = new MessageFragsAdapter(getSupportFragmentManager(),mListTitle.size());
-		vpager_message.setAdapter(orderAdapter);
+		PointsFragsAdapter orderAdapter = new PointsFragsAdapter(getSupportFragmentManager(),mListTitle.size());
+		vpager_points.setAdapter(orderAdapter);
 		
 		// 设置缓存fragment的数量
-		vpager_message.setOffscreenPageLimit(2);
-		vpager_message.setCurrentItem(0);
-		vpager_message.setPageMargin(4);
+		vpager_points.setOffscreenPageLimit(2);
+		vpager_points.setCurrentItem(0);
+		vpager_points.setPageMargin(4);
 		
 		
 		BookTabsAdapter adapter = new BookTabsAdapter(this,mListTitle);
-		stabs_message.setAdapter(adapter);
-		stabs_message.setViewPager(vpager_message);
+		stabs_points.setAdapter(adapter);
+		stabs_points.setViewPager(vpager_points);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case  R.id.main_top_right:
-			ToastUtil.showToast(MessageActivity.this, "清空成功", ToastUtil.LENGTH_LONG);
 			break;
 		default:
 			break;
