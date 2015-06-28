@@ -90,7 +90,7 @@ public class BookstoreFragment  extends Fragment implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.main_top_left:
+		case R.id.main_top_left_text:
 			IntentUtil.intent(mContext, BuyCarActivity.class);
 			break;
 

@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/window_bg"
+    android:background="@color/white"
     android:orientation="vertical" >
     <include layout="@layout/main_top_text_layout" />
-
-    <ListView
-        android:id="@+id/lv_mybook"
+    <GridView
+        android:id="@+id/gridv_book"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:divider="@color/window_bg"
-        android:dividerHeight="5dp"
-        >
-    </ListView>
+        android:layout_height="match_parent"
+        android:numColumns="3" >
+    </GridView>
 
 </LinearLayout>
