@@ -15,7 +15,9 @@ import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseFragmentActivity;
 import com.ereader.client.ui.adapter.BookDetailFragsAdapter;
 import com.ereader.client.ui.adapter.BookDetailTabsAdapter;
+import com.ereader.client.ui.buycar.BuyCarActivity;
 import com.ereader.client.ui.view.ScrollingTabsView;
+import com.ereader.common.util.IntentUtil;
 
 public class BookDetailActivity extends BaseFragmentActivity implements OnClickListener {
 	private ScrollingTabsView st_book_detail;
@@ -55,6 +57,7 @@ public class BookDetailActivity extends BaseFragmentActivity implements OnClickL
 	private void initView() {
 		((TextView) findViewById(R.id.tv_main_top_title)).setText("书城");
 		main_top_right.setText("购物车");
+		main_top_right.setOnClickListener(this);
 		mListTitle = new ArrayList<String>();
 		mListTitle.add("目录");
 		mListTitle.add("内容简介");
@@ -80,6 +83,7 @@ public class BookDetailActivity extends BaseFragmentActivity implements OnClickL
 
 		switch (v.getId()) {
 		case  R.id.main_top_right:
+			IntentUtil.intent(BookDetailActivity.this, BuyCarActivity.class);
 			break;
 		default:
 			break;

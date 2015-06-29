@@ -57,13 +57,13 @@ public class HelpActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.rl_help_info:
-			IntentUtil.intent(this, HelpActivity.class);
+			IntentUtil.intent(this, NoticeActivity.class);
 			break;
 		case R.id.rl_help_buy:
-			IntentUtil.intent(this, HelpActivity.class);
+			IntentUtil.intent(this, NoticeActivity.class);
 			break;
 		case R.id.rl_help_pay:
-			IntentUtil.intent(this, HelpActivity.class);
+			IntentUtil.intent(this, NoticeActivity.class);
 			break;
 		default:
 			break;

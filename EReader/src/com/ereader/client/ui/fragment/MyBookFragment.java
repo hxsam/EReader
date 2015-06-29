@@ -27,6 +27,7 @@ import com.ereader.client.ui.my.MySPActivity;
 import com.ereader.client.ui.my.OrderActivity;
 import com.ereader.client.ui.my.PointsActivity;
 import com.ereader.client.ui.my.RecommendActivity;
+import com.ereader.client.ui.pay.RechargeActivity;
 import com.ereader.common.util.IntentUtil;
 
 public class MyBookFragment extends Fragment implements OnClickListener {
@@ -116,6 +117,9 @@ public class MyBookFragment extends Fragment implements OnClickListener {
 			break;
 		case R.id.tv_main_top_title:
 			IntentUtil.intent(mContext, LoginActivity.class);
+			break;
+		case R.id.main_top_right:
+			IntentUtil.intent(mContext, RechargeActivity.class);
 			break;
 		default:
 			break;
