@@ -9,15 +9,29 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:padding="15dp" >
+        
+         <TextView
+            android:id="@+id/tv_bill_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentLeft="true"
+            android:text="【充值】"
+            android:textColor="@color/new_color_2"
+            android:layout_toLeftOf="@+id/tv_points_num"
+            android:textSize="@dimen/new_size_2" />
+        
 
         <TextView
             android:id="@+id/tv_points_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_bill_type"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:layout_alignParentLeft="true"
-            android:text="您的好友玥儿给您推荐《永远不要找别人要安全感》，点击书名立即查看"
-            android:textColor="@color/new_color_2"
+            android:text="交易进行中"
+            android:textColor="@color/main_bar"
             android:layout_toLeftOf="@+id/tv_points_num"
             android:textSize="@dimen/new_size_2" />
 

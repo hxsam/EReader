@@ -16,9 +16,6 @@ import android.widget.TextView;
 import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.adapter.BookShelfAdapter;
-import com.ereader.client.ui.adapter.BookShelfTabsAdapter;
-import com.ereader.client.ui.adapter.BookTabsAdapter;
-import com.ereader.client.ui.view.ScrollingTabsView;
 
 public class BookshelfFragment extends Fragment{
 	private View view;

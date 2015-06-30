@@ -1,4 +1,4 @@
-package com.ereader.client.ui.my;
+package com.ereader.client.ui.pay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,21 +13,23 @@ import android.widget.TextView;
 import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseFragmentActivity;
+import com.ereader.client.ui.adapter.BillFragsAdapter;
 import com.ereader.client.ui.adapter.BookTabsAdapter;
-import com.ereader.client.ui.adapter.OrderFragsAdapter;
 import com.ereader.client.ui.view.ScrollingTabsView;
-// 订单
-public class OrderActivity extends BaseFragmentActivity implements OnClickListener {
+
+
+// 我的账单
+public class BillActivity extends BaseFragmentActivity implements OnClickListener {
 	private AppController controller;
-	private ScrollingTabsView st_order;
-	private ViewPager vp_order;
+	private ScrollingTabsView stabs_bill;
+	private ViewPager vpager_bill;
 	private Button main_top_right;
 	private List<String> mListTitle;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.my_order_layout);
+		setContentView(R.layout.my_bill_layout);
 		controller = AppController.getController(this);
 		findView();
 		initView();
@@ -40,8 +42,8 @@ public class OrderActivity extends BaseFragmentActivity implements OnClickListen
 	 */
 	private void findView() {
 		main_top_right = (Button)findViewById(R.id.main_top_right);
-		st_order = (ScrollingTabsView)findViewById(R.id.st_order);
-		vp_order = (ViewPager)findViewById(R.id.vp_order);
+		stabs_bill = (ScrollingTabsView)findViewById(R.id.stabs_bill);
+		vpager_bill = (ViewPager)findViewById(R.id.vpager_bill);
 	}
 	
 
@@ -52,24 +54,26 @@ public class OrderActivity extends BaseFragmentActivity implements OnClickListen
 	  * @time: 2015-2-10 下午1:37:06
 	 */
 	private void initView() {
-		((TextView) findViewById(R.id.tv_main_top_title)).setText("我的订单");
+		((TextView) findViewById(R.id.tv_main_top_title)).setText("账单");
+		main_top_right.setOnClickListener(this);
 		mListTitle = new ArrayList<String>();
 			mListTitle.add("全部");
-			mListTitle.add("正在处理");
-			mListTitle.add("已取消");
+			mListTitle.add("交易中");
+			mListTitle.add("购书");
+			mListTitle.add("充值");
 		
-		OrderFragsAdapter orderAdapter = new OrderFragsAdapter(getSupportFragmentManager(),mListTitle.size());
-		vp_order.setAdapter(orderAdapter);
+		BillFragsAdapter orderAdapter = new BillFragsAdapter(getSupportFragmentManager(),mListTitle.size());
+		vpager_bill.setAdapter(orderAdapter);
 		
 		// 设置缓存fragment的数量
-		vp_order.setOffscreenPageLimit(2);
-		vp_order.setCurrentItem(0);
-		vp_order.setPageMargin(4);
+		vpager_bill.setOffscreenPageLimit(2);
+		vpager_bill.setCurrentItem(0);
+		vpager_bill.setPageMargin(4);
 		
 		
 		BookTabsAdapter adapter = new BookTabsAdapter(this,mListTitle);
-		st_order.setAdapter(adapter);
-		st_order.setViewPager(vp_order);
+		stabs_bill.setAdapter(adapter);
+		stabs_bill.setViewPager(vpager_bill);
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseActivity;
+import com.ereader.common.util.IntentUtil;
 // 充值
 public class RechargeActivity extends BaseActivity implements OnClickListener {
 	private AppController controller;
@@ -51,7 +52,7 @@ public class RechargeActivity extends BaseActivity implements OnClickListener {
 
 		switch (v.getId()) {
 		case  R.id.main_top_right:
-			
+			IntentUtil.intent(RechargeActivity.this, BillActivity.class);
 			break;
 		default:
 			break;

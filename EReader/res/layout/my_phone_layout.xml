@@ -18,10 +18,25 @@
         android:textColorHint="@color/new_color_4"
         android:textSize="@dimen/new_size_3"
         android:inputType="number"
-        android:hint="手机号"
+        android:text="手机号：15201019879"
+        android:enabled="false"
         android:ems="10" >
 
-        <requestFocus />
+    </EditText>
+     <EditText
+        android:id="@+id/editText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="@dimen/dimen_xnormal"
+        android:layout_marginRight="@dimen/dimen_xnormal"
+        android:textColor="@color/new_color_2"
+        android:textColorHint="@color/new_color_4"
+        android:textSize="@dimen/new_size_3"
+        android:inputType="number"
+        android:hint="新手机号"
+        android:ems="10" >
+                <requestFocus />
     </EditText>
 
     

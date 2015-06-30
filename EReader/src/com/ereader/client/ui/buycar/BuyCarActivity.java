@@ -46,7 +46,7 @@ public class BuyCarActivity extends BaseActivity implements OnClickListener {
 	  * @time: 2015-2-10 下午1:37:06
 	 */
 	private void initView() {
-		((TextView) findViewById(R.id.tv_main_top_title)).setText("购物车");
+		((TextView) findViewById(R.id.tv_main_top_title)).setText("购物车(4)");
 		textView1.setOnClickListener(this);
 		List<String> list = new ArrayList<String>();
 		list.add("ttt");

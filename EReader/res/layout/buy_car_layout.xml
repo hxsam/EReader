@@ -9,12 +9,42 @@
         android:id="@+id/title"
          />
 
+    <RelativeLayout
+        android:id="@+id/rl_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:paddingLeft="@dimen/dimen_xnormal"
+        android:layout_below="@+id/title">
+
+        <RadioButton
+            android:id="@+id/rb_car_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             android:textColor="@color/new_color_2"
+             android:layout_centerVertical="true"
+            android:textSize="@dimen/new_size_3"
+            android:text="全选" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/rb_car_all"
+            android:text="删除"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/main_bar"
+            android:textSize="@dimen/new_size_3"
+            android:padding="10dp"
+             />
+
+    </RelativeLayout>
+
     <ListView
         android:id="@+id/lv_buy_car"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@color/window_bg"
-        android:layout_below="@+id/title"
+        android:layout_below="@+id/rl_select"
         android:layout_above="@+id/ll_buy_car_total"
         android:dividerHeight="5dp" >
     </ListView>
