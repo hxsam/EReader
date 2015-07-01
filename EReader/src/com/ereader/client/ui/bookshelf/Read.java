@@ -408,7 +408,6 @@ public class Read extends Activity implements OnClickListener, OnSeekBarChangeLi
 				getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 				getWindow().addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 				show = true;
-
 				pop();
 			}
 		}

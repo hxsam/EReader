@@ -186,8 +186,7 @@ public class BookPageFactory {
 			// 如果该页最后一段只显示了一部分，则从新定位结束点位置
 			if (strParagraph.length() != 0) {
 				try {
-					m_mbBufEnd -= (strParagraph + strReturn)
-							.getBytes(m_strCharsetName).length;
+					m_mbBufEnd -= (strParagraph + strReturn).getBytes(m_strCharsetName).length;
 				} catch (UnsupportedEncodingException e) {
 					Log.e(TAG, "pageDown->记录结束点位置失败", e);
 				}
