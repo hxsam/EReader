@@ -28,6 +28,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ereader.client.R;
@@ -36,26 +37,28 @@ import com.ereader.client.ui.adapter.BookShelfAdapter;
 import com.ereader.client.ui.bookshelf.Read;
 import com.ereader.client.ui.bookshelf.SearchBuyActivity;
 import com.ereader.client.ui.bookshelf.read.LocalBook;
+import com.ereader.client.ui.view.LoopViewPager;
 import com.ereader.common.util.IntentUtil;
 import com.ereader.common.util.ToastUtil;
 
-public class BookshelfFragment extends Fragment{
+public class BookshelfFragment extends Fragment {
 	private static final String TAG = "BookshelfFragment";
-	
+
 	private View view;
 	private Context mContext;
 	private AppController controller;
 	private Button main_top_right;
-	private GridView gridv_book; 
-	
-	
-	
+	private GridView gridv_book;
+	private LoopViewPager viewpager;
+	private LinearLayout pointlayout;
+
 	private ArrayList<HashMap<String, Object>> listItem = null;
 	private HashMap<String, Object> map = null;
 	private Map<String, Integer[]> map2;// 存放本地推荐目录的小封面图片引用
 	private SharedPreferences sp;
 	private LocalBook localbook;
 	private boolean isInit = false;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -67,25 +70,30 @@ public class BookshelfFragment extends Fragment{
 		initRead();
 		return view;
 	}
+
 	private void initRead() {
 		if (!isInit) {
 			new AsyncSetApprove().execute("");
 		}
-		
+
 		// 读取名为"mark"的sharedpreferences
-				sp = mContext.getSharedPreferences("mark", mContext.MODE_PRIVATE);
-				localbook = new LocalBook(mContext, "localbook");
+		sp = mContext.getSharedPreferences("mark", mContext.MODE_PRIVATE);
+		localbook = new LocalBook(mContext, "localbook");
 		map2 = new HashMap<String, Integer[]>();
 		String[] bookids = getResources().getStringArray(R.array.bookid);
 		for (int i = 0; i < bookids.length; i++) {
 			map2.put(bookids[i], new Integer[] { R.drawable.book0 + i });
 		}
-		
+
 	}
+
 	private void findView() {
-		main_top_right = (Button)view.findViewById(R.id.main_top_right);
-		gridv_book = (GridView)view.findViewById(R.id.gridv_book);
+		main_top_right = (Button) view.findViewById(R.id.main_top_right);
+		gridv_book = (GridView) view.findViewById(R.id.gridv_book);
+		viewpager= (LoopViewPager)view.findViewById(R.id.viewpager);
+		pointlayout= (LinearLayout)view.findViewById(R.id.pointlayout);
 	}
+
 	private void initView() {
 		((TextView) view.findViewById(R.id.tv_main_top_title)).setText("书架");
 		main_top_right.setText("已购");
@@ -99,15 +107,12 @@ public class BookshelfFragment extends Fragment{
 		list.add("");
 		list.add("");
 		list.add("");
-		list.add("");
-		list.add("");
-		list.add("");
-		
+
 		BookShelfAdapter adapter = new BookShelfAdapter(mContext, list);
-		gridv_book.setAdapter(adapter);  
+		gridv_book.setAdapter(adapter);
 		gridv_book.setOnItemClickListener(gridItemListener);
 	}
-	
+
 	private OnItemClickListener gridItemListener = new OnItemClickListener() {
 
 		@Override
@@ -115,41 +120,40 @@ public class BookshelfFragment extends Fragment{
 				long id) {
 			ToastUtil.showToast(mContext, position + "", ToastUtil.LENGTH_LONG);
 			Intent it = new Intent();
-			
+
 			it.setClass(mContext, Read.class);
 			getResources().openRawResource(R.raw.book0);
-			
+
 			String path = (String) listItem.get(0).get("path");
 			it.putExtra("aaa", path);
 			startActivity(it);
-			
+
 		}
 	};
-	
-	
-	
-	
+
 	private OnClickListener rightListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			IntentUtil.intent(mContext, SearchBuyActivity.class);
 		}
 	};
-	
-	
-	
+
 	class AsyncSetApprove extends AsyncTask<String, Integer, String> {
 
 		@Override
 		protected String doInBackground(String... params) {
 			if (!isInit) {
 				File path = mContext.getFilesDir();
-				String[] strings = getResources().getStringArray(R.array.bookid);// 获取assets目录下的文件列表
+				String[] strings = getResources()
+						.getStringArray(R.array.bookid);// 获取assets目录下的文件列表
 				for (int i = 0; i < strings.length; i++) {
 					try {
-						FileOutputStream out = new FileOutputStream(path + "/" + strings[i]);
-						BufferedInputStream bufferedIn = new BufferedInputStream(getResources().openRawResource(R.raw.book0 + i));
-						BufferedOutputStream bufferedOut = new BufferedOutputStream(out);
+						FileOutputStream out = new FileOutputStream(path + "/"
+								+ strings[i]);
+						BufferedInputStream bufferedIn = new BufferedInputStream(
+								getResources().openRawResource(R.raw.book0 + i));
+						BufferedOutputStream bufferedOut = new BufferedOutputStream(
+								out);
 						byte[] data = new byte[2048];
 						int length = 0;
 						while ((length = bufferedIn.read(data)) != -1) {
@@ -187,7 +191,10 @@ public class BookshelfFragment extends Fragment{
 						if (insertList.get(i) != null) {
 							String s = insertList.get(i).get("parent");
 							String s1 = insertList.get(i).get("path");
-							String sql1 = "insert into " + "localbook" + " (parent,path" + ", type" + ",now,ready) values('" + s + "','" + s1 + "',2,0,null" + ");";
+							String sql1 = "insert into " + "localbook"
+									+ " (parent,path" + ", type"
+									+ ",now,ready) values('" + s + "','" + s1
+									+ "',2,0,null" + ");";
 							db.execSQL(sql1);
 						}
 					} catch (SQLException e) {
@@ -209,8 +216,7 @@ public class BookshelfFragment extends Fragment{
 			super.onPostExecute(result);
 		}
 	}
-	
-	
+
 	/**
 	 * 获取SD卡根目录
 	 * 
@@ -218,7 +224,8 @@ public class BookshelfFragment extends Fragment{
 	 */
 	public String getSDPath() {
 		File sdDir = null;
-		boolean sdCardExist = Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED); // 判断sd卡是否存在
+		boolean sdCardExist = Environment.getExternalStorageState().equals(
+				android.os.Environment.MEDIA_MOUNTED); // 判断sd卡是否存在
 		if (sdCardExist) {
 			sdDir = Environment.getExternalStorageDirectory();// 获取跟目录
 		}
@@ -231,8 +238,10 @@ public class BookshelfFragment extends Fragment{
 	public void local() {
 		SQLiteDatabase db = localbook.getReadableDatabase();
 		String col[] = { "path" };
-		Cursor cur = db.query("localbook", col, "type=1", null, null, null, null);
-		Cursor cur1 = db.query("localbook", col, "type=2", null, null, null, null);
+		Cursor cur = db.query("localbook", col, "type=1", null, null, null,
+				null);
+		Cursor cur1 = db.query("localbook", col, "type=2", null, null, null,
+				null);
 		Integer num = cur.getCount();
 		Integer num1 = cur1.getCount();
 		ArrayList<String> arraylist = new ArrayList<String>();
@@ -252,7 +261,8 @@ public class BookshelfFragment extends Fragment{
 		listItem.clear();
 		String[] bookids = getResources().getStringArray(R.array.bookid);
 		String[] booknames = getResources().getStringArray(R.array.bookname);
-		String[] bookauthors = getResources().getStringArray(R.array.bookauthor);
+		String[] bookauthors = getResources()
+				.getStringArray(R.array.bookauthor);
 		Map<String, String[]> maps = new HashMap<String, String[]>();
 		for (int i = 0; i < bookids.length; i++) {
 			String[] value = new String[2];
@@ -263,13 +273,16 @@ public class BookshelfFragment extends Fragment{
 		for (int i = 0; i < num + num1; i++) {
 			if (i < num1) {
 				File file1 = new File(arraylist.get(i));
-				String m = file1.getName().substring(0, file1.getName().length() - 4);
+				String m = file1.getName().substring(0,
+						file1.getName().length() - 4);
 				if (m.length() > 8) {
 					m = m.substring(0, 8) + "...";
 				}
-				String id = arraylist.get(i).substring(arraylist.get(i).lastIndexOf("/") + 1);
+				String id = arraylist.get(i).substring(
+						arraylist.get(i).lastIndexOf("/") + 1);
 				String[] array = maps.get(id);
-				String auther = array != null && array[1] == null ? "未知" : array[1];
+				String auther = array != null && array[1] == null ? "未知"
+						: array[1];
 				String name = array[0] == null ? m : array[0];
 				map = new HashMap<String, Object>();
 
@@ -278,7 +291,9 @@ public class BookshelfFragment extends Fragment{
 				} else if ((i % 2) == 0) {
 					map.put("itemback", R.drawable.itemback);
 				}
-				map.put("ItemImage", map2 != null ? map2.get(file1.getName())[0] : R.drawable.cover);
+				map.put("ItemImage",
+						map2 != null ? map2.get(file1.getName())[0]
+								: R.drawable.cover);
 				map.put("BookName", "");
 				map.put("ItemTitle", name == null ? m : name);
 				map.put("ItemTitle1", "作者：" + auther);
@@ -290,7 +305,8 @@ public class BookshelfFragment extends Fragment{
 				map = new HashMap<String, Object>();
 
 				File file1 = new File(arraylist.get(i));
-				String m = file1.getName().substring(0, file1.getName().length() - 4);
+				String m = file1.getName().substring(0,
+						file1.getName().length() - 4);
 				if (m.length() > 8) {
 					m = m.substring(0, 8) + "...";
 				}

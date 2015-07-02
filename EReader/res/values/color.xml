@@ -28,5 +28,7 @@
     <color name="tabs_color">#EFEFEF</color>
 
  <color name="holo_blue_light">#ff33b5e5</color>
+ 
+ <color name="off_point">#7fFFFFFF</color>
 	
 </resources>
