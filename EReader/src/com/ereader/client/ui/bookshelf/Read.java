@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -159,7 +160,7 @@ public class Read extends Activity implements OnClickListener, OnSeekBarChangeLi
 				pagefactory.setM_textColor(Color.rgb(28, 28, 28));
 				imageBtn2.setImageResource(R.drawable.reader_switch_off);
 				isNight = false;
-				pagefactory.setBgBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.bg));
+				pagefactory.setBgBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.read_color));
 			} else {
 				pagefactory.setM_textColor(Color.rgb(128, 128, 128));
 				imageBtn2.setImageResource(R.drawable.reader_switch_on);
@@ -231,6 +232,7 @@ public class Read extends Activity implements OnClickListener, OnSeekBarChangeLi
 		}
 	}
 
+	@SuppressLint("WrongCall")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -263,6 +265,7 @@ public class Read extends Activity implements OnClickListener, OnSeekBarChangeLi
 		mPageWidget.setBitmaps(mCurPageBitmap, mCurPageBitmap);
 
 		mPageWidget.setOnTouchListener(new OnTouchListener() {
+			@SuppressLint("WrongCall")
 			@Override
 			public boolean onTouch(View v, MotionEvent e) {
 				boolean ret = false;
@@ -331,7 +334,7 @@ public class Read extends Activity implements OnClickListener, OnSeekBarChangeLi
 			pagefactory.setBgBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.main_bg));
 			pagefactory.setM_textColor(Color.rgb(128, 128, 128));
 		} else {
-			pagefactory.setBgBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.bg));
+			pagefactory.setBgBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.read_color));
 			pagefactory.setM_textColor(Color.rgb(28, 28, 28));
 		}
 		begin = sp.getInt(bookPath + "begin", 0);
@@ -630,7 +633,7 @@ public class Read extends Activity implements OnClickListener, OnSeekBarChangeLi
 				if (isNight) {
 					pagefactory.setBgBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.main_bg));
 				} else {
-					pagefactory.setBgBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.bg));
+					pagefactory.setBgBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.read_color));
 				}
 
 				if (isNight) {
@@ -679,6 +682,7 @@ public class Read extends Activity implements OnClickListener, OnSeekBarChangeLi
 	/**
 	 * 刷新界面
 	 */
+	@SuppressLint("WrongCall")
 	public void postInvalidateUI() {
 		mPageWidget.abortAnimation();
 		pagefactory.onDraw(mCurPageCanvas);

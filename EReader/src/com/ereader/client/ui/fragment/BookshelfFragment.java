@@ -19,6 +19,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,11 +34,13 @@ import android.widget.TextView;
 
 import com.ereader.client.R;
 import com.ereader.client.service.AppController;
+import com.ereader.client.ui.adapter.BookPagerAdapter;
 import com.ereader.client.ui.adapter.BookShelfAdapter;
 import com.ereader.client.ui.bookshelf.Read;
 import com.ereader.client.ui.bookshelf.SearchBuyActivity;
 import com.ereader.client.ui.bookshelf.read.LocalBook;
 import com.ereader.client.ui.view.LoopViewPager;
+import com.ereader.client.ui.view.PointView;
 import com.ereader.common.util.IntentUtil;
 import com.ereader.common.util.ToastUtil;
 
@@ -58,6 +61,7 @@ public class BookshelfFragment extends Fragment {
 	private SharedPreferences sp;
 	private LocalBook localbook;
 	private boolean isInit = false;
+	private PointView pointView;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -104,14 +108,59 @@ public class BookshelfFragment extends Fragment {
 		list.add("");
 		list.add("");
 		list.add("");
-		list.add("");
-		list.add("");
-		list.add("");
 
 		BookShelfAdapter adapter = new BookShelfAdapter(mContext, list);
 		gridv_book.setAdapter(adapter);
 		gridv_book.setOnItemClickListener(gridItemListener);
+		
+		
+		List<String> listPager = new ArrayList<String>();
+		listPager.add("");
+		listPager.add("");
+		listPager.add("");
+		
+		BookPagerAdapter pageAdapter = new BookPagerAdapter(mContext, listPager);
+		viewpager.setAdapter(pageAdapter);
+		viewpager.setCurrentItem(0);
+		viewpager.setOnPageChangeListener(viewpagerListener);
+		
+		pointView = new PointView(getActivity(), listPager.size());
+		pointlayout.removeAllViews();
+		pointlayout.addView(pointView);
+		pointView.setPosition(0);
+		pointlayout.postInvalidate();
+		
 	}
+	
+	private  OnPageChangeListener viewpagerListener = new OnPageChangeListener() {
+		
+		@Override
+		public void onPageSelected(int position) {
+
+			// TODO Auto-generated method stub
+			int size = viewpager.getAdapter().getCount();
+			pointView.setPosition(position % size);
+			pointView.postInvalidate();
+		
+		}
+		
+		@Override
+		public void onPageScrolled(int arg0, float arg1, int arg2) {
+			
+		}
+		
+		@Override
+		public void onPageScrollStateChanged(int arg0) {
+			
+		}
+	};
+	
+	
+	
+	
+	
+	
+	
 
 	private OnItemClickListener gridItemListener = new OnItemClickListener() {
 

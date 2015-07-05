@@ -35,7 +35,7 @@
 	
 	
 	<!-- 主页 webView 高度-->
-	<dimen name = "home_webview">145dp</dimen>	
+	<dimen name = "home_webview">190dp</dimen>	
 	<!--  间距的设置 -->
 	<dimen name = "dimen_other_large">28dp</dimen>
 	<dimen name = "dimen_xlarge">25dp</dimen>
