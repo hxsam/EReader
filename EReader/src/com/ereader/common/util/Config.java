@@ -19,10 +19,10 @@ public class Config {
 
 	public final static String SECRET = "yidingying"; // 对称 测试
 
-	// 开发环境
+	// 正式环境
 	// public final static String MY_SERVICE = "http://10.106.4.56:5050";
 	// 测试环境
-	public final static String MY_SERVICE = "http://10.106.4.154:7070";
+	public final static String MY_SERVICE = "http://bookshop.0ett.com";
 
 	/** 临时文件保存路径. */
 	// 下载包保存路径
@@ -36,6 +36,6 @@ public class Config {
 	
 
 	public final static String HTTP_USER_MOBLIE_LOGIN = MY_SERVICE
-			+ "/p2puserController/p2puserLogin.action"; // 登录宜人贷接口
+			+ "/api/index/login"; // 登录接口
 
 }

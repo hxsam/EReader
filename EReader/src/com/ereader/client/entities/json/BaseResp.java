@@ -10,52 +10,45 @@ package com.ereader.client.entities.json;
  ******************************************/
 public class BaseResp {
 	
-	private String result;
-	private String errorCode;
-	private String msg;
-	/**
-	 * @return result : return the property result.
-	 */
-	public String getResult() {
-		return result;
-	}
-	/**
-	 * @param result : set the property result.
-	 */
-	public void setResult(String result) {
-		this.result = result;
-	}
-	/**
-	 * @return errorCode : return the property errorCode.
-	 */
-	public String getErrorCode() {
-		return errorCode;
-	}
-	/**
-	 * @param errorCode : set the property errorCode.
-	 */
-	public void setErrorCode(String errorCode) {
-		this.errorCode = errorCode;
-	}
-	/**
-	 * @return msg : return the property msg.
-	 */
-	public String getMsg() {
-		return msg;
-	}
-	/**
-	 * @param msg : set the property msg.
-	 */
-	public void setMsg(String msg) {
-		this.msg = msg;
-	}
+	private String status;
+	private String message;
 	
+	public static final String SUCCESS = "1"; //返回结果 成功标志
+
+	/**
+	 * @return the status
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	/**
+	 * @return the message
+	 */
+	public String getMessage() {
+		return message;
+	}
+
+	/**
+	 * @param message the message to set
+	 */
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "BaseResp [result=" + result + ", errorCode=" + errorCode
-				+ ", msg=" + msg + "]";
+		return "BaseResp [status=" + status + ", message=" + message + "]";
 	}
+	
 }

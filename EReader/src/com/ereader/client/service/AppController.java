@@ -1,22 +1,19 @@
 package com.ereader.client.service;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
-import android.content.res.AssetManager;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 
-import com.ereader.client.service.impl.ClientServiceImpl;
-import com.ereader.client.ui.MainActivity;
+import com.ereader.client.service.impl.AppServiceImpl;
+import com.ereader.client.ui.dialog.DialogUtil;
 import com.ereader.common.exception.BusinessException;
+import com.ereader.common.util.LogUtil;
+import com.ereader.common.util.ToastUtil;
 
 /***
  * 控制层 该类保存客户端控制器
@@ -30,7 +27,16 @@ public class AppController {
 	 */
 	private AppContext context;
 	/** 服务对象 **/
-	private ClientService service;
+	private AppService service;
+	
+	
+	private static final int HANDLER_DIALOG = 0; // 弹对话框;确认后关闭
+	private static final int HANDLER_TOAST = 1; // 吐司 专用
+	private static final int HANDLER_UPDATE = 2; // 更新
+	private static final int HANDLER_UPDATE_ABOUT = 3; // 更新 错误信息由提示 about
+	
+	
+	
 
 	public AppContext getContext() {
 		return context;
@@ -53,7 +59,7 @@ public class AppController {
 	private AppController(Activity act) {
 		this.currentActivity = act;
 		createContext();
-		service = new ClientServiceImpl(context);
+		service = new AppServiceImpl(context);
 	}
 
 	/**
@@ -103,54 +109,46 @@ public class AppController {
 		 */
 		@Override
 		public void handleMessage(Message msg) {
+			switch (msg.what) {
+
+			case HANDLER_DIALOG:
+				if (null != msg.obj && !TextUtils.isEmpty(msg.obj.toString())) {
+					DialogUtil.showError(currentActivity, msg.obj.toString());
+				} else {
+					LogUtil.LogError("error", "服务器-未知错误！");
+				}
+				break;
+			case HANDLER_TOAST:
+				if (null != msg.obj && !TextUtils.isEmpty(msg.obj.toString())) {
+					ToastUtil.showToast(currentActivity, msg.obj.toString(),
+							ToastUtil.LENGTH_LONG);
+				} else {
+					ToastUtil.showToast(currentActivity, "服务器未知错误！",
+							ToastUtil.LENGTH_LONG);
+					LogUtil.LogError("error", "服务器-未知错误！");
+				}
+				break;
+			case HANDLER_UPDATE:
 			
+				break;
+			case HANDLER_UPDATE_ABOUT:
+				
+				break;
+			default:
+				break;
+			}
 		}
 	};
 
-	/***
-	 * 方法描述: 可以自己定制信息显示 只要填入字符串类型 就可以提示 方法名称: builderErrorMessage
-	 * 
-	 * @param message
-	 *            返回类型:void
-	 */
-
-	public void builderErrorMessage(String message) {
-		Builder b = new AlertDialog.Builder(currentActivity);
-		b.setTitle("错误提示");
-		b.setMessage(message);
-		b.setPositiveButton("确定", new OnClickListener() {
-			public void onClick(DialogInterface arg0, int arg1) {
-			}
-		});
-		b.create().show();
-	}
-
-	/***
-	 * 方法描述: 可以自己定制信息显示 只要填入字符串类型 就可以提示 方法名称: builderErrorMessage
-	 * 
-	 * @param message
-	 *            返回类型:void
-	 */
-
-	public void builderMessage(String message) {
-		Builder b = new AlertDialog.Builder(currentActivity);
-		b.setTitle("提示");
-		b.setMessage(message);
-		b.setPositiveButton("确定", new OnClickListener() {
-			public void onClick(DialogInterface arg0, int arg1) {
-				
-			}
-		});
-		b.create().show();
-	}
+	
 
 	public void login() {
 		try {
 			service.login();
-			Intent intent = new Intent(currentActivity,MainActivity.class);
-			currentActivity.startActivity(intent);
+			currentActivity.finish();
 		} catch (BusinessException e) {
-			
+			handler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
+			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

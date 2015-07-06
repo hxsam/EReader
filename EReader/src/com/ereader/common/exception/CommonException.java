@@ -27,7 +27,7 @@ public class CommonException extends Exception{
 		this.errorMessage=errorMessage;
 	}
 	
-	public int getErrorCode(){
+	public String getErrorCode(){
 		return errorMessage.getCode(); 
 	}
 

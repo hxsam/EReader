@@ -1,6 +1,6 @@
 package com.ereader.client.service;
 
-public interface ClientService {
+public interface AppService {
 
 	/**
 	 * 登陆

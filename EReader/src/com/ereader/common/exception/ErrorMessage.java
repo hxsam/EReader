@@ -6,7 +6,7 @@ public class ErrorMessage implements java.io.Serializable{
 	/**
 	 * 异常类型
 	 */
-	private int code;
+	private String code;
 	
 	/**
 	 * 异常名称
@@ -25,7 +25,7 @@ public class ErrorMessage implements java.io.Serializable{
 	private String details;
 	
 	
-	public ErrorMessage(int code,String name,String mesg,String details){
+	public ErrorMessage(String code,String name,String mesg,String details){
 		this.code = code;
 		this.name = name;
 		this.message = mesg;
@@ -36,11 +36,10 @@ public class ErrorMessage implements java.io.Serializable{
 		this.message=message;
 	}
 	
-	public ErrorMessage(String mesg,String details){
-		this.message=mesg;
-		this.details=details;
+	public ErrorMessage(String code,String message){
+		this.code = code;
+		this.message=message;
 	}
-	
 	
 	public ErrorMessage(){
 		
@@ -57,13 +56,13 @@ public class ErrorMessage implements java.io.Serializable{
 	}
 
 
-	public int getCode() {
+	public String getCode() {
 		return code;
 	}
 
 
 
-	public void setCode(int code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 
