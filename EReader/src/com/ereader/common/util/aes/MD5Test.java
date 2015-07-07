@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import com.ereader.common.util.Config;
 
@@ -34,7 +35,7 @@ public class MD5Test {
 	 * @throws IOException
 	 */
 	@SuppressLint("NewApi")
-	public static String getSignature(HashMap<String,String> params, String secret) throws IOException
+	public static String getSignature(HashMap<String,String> params, BasicNameValuePair nameValuePair,String secret) throws IOException
 	{
 		// 先将参数以其参数名的字典序升序进行排序
 		Map<String, String> sortedParams = new TreeMap<String, String>(params);
@@ -43,8 +44,9 @@ public class MD5Test {
 	 
 		// 遍历排序后的字典，将所有参数按"key=value"格式拼接在一起
 		StringBuilder basestring = new StringBuilder();
+		basestring.append(nameValuePair.getName()).append("=").append(URLEncoder.encode(nameValuePair.getValue(),"UTF-8")).append("&");
 		for (Entry<String, String> param : entrys) {
-			basestring.append(param.getKey()).append("=").append(param.getValue()).append("&");
+			basestring.append(param.getKey()).append("=").append(URLEncoder.encode(param.getValue(),"UTF-8")).append("&");
 		}
 		basestring.deleteCharAt(basestring.length()-1);
 		basestring.append(secret);
@@ -75,9 +77,8 @@ public class MD5Test {
 	{
 		// 遍历排序后的字典，将所有参数按"key=value"格式拼接在一起
 		StringBuilder basestring = new StringBuilder();
-		basestring.append("_URI_").append("=").append(URLEncoder.encode("/api/index/login","UTF-8")).append("&");
 		for (NameValuePair param : nameValuePairs) {
-			basestring.append(param.getName()).append("=").append(param.getValue()).append("&");
+			basestring.append(param.getName()).append("=").append(URLEncoder.encode(param.getValue(),"UTF-8")).append("&");
 		}
 		if(basestring.length() >0){
 			basestring.deleteCharAt(basestring.length()-1);
@@ -117,13 +118,13 @@ public class MD5Test {
 	 * @throws IOException 
 	  * @time: 2014-10-21 下午8:05:52
 	  */
-	public static String md5Sign(List<NameValuePair> nameValuePairs) throws IOException {
+	public static String md5Sign(List<NameValuePair> nameValuePairs,BasicNameValuePair basicNameValuePair) throws IOException {
 		HashMap<String, String> map = new HashMap<String, String>();
 		for (int i = 0; i < nameValuePairs.size(); i++) {
 			NameValuePair value = nameValuePairs.get(i);
 			map.put(value.getName(),value.getValue());
 		}
-		return MD5Test.getSignature(nameValuePairs, "test");
+		return MD5Test.getSignature(map,basicNameValuePair, "test");
 	}
 }
 

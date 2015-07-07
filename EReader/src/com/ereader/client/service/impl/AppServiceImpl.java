@@ -30,8 +30,8 @@ public class AppServiceImpl implements AppService {
 		String password = (String)context.getBusinessData("user.password");
 		Request<BaseResp> request = new Request<BaseResp>();
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-		nameValuePairs.add(new BasicNameValuePair("loginname", account));
 		nameValuePairs.add(new BasicNameValuePair("password", password));
+		nameValuePairs.add(new BasicNameValuePair("loginname", account));
 		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
 		request.setUrl(Config.HTTP_USER_MOBLIE_LOGIN);
 		request.setR_calzz(BaseResp.class);

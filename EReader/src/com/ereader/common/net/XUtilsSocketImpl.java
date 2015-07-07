@@ -11,6 +11,7 @@ import org.apache.http.message.BasicNameValuePair;
 import com.ereader.client.service.AppController;
 import com.ereader.common.exception.BusinessException;
 import com.ereader.common.exception.ErrorMessage;
+import com.ereader.common.util.Config;
 import com.ereader.common.util.Json_U;
 import com.ereader.common.util.LogUtil;
 import com.ereader.common.util.aes.MD5Test;
@@ -51,13 +52,15 @@ public class XUtilsSocketImpl implements AppSocketInterface {
 			if (nameValuePairs == null) {
 				nameValuePairs = new ArrayList<NameValuePair>();
 			}
+			
 			for (int i = 0; i < nameValuePairs.size(); i++) {
 				BasicNameValuePair pair = (BasicNameValuePair) nameValuePairs.get(i);
 				if("signature".equals(pair.getName())){
 					nameValuePairs.remove(i);
 				}
 			}
-			String sign =MD5Test.md5Sign(nameValuePairs); 
+			String sign =MD5Test.md5Sign(nameValuePairs,new BasicNameValuePair("_URI_", request.getUrl().replace(Config.MY_SERVICE, ""))); 
+			
 			/*if(request.getUrl().equals(Config.HTTP_SEARCH_detail)){
 				sign = "3e079339d434c4e4e4302e891c6cc9aa";
 			}*/  
@@ -89,22 +92,7 @@ public class XUtilsSocketImpl implements AppSocketInterface {
 	}
 	
 
-	
-	/**
-	  * 方法描述：TODO
-	  * @return
-	  * @author: why
-	 * @throws IOException 
-	  * @time: 2014-10-21 下午8:05:52
-	  */
-	private String md5Sign(List<NameValuePair> nameValuePairs) throws IOException {
-		HashMap<String, String> map = new HashMap<String, String>();
-		for (int i = 0; i < nameValuePairs.size(); i++) {
-			NameValuePair value = nameValuePairs.get(i);
-			map.put(value.getName(),value.getValue());
-		}
-		return MD5Test.getSignature(map, "test2");
-	}
+
 
 
 	@Override
