@@ -145,6 +145,7 @@ public class AppController {
 	public void login() {
 		try {
 			service.login();
+			handler.obtainMessage(HANDLER_TOAST,"登录成功！").sendToTarget();
 			currentActivity.finish();
 		} catch (BusinessException e) {
 			handler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();

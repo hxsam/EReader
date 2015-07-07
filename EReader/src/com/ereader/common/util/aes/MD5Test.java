@@ -2,6 +2,8 @@ package com.ereader.common.util.aes;
 
 import android.annotation.SuppressLint;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
 import java.util.HashMap;
@@ -46,7 +48,6 @@ public class MD5Test {
 		}
 		basestring.deleteCharAt(basestring.length()-1);
 		basestring.append(secret);
-	 
 		// 使用MD5对待签名串求签
  		byte[] bytes = null;
 		try {
@@ -74,7 +75,7 @@ public class MD5Test {
 	{
 		// 遍历排序后的字典，将所有参数按"key=value"格式拼接在一起
 		StringBuilder basestring = new StringBuilder();
-		basestring.append("_URI_").append("=").append("/api/index/login").append("&");
+		basestring.append("_URI_").append("=").append(URLEncoder.encode("/api/index/login","UTF-8")).append("&");
 		for (NameValuePair param : nameValuePairs) {
 			basestring.append(param.getName()).append("=").append(param.getValue()).append("&");
 		}
@@ -82,12 +83,15 @@ public class MD5Test {
 			basestring.deleteCharAt(basestring.length()-1);
 		}
 		basestring.append(secret);
-	 
+		 
+		String value = basestring.toString();
+	//	{"signture":"a5878828ae6951bc4b676e5db8a2f325","signstr":"_URI_=%2Fapi%2Findex%2Flogin&loginname=18201017981&password=111111&signature=59867575593ede02f4939888aa65b187test"}}
+	
 		// 使用MD5对待签名串求签
  		byte[] bytes = null;
 		try {
 			MessageDigest md5 = MessageDigest.getInstance("MD5");
-			bytes = md5.digest(basestring.toString().getBytes("UTF-8"));
+			bytes = md5.digest(value.getBytes("UTF-8"));
 		} catch (GeneralSecurityException ex) {
 			throw new IOException(ex);
 		}
