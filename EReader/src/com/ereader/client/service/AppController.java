@@ -10,6 +10,7 @@ import android.os.Message;
 import android.text.TextUtils;
 
 import com.ereader.client.service.impl.AppServiceImpl;
+import com.ereader.client.ui.bookstore.BookActivity;
 import com.ereader.client.ui.dialog.DialogUtil;
 import com.ereader.common.exception.BusinessException;
 import com.ereader.common.util.LogUtil;
@@ -102,7 +103,7 @@ public class AppController {
 	}
 	
 	
-	private Handler handler = new Handler(){
+	private Handler appHandler = new Handler(){
 		
 		/* (non-Javadoc)
 		 * @see android.os.Handler#handleMessage(android.os.Message)
@@ -145,13 +146,23 @@ public class AppController {
 	public void login() {
 		try {
 			service.login();
-			handler.obtainMessage(HANDLER_TOAST,"登录成功！").sendToTarget();
+			appHandler.obtainMessage(HANDLER_TOAST,"登录成功！").sendToTarget();
 			currentActivity.finish();
 		} catch (BusinessException e) {
-			handler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
+			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
 			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	public void featuredList(Handler mHandler) {
+		try {
+			service.featuredList();
+			mHandler.obtainMessage(BookActivity.BOOK).sendToTarget();
+		} catch (BusinessException e) {
+			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
+		}catch (Exception e) {
 		}
 	}
 }

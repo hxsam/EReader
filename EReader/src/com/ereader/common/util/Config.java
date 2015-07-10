@@ -35,7 +35,7 @@ public class Config {
 			+ "Update";
 	
 
-	public final static String HTTP_USER_MOBLIE_LOGIN = MY_SERVICE
-			+ "/api/index/login"; // 登录接口
+	public final static String HTTP_LOGIN = MY_SERVICE+ "/api/index/login"; // 登录接口
+	public final static String HTTP_BOOK_FEATURED= MY_SERVICE+ "/api/product/featured"; // 登录接口
 
 }

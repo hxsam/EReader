@@ -8,4 +8,7 @@ public interface AppService {
 	 */
 	public void login() throws Exception ;
 
+	/**经典热销**/
+	public void featuredList()throws Exception ;
+
 }

@@ -9,6 +9,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import com.ereader.client.EReaderApplication;
 import com.ereader.client.entities.json.BaseResp;
+import com.ereader.client.entities.json.BookResp;
 import com.ereader.client.service.AppContext;
 import com.ereader.client.service.AppService;
 import com.ereader.common.exception.BusinessException;
@@ -33,11 +34,28 @@ public class AppServiceImpl implements AppService {
 		nameValuePairs.add(new BasicNameValuePair("password", password));
 		nameValuePairs.add(new BasicNameValuePair("loginname", account));
 		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
-		request.setUrl(Config.HTTP_USER_MOBLIE_LOGIN);
+		request.setUrl(Config.HTTP_LOGIN);
 		request.setR_calzz(BaseResp.class);
 		BaseResp resp = EReaderApplication.getAppSocket().shortConnect(request);
 		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
 			
+		} else {
+			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
+		}
+	}
+	
+	@Override
+	public void featuredList() throws Exception {
+		Request<BookResp> request = new Request<BookResp>();
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		nameValuePairs.add(new BasicNameValuePair("page", "1"));
+		nameValuePairs.add(new BasicNameValuePair("per_page", "10"));
+		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
+		request.setUrl(Config.HTTP_BOOK_FEATURED);
+		request.setR_calzz(BookResp.class);
+		BookResp resp = EReaderApplication.getAppSocket().shortConnect(request);
+		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
+			context.addBusinessData("BookFeaturedResp", resp);
 		} else {
 			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
 		}

@@ -61,7 +61,7 @@ public class BookSearchActivity extends BaseActivity implements
 		mList.add("赢");
 		mList.add("赢");
 		mList.add("赢");
-		adapter = new BookAdapter(BookSearchActivity.this, mList);
+	//	adapter = new BookAdapter(BookSearchActivity.this, mList);
 		lv_book_search.setAdapter(adapter);
 		lv_book_search.setOnItemClickListener(bookItemListener);
 	}

@@ -14,6 +14,9 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.ereader.client.R;
+import com.ereader.client.entities.Book;
+import com.ereader.client.entities.Page;
+import com.ereader.client.entities.json.BookResp;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseActivity;
 import com.ereader.client.ui.adapter.BookAdapter;
@@ -22,6 +25,7 @@ import com.ereader.client.ui.view.PullToRefreshView;
 import com.ereader.client.ui.view.PullToRefreshView.OnFooterRefreshListener;
 import com.ereader.client.ui.view.PullToRefreshView.OnHeaderRefreshListener;
 import com.ereader.common.util.IntentUtil;
+import com.ereader.common.util.ProgressDialogUtil;
 import com.ereader.common.util.ToastUtil;
 
 public class BookActivity extends BaseActivity implements OnClickListener,
@@ -30,25 +34,28 @@ OnHeaderRefreshListener, OnFooterRefreshListener{
 	private Button main_top_right;
 	private ListView lv_book;
 	private PullToRefreshView pull_refresh_book;
-	private List<String> mList = new ArrayList<String>();
+	private List<Book> mList = new ArrayList<Book>();
 	private BookAdapter adapter;
+	private Page page;
 	
-	
+	public static final int BOOK =  0; // 更新页面数据 书本
 	public static final int REFRESH_DOWN_OK = 1; // 向下刷新
 	public static final int REFRESH_UP_OK = 2;  //向上拉
 	private Handler mhandler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
+			case BOOK:
+				// 更新页面数据
+				BookResp bookResp =  (BookResp)controller.getContext().getBusinessData("BookFeaturedResp");
+				mList.addAll(bookResp.getData());
+				page = bookResp.getPage();
+				adapter.notifyDataSetChanged();
+				break;
 			case REFRESH_DOWN_OK:
 				ToastUtil.showToast(BookActivity.this, "刷新成功！", ToastUtil.LENGTH_LONG);
 				pull_refresh_book.onHeaderRefreshComplete();
 				break;
 			case REFRESH_UP_OK:
-				mList.add("赢");
-				mList.add("赢");
-				mList.add("赢");
-				mList.add("赢");
-				mList.add("赢");
 				adapter.notifyDataSetChanged();
 				pull_refresh_book.onFooterRefreshComplete();
 				break;
@@ -90,25 +97,30 @@ OnHeaderRefreshListener, OnFooterRefreshListener{
 		
 		String title = getIntent().getExtras().getString("title");
 		((TextView) findViewById(R.id.tv_main_top_title)).setText(title);
+		//if("经典热销".equals(title)){
+			featuredList();
+	//	}
+		
 		main_top_right.setText("购物车");
 		main_top_right.setOnClickListener(this);
 		pull_refresh_book.setOnHeaderRefreshListener(this);
 		pull_refresh_book.setOnFooterRefreshListener(this);
-		mList.add("赢");
-		mList.add("赢");
-		mList.add("赢");
-		mList.add("赢");
-		mList.add("赢");
-		mList.add("赢");
-		mList.add("赢");
-		mList.add("赢");
-		mList.add("赢");
-		mList.add("赢");
 		adapter = new BookAdapter(BookActivity.this, mList);
 		lv_book.setAdapter(adapter);
 		lv_book.setOnItemClickListener(bookItemListener);
 	}
 	
+	private void featuredList() {
+		ProgressDialogUtil.showProgressDialog(this, "努力加载中…", false);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				controller.featuredList(mhandler);
+				ProgressDialogUtil.closeProgressDialog();
+			}
+		}).start();
+	}
+
 	private OnItemClickListener bookItemListener = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -131,6 +143,8 @@ OnHeaderRefreshListener, OnFooterRefreshListener{
 
 	@Override
 	public void onFooterRefresh(PullToRefreshView view) {
+		page.getTotal();
+		
 		mhandler.sendEmptyMessageDelayed(REFRESH_UP_OK, 3000);
 	}
 	@Override

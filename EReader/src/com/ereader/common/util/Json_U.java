@@ -1,14 +1,20 @@
-package com.ereader.common.util;
+﻿package com.ereader.common.util;
 
+import com.ereader.common.exception.BusinessException;
+import com.ereader.common.exception.ErrorMessage;
 import com.google.gson.Gson;
 
-/*****************************************
-	 * 类描述： json数据 处理类
+
+/**
+ * ****************************************
+	 * 类描述：  json 数据解析相关
 	 * 类名称：Json_U  
  	 * @version: 1.0
 	 * @author: why
-	 * @time: 2013-10-21 上午11:12:01 
-******************************************/
+	 * @time: 2014-2-14 下午5:55:43 
+*****************************************
+ */
+
 public class Json_U {
 
 	private Json_U() {
@@ -22,15 +28,15 @@ public class Json_U {
 	 *            待赋值的类
 	 * @return T 异常则返回为null
 	 */
-	public static <T> T parseJsonToObj(String jsonStr, Class<T> clazz)  {
+	public static <T> T parseJsonToObj(String jsonStr, Class<T> clazz) throws BusinessException{
 		try {
 			Gson sGson = new Gson();
 			return sGson.fromJson(jsonStr, clazz);
 //			return JSON.parseObject(jsonStr, clazz);
 		} catch (Exception e) {
-			
+			e.printStackTrace();
+			throw new  BusinessException(new ErrorMessage("-1","网络故障，请稍候再试"));
 		}
-		return null;
 	}
 
 	/**
@@ -40,14 +46,13 @@ public class Json_U {
 	 * @return 异常返回为null
 	 */
 
-	public static String objToJsonStr(Object obj)  {
+	public static String objToJsonStr(Object obj) throws BusinessException{
 		try {
 			Gson sGson = new Gson();
 			return sGson.toJson(obj);
 //			return JSON.toJSONString(obj);
 		} catch (Exception e) {
-			
+			throw new  BusinessException();
 		}
-		return null;
 	}
 }

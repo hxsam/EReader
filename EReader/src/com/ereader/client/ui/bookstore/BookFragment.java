@@ -87,7 +87,7 @@ OnHeaderRefreshListener, OnFooterRefreshListener{
 		mList.add("赢");
 		mList.add("赢");
 		mList.add("赢");
-		adapter = new BookAdapter(mContext, mList);
+		//adapter = new BookAdapter(mContext, mList);
 		lv_book.setAdapter(adapter);
 		lv_book.setOnItemClickListener(bookItemListener);
 		
