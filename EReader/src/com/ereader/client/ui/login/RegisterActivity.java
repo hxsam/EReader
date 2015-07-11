@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseActivity;
+import com.ereader.common.util.ProgressDialogUtil;
 
 public class RegisterActivity extends BaseActivity implements OnClickListener {
 	private AppController controller;
@@ -79,6 +80,16 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		switch (v.getId()) {
 		case  R.id.tv_regisrer_code:
 			mHandler.obtainMessage(CODE_OK).sendToTarget();
+			break;
+		case R.id.bt_register:
+				ProgressDialogUtil.showProgressDialog(this, "通信中…", false);
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						controller.register();
+						ProgressDialogUtil.closeProgressDialog();
+					}
+				}).start();
 			break;
 		default:
 			break;

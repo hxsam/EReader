@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ereader.client.R;
+import com.ereader.client.entities.Category;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseFragmentActivity;
 import com.ereader.client.ui.adapter.BookTabsAdapter;
@@ -23,7 +24,7 @@ public class MessageActivity extends BaseFragmentActivity implements OnClickList
 	private ScrollingTabsView stabs_message;
 	private ViewPager vpager_message;
 	private Button main_top_right;
-	private List<String> mListTitle;
+	private List<Category> mListTitle;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +57,11 @@ public class MessageActivity extends BaseFragmentActivity implements OnClickList
 		((TextView) findViewById(R.id.tv_main_top_title)).setText("我的消息");
 		main_top_right.setText("清空消息");
 		main_top_right.setOnClickListener(this);
-		mListTitle = new ArrayList<String>();
-			mListTitle.add("好友消息");
-			mListTitle.add("好友推荐");
-			mListTitle.add("连载更新");
-			mListTitle.add("系统消息");
-		
+		mListTitle = new ArrayList<Category>();
+			mListTitle.add(new Category("好友消息","1"));
+			mListTitle.add(new Category("好友推荐","2"));
+			mListTitle.add(new Category("连载更新","3"));
+			mListTitle.add(new Category("系统消息","4"));
 		MessageFragsAdapter orderAdapter = new MessageFragsAdapter(getSupportFragmentManager(),mListTitle.size());
 		vpager_message.setAdapter(orderAdapter);
 		

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ereader.client.R;
+import com.ereader.client.entities.Category;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseFragmentActivity;
 import com.ereader.client.ui.adapter.BillFragsAdapter;
@@ -24,7 +25,7 @@ public class BillActivity extends BaseFragmentActivity implements OnClickListene
 	private ScrollingTabsView stabs_bill;
 	private ViewPager vpager_bill;
 	private Button main_top_right;
-	private List<String> mListTitle;
+	private List<Category> mListTitle = new ArrayList<Category>();
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +57,10 @@ public class BillActivity extends BaseFragmentActivity implements OnClickListene
 	private void initView() {
 		((TextView) findViewById(R.id.tv_main_top_title)).setText("账单");
 		main_top_right.setOnClickListener(this);
-		mListTitle = new ArrayList<String>();
-			mListTitle.add("全部");
-			mListTitle.add("交易中");
-			mListTitle.add("购书");
-			mListTitle.add("充值");
+			mListTitle.add(new Category("全部","1"));
+			mListTitle.add(new Category("交易中","2"));
+			mListTitle.add(new Category("购书","3"));
+			mListTitle.add(new Category("充值","4"));
 		
 		BillFragsAdapter orderAdapter = new BillFragsAdapter(getSupportFragmentManager(),mListTitle.size());
 		vpager_bill.setAdapter(orderAdapter);

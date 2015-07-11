@@ -36,6 +36,9 @@ public class Config {
 	
 
 	public final static String HTTP_LOGIN = MY_SERVICE+ "/api/index/login"; // 登录接口
-	public final static String HTTP_BOOK_FEATURED= MY_SERVICE+ "/api/product/featured"; // 登录接口
+	public final static String HTTP_REGISTER = MY_SERVICE+ "/api/index/reg"; //注册接口
+	public final static String HTTP_BOOK_FEATURED= MY_SERVICE+ "/api/product/featured"; // 经典热销
+	public final static String HTTP_BOOK_LATEST_CATE= MY_SERVICE+ "/Api/product/latest_category"; // 最新上架类别
+	public final static String HTTP_BOOK_LATEST= MY_SERVICE+ "/Api/product/latest"; // 最新上架
 
 }

@@ -5,14 +5,17 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 
 import com.ereader.client.service.impl.AppServiceImpl;
 import com.ereader.client.ui.bookstore.BookActivity;
+import com.ereader.client.ui.bookstore.BookTitleActivity;
 import com.ereader.client.ui.dialog.DialogUtil;
 import com.ereader.common.exception.BusinessException;
+import com.ereader.common.util.IntentUtil;
 import com.ereader.common.util.LogUtil;
 import com.ereader.common.util.ToastUtil;
 
@@ -159,6 +162,37 @@ public class AppController {
 	public void featuredList(Handler mHandler) {
 		try {
 			service.featuredList();
+			mHandler.obtainMessage(BookActivity.BOOK).sendToTarget();
+		} catch (BusinessException e) {
+			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
+		}catch (Exception e) {
+		}
+	}
+
+	public void register() {
+
+		try {
+			service.register();
+		} catch (BusinessException e) {
+			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
+		}catch (Exception e) {
+		}
+	
+	}
+
+	public void latest(Bundle bundle) {
+		try {
+			service.latest();
+			IntentUtil.intent(currentActivity, bundle,BookTitleActivity.class,false);
+		} catch (BusinessException e) {
+			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
+		}catch (Exception e) {
+		}
+	}
+
+	public void bookList(Handler mHandler,String cate_id) {
+		try {
+			service.latest(cate_id);
 			mHandler.obtainMessage(BookActivity.BOOK).sendToTarget();
 		} catch (BusinessException e) {
 			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();

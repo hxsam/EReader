@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ereader.client.R;
+import com.ereader.client.entities.Category;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseFragmentActivity;
 import com.ereader.client.ui.adapter.BookTabsAdapter;
@@ -22,7 +23,7 @@ public class CouponsActivity extends BaseFragmentActivity implements OnClickList
 	private ScrollingTabsView stabs_coupons;
 	private ViewPager vpager_coupons;
 	private Button main_top_right;
-	private List<String> mListTitle;
+	private List<Category> mListTitle;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +54,11 @@ public class CouponsActivity extends BaseFragmentActivity implements OnClickList
 	 */
 	private void initView() {
 		((TextView) findViewById(R.id.tv_main_top_title)).setText("我的优惠劵");
-		mListTitle = new ArrayList<String>();
-			mListTitle.add("全部");
-			mListTitle.add("可用");
-			mListTitle.add("已使用");
-			mListTitle.add("已过期");
-		
+		mListTitle = new ArrayList<Category>();
+			mListTitle.add(new Category("全部","1"));
+			mListTitle.add(new Category("可用","2"));
+			mListTitle.add(new Category("已使用","3"));
+			mListTitle.add(new Category("已过期","4"));
 		CouponsFragsAdapter orderAdapter = new CouponsFragsAdapter(getSupportFragmentManager(),mListTitle.size());
 		vpager_coupons.setAdapter(orderAdapter);
 		

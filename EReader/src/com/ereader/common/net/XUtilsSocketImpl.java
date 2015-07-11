@@ -60,14 +60,8 @@ public class XUtilsSocketImpl implements AppSocketInterface {
 				}
 			}
 			String sign =MD5Test.md5Sign(nameValuePairs,new BasicNameValuePair("_URI_", request.getUrl().replace(Config.MY_SERVICE, ""))); 
-			
-			/*if(request.getUrl().equals(Config.HTTP_SEARCH_detail)){
-				sign = "3e079339d434c4e4e4302e891c6cc9aa";
-			}*/  
 			nameValuePairs.add(0,new BasicNameValuePair("appid","test"));
 			nameValuePairs.add(new BasicNameValuePair("signature",sign));
-
-			//nameValuePairs.add(new BasicNameValuePair("signature","5aaa12b422fbc85440630298adceada4"));
 			
 			params.addQueryStringParameter(nameValuePairs);
 			//params.addBodyParameter(nameValuePairs);

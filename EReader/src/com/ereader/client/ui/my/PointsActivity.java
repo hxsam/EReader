@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ereader.client.R;
+import com.ereader.client.entities.Category;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseFragmentActivity;
 import com.ereader.client.ui.adapter.BookTabsAdapter;
@@ -23,7 +24,7 @@ public class PointsActivity extends BaseFragmentActivity implements OnClickListe
 	private ScrollingTabsView stabs_points;
 	private ViewPager vpager_points;
 	private Button main_top_right;
-	private List<String> mListTitle;
+	private List<Category> mListTitle;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +55,10 @@ public class PointsActivity extends BaseFragmentActivity implements OnClickListe
 	 */
 	private void initView() {
 		((TextView) findViewById(R.id.tv_main_top_title)).setText("我的积分");
-		mListTitle = new ArrayList<String>();
-			mListTitle.add("全部");
-			mListTitle.add("积分收入");
-			mListTitle.add("积分支出");
-		
+		mListTitle = new ArrayList<Category>();
+			mListTitle.add(new Category("全部","1"));
+			mListTitle.add(new Category("积分收入","2"));
+			mListTitle.add(new Category("积分支出","3"));
 		PointsFragsAdapter orderAdapter = new PointsFragsAdapter(getSupportFragmentManager(),mListTitle.size());
 		vpager_points.setAdapter(orderAdapter);
 		

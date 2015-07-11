@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ereader.client.R;
+import com.ereader.client.entities.Category;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseFragmentActivity;
 import com.ereader.client.ui.adapter.BookTabsAdapter;
@@ -24,7 +25,7 @@ public class BookTitleActivity extends BaseFragmentActivity implements OnClickLi
 	private ScrollingTabsView st_book_new;
 	private ViewPager vp_book_store;
 	private Button main_top_right;
-	private List<String> mListTitle;
+	private List<Category> mListTitle  = new ArrayList<Category>();
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,30 +59,18 @@ public class BookTitleActivity extends BaseFragmentActivity implements OnClickLi
 		((TextView) findViewById(R.id.tv_main_top_title)).setText(title);
 		main_top_right.setText("购物车");
 		main_top_right.setOnClickListener(this);
-		mListTitle = new ArrayList<String>();
 		if("最新上架".equals(title)){
-			mListTitle.add("小说");
-			mListTitle.add("历史");
-			mListTitle.add("小说");
-			mListTitle.add("青春");
-			mListTitle.add("小说");
-			mListTitle.add("科幻");
+			mListTitle = (List<Category>)controller.getContext().getBusinessData("CategoryResp");
 		}else if("特价专区".equals(title)){
-			mListTitle.add("免费");
-			mListTitle.add("1-2元区");
-			mListTitle.add("2-5元区");
-			mListTitle.add("5元以上");
+			
 		}
 		
-		BookFragsAdapter pageAdapter = new BookFragsAdapter(getSupportFragmentManager(),mListTitle.size());
+		BookFragsAdapter pageAdapter = new BookFragsAdapter(getSupportFragmentManager(),mListTitle);
 		vp_book_store.setAdapter(pageAdapter);
-		
 		// 设置缓存fragment的数量
 		vp_book_store.setOffscreenPageLimit(2);
 		vp_book_store.setCurrentItem(0);
 		vp_book_store.setPageMargin(4);
-		
-		
 		BookTabsAdapter adapter = new BookTabsAdapter(this,mListTitle);
 		st_book_new.setAdapter(adapter);
 		st_book_new.setViewPager(vp_book_store);

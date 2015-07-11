@@ -15,7 +15,6 @@ import com.ereader.common.net.XUtilsSocketImpl;
  * @time: 2014-2-13 下午2:09:22
  ******************************************/
 public class EReaderApplication extends Application {
-	private String TAG = "CreditWealthApplication";
 
 	/** 实例化 **/
 	private static EReaderApplication instance;
@@ -25,17 +24,10 @@ public class EReaderApplication extends Application {
 
 	public int curVersionCode; // 版本号
 	public String curVersionName; // 版本名字
-	
-	public String screenSize = ""; // 屏幕尺寸
-	public String  locationxy = ""; //用户位置
-	public String deviceID; // 设备ID
 
 	private boolean login;// 登录情况
 	
-	private static boolean showUpdateDialog ;//版本更新时，每次启动应用程序提示更新----标记
 	
-	public static boolean refreshFlag =false;//
-	public static boolean newRefreshFlag =false;//产品列表是否刷新
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -50,14 +42,9 @@ public class EReaderApplication extends Application {
 	 */
 	private void init() {
 		instance = this;
-		showUpdateDialog=true;
 		appSocket = new XUtilsSocketImpl();
 		getCurrentVersion();
 	}
-
-
-
-
 
 	/**
 	 * @return login : return the property login.
@@ -111,5 +98,4 @@ public class EReaderApplication extends Application {
 			e.printStackTrace(System.err);
 		}
 	}
-	
 }

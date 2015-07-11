@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ereader.client.R;
+import com.ereader.client.entities.Category;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseFragmentActivity;
 import com.ereader.client.ui.adapter.BookTabsAdapter;
@@ -22,7 +23,7 @@ public class OrderActivity extends BaseFragmentActivity implements OnClickListen
 	private ScrollingTabsView st_order;
 	private ViewPager vp_order;
 	private Button main_top_right;
-	private List<String> mListTitle;
+	private List<Category> mListTitle;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +54,10 @@ public class OrderActivity extends BaseFragmentActivity implements OnClickListen
 	 */
 	private void initView() {
 		((TextView) findViewById(R.id.tv_main_top_title)).setText("我的订单");
-		mListTitle = new ArrayList<String>();
-			mListTitle.add("全部");
-			mListTitle.add("正在处理");
-			mListTitle.add("已取消");
-		
+		mListTitle = new ArrayList<Category>();
+			mListTitle.add(new Category("全部","1"));
+			mListTitle.add(new Category("正在处理","2"));
+			mListTitle.add(new Category("已取消","3"));
 		OrderFragsAdapter orderAdapter = new OrderFragsAdapter(getSupportFragmentManager(),mListTitle.size());
 		vp_order.setAdapter(orderAdapter);
 		

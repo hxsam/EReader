@@ -21,6 +21,7 @@ import com.ereader.client.ui.bookstore.BookSearchActivity;
 import com.ereader.client.ui.bookstore.BookTitleActivity;
 import com.ereader.client.ui.buycar.BuyCarActivity;
 import com.ereader.common.util.IntentUtil;
+import com.ereader.common.util.ProgressDialogUtil;
 
 public class BookstoreFragment  extends Fragment implements OnClickListener{
 	private View view;
@@ -66,7 +67,7 @@ public class BookstoreFragment  extends Fragment implements OnClickListener{
 			bundle.putString("title", mList[position]);
 			switch (position) {
 			case 0:
-				IntentUtil.intent(mContext, bundle,BookTitleActivity.class,false);
+				latest(bundle);
 				break;
 			case 1:
 				IntentUtil.intent(mContext, bundle,BookActivity.class,false);
@@ -87,6 +88,18 @@ public class BookstoreFragment  extends Fragment implements OnClickListener{
 				break;
 			}
 			
+		}
+
+		private void latest(final Bundle bundle) {
+			ProgressDialogUtil.showProgressDialog(mContext, "通信中…", false);
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					controller.latest(bundle);
+					ProgressDialogUtil.closeProgressDialog();
+				}
+			}).start();
+		
 		}
 	};
 	@Override
