@@ -76,7 +76,7 @@ public class BookstoreFragment  extends Fragment implements OnClickListener{
 				IntentUtil.intent(mContext, bundle,BookActivity.class,false);
 				break;
 			case 3:
-				IntentUtil.intent(mContext, bundle,BookTitleActivity.class,false);
+				discount(bundle);
 				break;
 			case 4:
 				IntentUtil.intent(mContext, bundle,BookActivity.class,false);
@@ -88,6 +88,17 @@ public class BookstoreFragment  extends Fragment implements OnClickListener{
 				break;
 			}
 			
+		}
+
+		private void discount(final Bundle bundle) {
+			ProgressDialogUtil.showProgressDialog(mContext, "通信中…", false);
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					controller.discount(bundle);
+					ProgressDialogUtil.closeProgressDialog();
+				}
+			}).start();
 		}
 
 		private void latest(final Bundle bundle) {

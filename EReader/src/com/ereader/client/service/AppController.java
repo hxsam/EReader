@@ -199,4 +199,16 @@ public class AppController {
 		}catch (Exception e) {
 		}
 	}
+
+	public void discount(Bundle bundle) {
+
+		try {
+			service.discount();
+			IntentUtil.intent(currentActivity, bundle,BookTitleActivity.class,false);
+		} catch (BusinessException e) {
+			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
+		}catch (Exception e) {
+		}
+	
+	}
 }

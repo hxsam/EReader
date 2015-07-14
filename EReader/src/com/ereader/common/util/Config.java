@@ -40,5 +40,6 @@ public class Config {
 	public final static String HTTP_BOOK_FEATURED= MY_SERVICE+ "/api/product/featured"; // 经典热销
 	public final static String HTTP_BOOK_LATEST_CATE= MY_SERVICE+ "/Api/product/latest_category"; // 最新上架类别
 	public final static String HTTP_BOOK_LATEST= MY_SERVICE+ "/Api/product/latest"; // 最新上架
+	public final static String HTTP_BOOK_DISCOUNT_CATE= MY_SERVICE+ "/Api/product/discount_category"; // 特价专区类别
 
 }

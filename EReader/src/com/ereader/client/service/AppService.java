@@ -12,9 +12,11 @@ public interface AppService {
 	public void featuredList()throws Exception ;
 	/**注册**/
 	public void register()throws Exception ;
-	/**最新上架**/
+	/**最新上架类别**/
 	public void latest()throws Exception ;
 	/**=获取书**/
-	public void latest(String cate_id)throws Exception ;
+	public void latest(String cate_id)throws Exception;
+	/**特价专区类别**/
+	public void discount()throws Exception;
 
 }

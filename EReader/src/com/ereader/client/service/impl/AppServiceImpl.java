@@ -116,5 +116,20 @@ public class AppServiceImpl implements AppService {
 			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
 		}
 	}
+	@Override
+	public void discount() throws Exception {
+
+		Request<CategoryResp> request = new Request<CategoryResp>();
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
+		request.setUrl(Config.HTTP_BOOK_DISCOUNT_CATE);
+		request.setR_calzz(CategoryResp.class);
+		CategoryResp resp = EReaderApplication.getAppSocket().shortConnect(request);
+		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
+			context.addBusinessData("DisCategoryResp", resp.getData());
+		} else {
+			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
+		}
 	
+	}
 }

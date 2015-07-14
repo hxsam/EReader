@@ -62,7 +62,7 @@ public class BookTitleActivity extends BaseFragmentActivity implements OnClickLi
 		if("最新上架".equals(title)){
 			mListTitle = (List<Category>)controller.getContext().getBusinessData("CategoryResp");
 		}else if("特价专区".equals(title)){
-			
+			mListTitle = (List<Category>)controller.getContext().getBusinessData("DisCategoryResp");
 		}
 		
 		BookFragsAdapter pageAdapter = new BookFragsAdapter(getSupportFragmentManager(),mListTitle);
