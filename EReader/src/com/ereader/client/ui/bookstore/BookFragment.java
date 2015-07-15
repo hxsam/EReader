@@ -58,13 +58,21 @@ OnHeaderRefreshListener, OnFooterRefreshListener{
 				mList.addAll(bookResp.getData());
 				page = bookResp.getPage();
 				adapter.notifyDataSetChanged();
+				pull_refresh_book.onHeaderRefreshComplete();
+				pull_refresh_book.onFooterRefreshComplete();
 				break;
 			case REFRESH_DOWN_OK:
 				ToastUtil.showToast(mContext, "刷新成功！", ToastUtil.LENGTH_LONG);
 				pull_refresh_book.onHeaderRefreshComplete();
+				pull_refresh_book.onFooterRefreshComplete();
 				break;
 			case REFRESH_UP_OK:
 				adapter.notifyDataSetChanged();
+				pull_refresh_book.onHeaderRefreshComplete();
+				pull_refresh_book.onFooterRefreshComplete();
+				break;
+			case BookActivity.REFRESH_ERROR:
+				pull_refresh_book.onHeaderRefreshComplete();
 				pull_refresh_book.onFooterRefreshComplete();
 				break;
 			default:
