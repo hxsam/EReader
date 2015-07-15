@@ -1,5 +1,7 @@
 package com.ereader.client.service;
 
+import com.ereader.client.entities.DisCategory;
+
 public interface AppService {
 
 	/**
@@ -18,5 +20,7 @@ public interface AppService {
 	public void latest(String cate_id)throws Exception;
 	/**特价专区类别**/
 	public void discount()throws Exception;
+	/**特价专区类书**/
+	public void discountBook(DisCategory mDisCate)throws Exception;
 
 }

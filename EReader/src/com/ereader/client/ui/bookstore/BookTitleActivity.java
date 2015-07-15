@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.ereader.client.R;
 import com.ereader.client.entities.Category;
+import com.ereader.client.entities.DisCategory;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseFragmentActivity;
 import com.ereader.client.ui.adapter.BookTabsAdapter;
@@ -26,7 +27,7 @@ public class BookTitleActivity extends BaseFragmentActivity implements OnClickLi
 	private ViewPager vp_book_store;
 	private Button main_top_right;
 	private List<Category> mListTitle  = new ArrayList<Category>();
-		
+	private List<DisCategory> mDisListTitle  = new ArrayList<DisCategory>();	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,19 +62,28 @@ public class BookTitleActivity extends BaseFragmentActivity implements OnClickLi
 		main_top_right.setOnClickListener(this);
 		if("最新上架".equals(title)){
 			mListTitle = (List<Category>)controller.getContext().getBusinessData("CategoryResp");
-		}else if("特价专区".equals(title)){
-			mListTitle = (List<Category>)controller.getContext().getBusinessData("DisCategoryResp");
-		}
+			BookFragsAdapter pageAdapter = new BookFragsAdapter(getSupportFragmentManager(),mListTitle);
+			vp_book_store.setAdapter(pageAdapter);
+			// 设置缓存fragment的数量
+			vp_book_store.setOffscreenPageLimit(2);
+			vp_book_store.setCurrentItem(0);
+			vp_book_store.setPageMargin(4);
+			BookTabsAdapter adapter = new BookTabsAdapter(this,mListTitle);
+			st_book_new.setAdapter(adapter);
+			st_book_new.setViewPager(vp_book_store);
 		
-		BookFragsAdapter pageAdapter = new BookFragsAdapter(getSupportFragmentManager(),mListTitle);
-		vp_book_store.setAdapter(pageAdapter);
-		// 设置缓存fragment的数量
-		vp_book_store.setOffscreenPageLimit(2);
-		vp_book_store.setCurrentItem(0);
-		vp_book_store.setPageMargin(4);
-		BookTabsAdapter adapter = new BookTabsAdapter(this,mListTitle);
-		st_book_new.setAdapter(adapter);
-		st_book_new.setViewPager(vp_book_store);
+		}else if("特价专区".equals(title)){
+			mDisListTitle = (List<DisCategory>)controller.getContext().getBusinessData("DisCategoryResp");
+			BookFragsAdapter pageAdapter = new BookFragsAdapter(getSupportFragmentManager(),mDisListTitle,1);
+			vp_book_store.setAdapter(pageAdapter);
+			// 设置缓存fragment的数量
+			vp_book_store.setOffscreenPageLimit(2);
+			vp_book_store.setCurrentItem(0);
+			vp_book_store.setPageMargin(4);
+			BookTabsAdapter adapter = new BookTabsAdapter(this,mDisListTitle,1);
+			st_book_new.setAdapter(adapter);
+			st_book_new.setViewPager(vp_book_store);
+		}
 	}
 
 	@Override

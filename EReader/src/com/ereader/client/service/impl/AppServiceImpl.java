@@ -8,9 +8,11 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.ereader.client.EReaderApplication;
+import com.ereader.client.entities.DisCategory;
 import com.ereader.client.entities.json.BaseResp;
 import com.ereader.client.entities.json.BookResp;
 import com.ereader.client.entities.json.CategoryResp;
+import com.ereader.client.entities.json.DisCategoryResp;
 import com.ereader.client.service.AppContext;
 import com.ereader.client.service.AppService;
 import com.ereader.common.exception.BusinessException;
@@ -119,17 +121,38 @@ public class AppServiceImpl implements AppService {
 	@Override
 	public void discount() throws Exception {
 
-		Request<CategoryResp> request = new Request<CategoryResp>();
+		Request<DisCategoryResp> request = new Request<DisCategoryResp>();
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
 		request.setUrl(Config.HTTP_BOOK_DISCOUNT_CATE);
-		request.setR_calzz(CategoryResp.class);
-		CategoryResp resp = EReaderApplication.getAppSocket().shortConnect(request);
+		request.setR_calzz(DisCategoryResp.class);
+		DisCategoryResp resp = EReaderApplication.getAppSocket().shortConnect(request);
 		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
 			context.addBusinessData("DisCategoryResp", resp.getData());
 		} else {
 			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
 		}
 	
+	}
+	
+	@Override
+	public void discountBook(DisCategory mDisCate) throws Exception {
+
+
+		Request<BookResp> request = new Request<BookResp>();
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		nameValuePairs.add(new BasicNameValuePair("min", mDisCate.getMin()));
+		nameValuePairs.add(new BasicNameValuePair("max", mDisCate.getMax()));
+		nameValuePairs.add(new BasicNameValuePair("page", "1"));
+		nameValuePairs.add(new BasicNameValuePair("per_page", "10"));
+		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
+		request.setUrl(Config.HTTP_BOOK_DISCOUNT);
+		request.setR_calzz(BookResp.class);
+		BookResp resp = EReaderApplication.getAppSocket().shortConnect(request);
+		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
+			context.addBusinessData("BookFeaturedResp", resp);
+		} else {
+			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
+		}
 	}
 }

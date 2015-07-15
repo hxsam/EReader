@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 
+import com.ereader.client.entities.DisCategory;
 import com.ereader.client.service.impl.AppServiceImpl;
 import com.ereader.client.ui.bookstore.BookActivity;
 import com.ereader.client.ui.bookstore.BookTitleActivity;
@@ -205,6 +206,18 @@ public class AppController {
 		try {
 			service.discount();
 			IntentUtil.intent(currentActivity, bundle,BookTitleActivity.class,false);
+		} catch (BusinessException e) {
+			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
+		}catch (Exception e) {
+		}
+	
+	}
+
+	public void booDiskList(Handler mHandler, DisCategory mDisCate) {
+
+		try {
+			service.discountBook(mDisCate);
+			mHandler.obtainMessage(BookActivity.BOOK).sendToTarget();
 		} catch (BusinessException e) {
 			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
 		}catch (Exception e) {

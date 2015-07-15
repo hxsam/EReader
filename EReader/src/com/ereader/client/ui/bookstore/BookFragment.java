@@ -3,6 +3,7 @@ package com.ereader.client.ui.bookstore;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +19,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.ereader.client.R;
 import com.ereader.client.entities.Book;
 import com.ereader.client.entities.Category;
+import com.ereader.client.entities.DisCategory;
 import com.ereader.client.entities.Page;
 import com.ereader.client.entities.json.BookResp;
 import com.ereader.client.service.AppController;
@@ -29,6 +31,7 @@ import com.ereader.common.util.IntentUtil;
 import com.ereader.common.util.ProgressDialogUtil;
 import com.ereader.common.util.ToastUtil;
 
+@SuppressLint("ValidFragment")
 public class BookFragment extends Fragment implements OnClickListener,
 OnHeaderRefreshListener, OnFooterRefreshListener{
 	private View view;
@@ -39,7 +42,9 @@ OnHeaderRefreshListener, OnFooterRefreshListener{
 	private List<Book> mList = new ArrayList<Book>();
 	private BookAdapter adapter;
 	private Category mCate;
+	private DisCategory mDisCate;
 	private Page page;
+	private int categroy = 0;
 	
 	
 	public static final int REFRESH_DOWN_OK = 1; // 向下刷新
@@ -72,6 +77,13 @@ OnHeaderRefreshListener, OnFooterRefreshListener{
 	public BookFragment(Category mCate) {
 		this.mCate = mCate;
 	}
+	
+	public BookFragment(DisCategory mDisCate,int categroy) {
+		this.mDisCate = mDisCate;
+		this.categroy = categroy;
+	}
+	
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -80,7 +92,7 @@ OnHeaderRefreshListener, OnFooterRefreshListener{
 		mContext = getActivity();
 		findView();
 		initView();
-		onFooterRefresh(pull_refresh_book);
+		onHeaderRefresh(pull_refresh_book);
 		return view;
 	}
 
@@ -112,16 +124,34 @@ OnHeaderRefreshListener, OnFooterRefreshListener{
 		}).start();
 	}
 	
+	
+	private void getDisBookList() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				controller.booDiskList(mhandler,mDisCate);
+			}
+		}).start();
+	}
+	
 	@Override
 	public void onClick(View v) {
 		
 	}
 	@Override
 	public void onFooterRefresh(PullToRefreshView view) {
-		getBookList();
+		if(categroy == 0){
+			getBookList();
+		}else{
+			getDisBookList();
+		}
 	}
 	@Override
 	public void onHeaderRefresh(PullToRefreshView view) {
-		mhandler.sendEmptyMessageDelayed(REFRESH_DOWN_OK, 3000);
+		if(categroy == 0){
+			getBookList();
+		}else{
+			getDisBookList();
+		}
 	}
 }
