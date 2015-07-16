@@ -1,8 +1,20 @@
 package com.ereader.client;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import com.ereader.client.entities.SubCategory;
+import com.ereader.client.entities.json.SubCategoryResp;
+import com.ereader.common.exception.BusinessException;
+import com.ereader.common.util.Json_U;
+import com.ereader.common.util.LogUtil;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.text.TextUtils;
 
 /**
  * ****************************************
@@ -76,5 +88,68 @@ public class AppSharedPref {
 	public String getToken() {
 		return sharedPreferences.getString("token", "");
 	}
+	
+	/**
+	  * 方法描述：TODO
+	  * @param resp
+	  * @author: ghf
+	  * @time: 2015-6-8 下午7:27:14
+	  */
 
+	public void saveLocalInfoByKeyValue(String key, String value) {
+		Editor e = sharedPreferences.edit();
+		e.putString(key,value);
+		e.commit();
+	}
+	/**
+	  * 方法描述：TODO
+	  * @param resp
+	  * @author: ghf
+	  * @time: 2015-6-8 下午7:27:14
+	  */
+	public String getLocalInfoByKeyValue(String key) {
+		return sharedPreferences.getString(key, "");
+	}
+
+
+	/**
+	  * 方法描述：TODO
+	  * @param mSet
+	  * @author: why
+	  * @time: 2015-7-14 下午2:49:42
+	  */
+	public void saveCategroy(SubCategoryResp mSet) {
+
+		Editor e = sharedPreferences.edit();
+		try {
+			e.putString("Categroy_Sub", Json_U.objToJsonStr(mSet));
+		} catch (BusinessException e1) {
+			LogUtil.LogError("存账户列表本地失败", e1.toString());
+			e1.printStackTrace();
+		}
+		e.commit();
+	}
+
+	
+	/**
+	  * 方法描述：TODO
+	  * @return
+	  * @author: why
+	  * @time: 2015-7-14 下午2:50:06
+	  */
+	public SubCategoryResp getCategroy() {
+
+		String  jsonStr = sharedPreferences.getString("Categroy_Sub", "");
+		try {
+			if(TextUtils.isEmpty(jsonStr)){
+				return new  SubCategoryResp();
+			}else{
+				return Json_U.parseJsonToObj((jsonStr),SubCategoryResp.class);
+			}
+		} catch (BusinessException e) {
+			e.printStackTrace();
+			return new  SubCategoryResp();
+		}
+	}
+	
 }

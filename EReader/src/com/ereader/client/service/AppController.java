@@ -226,4 +226,25 @@ public class AppController {
 		}
 	
 	}
+
+	public void getCategory(Handler mHandler) {
+		try {
+			service.getCategory();
+			mHandler.obtainMessage(0).sendToTarget();
+		} catch (BusinessException e) {
+		}catch (Exception e) {
+		}
+	
+	}
+
+	public void search(String value,Handler mHandler) {
+		try {
+			service.search(value);
+			mHandler.obtainMessage(0).sendToTarget();
+		} catch (BusinessException e) {
+		}catch (Exception e) {
+		}
+	
+	
+	}
 }

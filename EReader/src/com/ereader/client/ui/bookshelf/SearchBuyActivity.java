@@ -26,7 +26,7 @@ public class SearchBuyActivity extends BaseActivity {
 		initView();
 	}
 	private void findView() {
-		main_top_title = (EditText)findViewById(R.id.main_top_title);
+		main_top_title = (EditText)findViewById(R.id.et_book_search);
 		gridv_book_search = (GridView)findViewById(R.id.gridv_book_search);
 	}
 	private void initView() {

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 
+import com.ereader.client.entities.json.SubCategoryResp;
 import com.ereader.common.net.AppSocketInterface;
 import com.ereader.common.net.XUtilsSocketImpl;
 
@@ -97,5 +98,32 @@ public class EReaderApplication extends Application {
 		} catch (NameNotFoundException e) {
 			e.printStackTrace(System.err);
 		}
+	}
+
+	public SubCategoryResp getCategroy() {
+		return AppSharedPref.getInstance(this).getCategroy();
+	}
+	public void saveCategroy(SubCategoryResp sub) {
+		AppSharedPref.getInstance(this).saveCategroy(sub);
+	}
+	
+	
+	/**
+	  * 方法描述：通用的方法
+	  * @param key
+	  * @author:  ghf
+	  * @time: 2015-6-8 下午7:03:35
+	  */
+	public void saveLocalInfoByKeyValue(String key,String value) {
+		AppSharedPref.getInstance(this).saveLocalInfoByKeyValue(key,value);
+	}
+	/**
+	  * 方法描述：通用的方法
+	  * @param key
+	  * @author:  ghf
+	  * @time: 2015-6-8 下午7:03:35
+	  */
+	public String getLocalInfoByKeyValue(String key) {
+		return AppSharedPref.getInstance(this).getLocalInfoByKeyValue(key);
 	}
 }
