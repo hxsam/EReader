@@ -46,7 +46,7 @@ public class MD5Test {
 		StringBuilder basestring = new StringBuilder();
 		basestring.append(nameValuePair.getName()).append("=").append(URLEncoder.encode(nameValuePair.getValue(),"UTF-8")).append("&");
 		for (Entry<String, String> param : entrys) {
-			basestring.append(param.getKey()).append("=").append(URLEncoder.encode(param.getValue(),"UTF-8")).append("&");
+			basestring.append(param.getKey()).append("=").append(URLEncoder.encode(param.getValue() == null ?"":param.getValue(),"UTF-8")).append("&");
 		}
 		basestring.deleteCharAt(basestring.length()-1);
 		basestring.append(secret);

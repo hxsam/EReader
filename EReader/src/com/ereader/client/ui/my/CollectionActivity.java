@@ -28,7 +28,6 @@ public class CollectionActivity extends BaseActivity implements OnClickListener 
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case 0:
-				
 				mList.addAll((List<String>)controller.getContext().getBusinessData("CollectionResp"));
 				adapter.notifyDataSetChanged();
 				break;
@@ -71,10 +70,7 @@ public class CollectionActivity extends BaseActivity implements OnClickListener 
 	private void findView() {
 		lv_my_collection = (ListView)findViewById(R.id.lv_my_collection);
 	}
-	
-
 	/**
-	 * 
 	  * 方法描述：初始化 View
 	  * @author: why
 	  * @time: 2015-2-10 下午1:37:06

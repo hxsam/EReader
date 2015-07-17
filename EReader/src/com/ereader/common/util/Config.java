@@ -17,7 +17,6 @@ public class Config {
 	/** 是否调试. */
 	public final static boolean DEBUG = true;
 
-	public final static String SECRET = "yidingying"; // 对称 测试
 
 	// 正式环境
 	// public final static String MY_SERVICE = "http://10.106.4.56:5050";
