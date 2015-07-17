@@ -224,4 +224,30 @@ public class AppController {
 		}
 	
 	}
+
+	public void getCollection(Handler mHandler) {
+
+		try {
+			service.getCollection();
+			mHandler.obtainMessage(0).sendToTarget();
+		} catch (BusinessException e) {
+			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
+		}catch (Exception e) {
+		}
+	
+		
+	}
+
+	public void deleteCollection(Handler mHandler,int position) {
+		try {
+			mHandler.obtainMessage(1,position).sendToTarget();
+			service.deleteCollection();
+		} catch (BusinessException e) {
+			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
+		}catch (Exception e) {
+		}
+	
+		
+	
+	}
 }

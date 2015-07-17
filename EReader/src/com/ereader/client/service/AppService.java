@@ -22,5 +22,9 @@ public interface AppService {
 	public void discount()throws Exception;
 	/**特价专区类书**/
 	public void discountBook(DisCategory mDisCate)throws Exception;
+	/**获取收藏夹**/
+	public void getCollection()throws Exception;
+	/**删除收藏夹**/
+	public void deleteCollection()throws Exception;
 
 }

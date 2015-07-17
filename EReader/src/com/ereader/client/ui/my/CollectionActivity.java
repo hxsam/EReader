@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
@@ -13,11 +14,34 @@ import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseActivity;
 import com.ereader.client.ui.adapter.CollectionAdapter;
+import com.ereader.common.util.ProgressDialogUtil;
+import com.ereader.common.util.ToastUtil;
 
 // 我的收藏
 public class CollectionActivity extends BaseActivity implements OnClickListener {
 	private AppController controller;
 	private ListView lv_my_collection;
+	private CollectionAdapter adapter;
+	private List<String> mList = new ArrayList<String>();
+	private Handler mHandler = new Handler(){
+		
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case 0:
+				
+				mList.addAll((List<String>)controller.getContext().getBusinessData("CollectionResp"));
+				adapter.notifyDataSetChanged();
+				break;
+			case 1: // 删除
+				mList.remove(mList.get((int)msg.what));
+				adapter.notifyDataSetChanged();
+				ToastUtil.showToast(CollectionActivity.this, "删除成功", ToastUtil.LENGTH_LONG);
+				break;
+			default:
+				break;
+			}
+		};
+	};
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -25,6 +49,18 @@ public class CollectionActivity extends BaseActivity implements OnClickListener 
 		controller = AppController.getController(this);
 		findView();
 		initView();
+		getCollection();
+	}
+
+	private void getCollection() {
+		ProgressDialogUtil.showProgressDialog(this, "努力加载中…", false);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				controller.getCollection(mHandler);
+				ProgressDialogUtil.closeProgressDialog();
+			}
+		}).start();
 	}
 	/**
 	 * 
@@ -45,14 +81,13 @@ public class CollectionActivity extends BaseActivity implements OnClickListener 
 	 */
 	private void initView() {
 		((TextView) findViewById(R.id.tv_main_top_title)).setText("我的收藏");
-		List<String> mList = new ArrayList<String>();
 		mList.add("");
 		mList.add("");
 		mList.add("");
 		mList.add("");
 		mList.add("");
 		mList.add("");
-		CollectionAdapter adapter = new CollectionAdapter(this, mList);
+		adapter = new CollectionAdapter(this,mHandler, mList);
 		lv_my_collection.setAdapter(adapter);
 	}
 

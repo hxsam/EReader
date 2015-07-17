@@ -155,4 +155,45 @@ public class AppServiceImpl implements AppService {
 			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
 		}
 	}
+	
+	@Override
+	public void getCollection() throws Exception {
+		String token = (String)context.getBusinessData("token");
+		Request<BookResp> request = new Request<BookResp>();
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		nameValuePairs.add(new BasicNameValuePair("_token_", token));
+		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
+		request.setUrl(Config.HTTP_BOOK_COLLECTION);
+		request.setR_calzz(BookResp.class);
+		BookResp resp = EReaderApplication.getAppSocket().shortConnect(request);
+		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
+			context.addBusinessData("CollectionResp", resp);
+		} else {
+			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
+		}
+	
+		
+	}
+	
+	@Override
+	public void deleteCollection() throws Exception {
+		String token = (String)context.getBusinessData("token");
+		String product_id = "";
+		Request<BookResp> request = new Request<BookResp>();
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		nameValuePairs.add(new BasicNameValuePair("_token_", token));
+		nameValuePairs.add(new BasicNameValuePair("product_id", product_id));
+		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
+		request.setUrl(Config.HTTP_BOOK_DELETE_COLLECTION);
+		request.setR_calzz(BookResp.class);
+		BookResp resp = EReaderApplication.getAppSocket().shortConnect(request);
+		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
+			
+		} else {
+			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
+		}
+	
+		
+			
+	}
 }
