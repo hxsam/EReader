@@ -26,5 +26,9 @@ public interface AppService {
 	public void getCollection()throws Exception;
 	/**删除收藏夹**/
 	public void deleteCollection()throws Exception;
+	/**2.2.1.	商品分类**/
+	public void getCategory()throws Exception;
+	/**2.2.1搜索列表**/
+	public void search(String value)throws Exception;
 
 }

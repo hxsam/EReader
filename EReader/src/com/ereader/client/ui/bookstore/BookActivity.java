@@ -41,6 +41,7 @@ OnHeaderRefreshListener, OnFooterRefreshListener{
 	public static final int BOOK =  0; // 更新页面数据 书本
 	public static final int REFRESH_DOWN_OK = 1; // 向下刷新
 	public static final int REFRESH_UP_OK = 2;  //向上拉
+	public static final int REFRESH_ERROR =  3; // 刷新失败
 	private Handler mhandler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -57,6 +58,10 @@ OnHeaderRefreshListener, OnFooterRefreshListener{
 				break;
 			case REFRESH_UP_OK:
 				adapter.notifyDataSetChanged();
+				pull_refresh_book.onFooterRefreshComplete();
+				break;
+			case REFRESH_ERROR:
+				pull_refresh_book.onHeaderRefreshComplete();
 				pull_refresh_book.onFooterRefreshComplete();
 				break;
 

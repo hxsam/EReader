@@ -53,7 +53,7 @@ public class CouponsActivity extends BaseFragmentActivity implements OnClickList
 	  * @time: 2015-2-10 下午1:37:06
 	 */
 	private void initView() {
-		((TextView) findViewById(R.id.tv_main_top_title)).setText("我的优惠劵");
+		((TextView) findViewById(R.id.tv_main_top_title)).setText("电子充值卡");
 		mListTitle = new ArrayList<Category>();
 			mListTitle.add(new Category("全部","1"));
 			mListTitle.add(new Category("可用","2"));

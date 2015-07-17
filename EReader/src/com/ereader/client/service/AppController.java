@@ -196,6 +196,7 @@ public class AppController {
 			service.latest(cate_id);
 			mHandler.obtainMessage(BookActivity.BOOK).sendToTarget();
 		} catch (BusinessException e) {
+			mHandler.obtainMessage(BookActivity.REFRESH_ERROR).sendToTarget();
 			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
 		}catch (Exception e) {
 		}
@@ -219,6 +220,7 @@ public class AppController {
 			service.discountBook(mDisCate);
 			mHandler.obtainMessage(BookActivity.BOOK).sendToTarget();
 		} catch (BusinessException e) {
+			mHandler.obtainMessage(BookActivity.REFRESH_ERROR).sendToTarget();
 			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
 		}catch (Exception e) {
 		}
@@ -246,8 +248,25 @@ public class AppController {
 			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
 		}catch (Exception e) {
 		}
-	
+	}
 		
+	public void getCategory(Handler mHandler) {
+		try {
+			service.getCategory();
+			mHandler.obtainMessage(0).sendToTarget();
+		} catch (BusinessException e) {
+		}catch (Exception e) {
+		}
+	
+	}
+
+	public void search(String value,Handler mHandler) {
+		try {
+			service.search(value);
+			mHandler.obtainMessage(0).sendToTarget();
+		} catch (BusinessException e) {
+		}catch (Exception e) {
+		}
 	
 	}
 }

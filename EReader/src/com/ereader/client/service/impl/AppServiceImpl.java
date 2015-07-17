@@ -13,6 +13,7 @@ import com.ereader.client.entities.json.BaseResp;
 import com.ereader.client.entities.json.BookResp;
 import com.ereader.client.entities.json.CategoryResp;
 import com.ereader.client.entities.json.DisCategoryResp;
+import com.ereader.client.entities.json.SubCategoryResp;
 import com.ereader.client.service.AppContext;
 import com.ereader.client.service.AppService;
 import com.ereader.common.exception.BusinessException;
@@ -192,8 +193,37 @@ public class AppServiceImpl implements AppService {
 		} else {
 			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
 		}
-	
+	}
 		
 			
+	public void getCategory() throws Exception {
+		Request<SubCategoryResp> request = new Request<SubCategoryResp>();
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
+		request.setUrl(Config.HTTP_BOOK_CATEGORY);
+		request.setR_calzz(SubCategoryResp.class);
+		SubCategoryResp resp = EReaderApplication.getAppSocket().shortConnect(request);
+		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
+			EReaderApplication.getInstance().saveCategroy(resp);
+			context.addBusinessData("SubCategoryResp", resp.getData());
+		} else {
+			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
+		}
+	}
+	
+	@Override
+	public void search(String value) throws Exception {
+		Request<BookResp> request = new Request<BookResp>();
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		nameValuePairs.add(new BasicNameValuePair("keyword", value));
+		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
+		request.setUrl(Config.HTTP_BOOK_SEARCH);
+		request.setR_calzz(BookResp.class);
+		BookResp resp = EReaderApplication.getAppSocket().shortConnect(request);
+		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
+			context.addBusinessData("SearchBookResp", resp.getData());
+		} else {
+			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
+		}
 	}
 }

@@ -19,6 +19,7 @@ import com.ereader.client.ui.adapter.BookStoreAdapter;
 import com.ereader.client.ui.bookstore.BookActivity;
 import com.ereader.client.ui.bookstore.BookSearchActivity;
 import com.ereader.client.ui.bookstore.BookTitleActivity;
+import com.ereader.client.ui.bookstore.CategroyActivity;
 import com.ereader.client.ui.buycar.BuyCarActivity;
 import com.ereader.common.util.IntentUtil;
 import com.ereader.common.util.ProgressDialogUtil;
@@ -83,6 +84,9 @@ public class BookstoreFragment  extends Fragment implements OnClickListener{
 				break;
 			case 5:
 				IntentUtil.intent(mContext, bundle,BookActivity.class,false);
+				break;
+			case 6:
+				IntentUtil.intent(mContext, bundle,CategroyActivity.class,false);
 				break;
 			default:
 				break;

@@ -44,4 +44,6 @@ public class Config {
 	public final static String HTTP_BOOK_DISCOUNT= MY_SERVICE+ "/Api/product/discount"; // 特价专区
 	public final static String HTTP_BOOK_COLLECTION= MY_SERVICE+ "/api/product/favourite"; // 获取收藏夹
 	public final static String HTTP_BOOK_DELETE_COLLECTION= MY_SERVICE+ "/api/product/delFromFavourite"; // 删除收藏夹
+	public final static String HTTP_BOOK_CATEGORY= MY_SERVICE+ "/Api/product/category"; //  商品分类
+	public final static String HTTP_BOOK_SEARCH = MY_SERVICE+ "/api/product/search"; //  搜索列表
 }

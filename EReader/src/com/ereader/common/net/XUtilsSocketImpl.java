@@ -60,13 +60,15 @@ public class XUtilsSocketImpl implements AppSocketInterface {
 				}
 			}
 			String sign =MD5Test.md5Sign(nameValuePairs,new BasicNameValuePair("_URI_", request.getUrl().replace(Config.MY_SERVICE, ""))); 
-			nameValuePairs.add(0,new BasicNameValuePair("appid","test"));
-			nameValuePairs.add(new BasicNameValuePair("signature",sign));
 			
-			params.addQueryStringParameter(nameValuePairs);
-			//params.addBodyParameter(nameValuePairs);
-			LogUtil.Log("sendHttp", request.getUrl() + nameValuePairs.toString());
-			ResponseStream responseStream = httpUtils.sendSync(HttpRequest.HttpMethod.GET,
+			List<NameValuePair> nameValuePairsGet = new ArrayList<NameValuePair>();
+			nameValuePairsGet.add(0,new BasicNameValuePair("appid","test"));
+			nameValuePairsGet.add(new BasicNameValuePair("signature",sign));
+			
+			params.addQueryStringParameter(nameValuePairsGet);
+			params.addBodyParameter(nameValuePairs);
+			LogUtil.Log("sendHttp", request.getUrl() + nameValuePairs.toString() + nameValuePairsGet.toString());
+			ResponseStream responseStream = httpUtils.sendSync(HttpRequest.HttpMethod.POST,
 					request.getUrl(), params);
 
 			value = responseStream.readString();  
