@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 
+import com.ereader.client.entities.Login;
 import com.ereader.client.entities.json.SubCategoryResp;
 import com.ereader.common.net.AppSocketInterface;
 import com.ereader.common.net.XUtilsSocketImpl;
@@ -125,5 +126,13 @@ public class EReaderApplication extends Application {
 	  */
 	public String getLocalInfoByKeyValue(String key) {
 		return AppSharedPref.getInstance(this).getLocalInfoByKeyValue(key);
+	}
+
+
+	public void saveLogin(Login data) {
+		AppSharedPref.getInstance(this).saveLogin(data);
+	}
+	public Login getLogin() {
+		return AppSharedPref.getInstance(this).getLogin();
 	}
 }

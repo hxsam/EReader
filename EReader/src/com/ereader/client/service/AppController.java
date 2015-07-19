@@ -11,6 +11,7 @@ import com.ereader.client.service.impl.AppServiceImpl;
 import com.ereader.client.ui.bookstore.BookActivity;
 import com.ereader.client.ui.bookstore.BookTitleActivity;
 import com.ereader.client.ui.dialog.DialogUtil;
+import com.ereader.client.ui.login.RegisterActivity;
 import com.ereader.common.exception.BusinessException;
 import com.ereader.common.util.IntentUtil;
 import com.ereader.common.util.LogUtil;
@@ -170,10 +171,25 @@ public class AppController {
 
 		try {
 			service.register();
+			currentActivity.finish();
 		} catch (BusinessException e) {
 			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
 		}catch (Exception e) {
 		}
+	
+	}
+	
+	
+
+	public void getCode(Handler mHandler) {
+		try {
+			service.getCode();
+			mHandler.obtainMessage(RegisterActivity.CODE_OK).sendToTarget();
+		} catch (BusinessException e) {
+			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
+		}catch (Exception e) {
+		}
+	
 	
 	}
 
@@ -222,9 +238,19 @@ public class AppController {
 		}
 	
 	}
+	
+	public void addCollection(Handler mHandler) {
+		try {
+			service.addCollection();
+			mHandler.obtainMessage(0).sendToTarget();
+		} catch (BusinessException e) {
+			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void getCollection(Handler mHandler) {
-
 		try {
 			service.getCollection();
 			mHandler.obtainMessage(0).sendToTarget();
@@ -233,8 +259,6 @@ public class AppController {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-	
-		
 	}
 
 	public void deleteCollection(Handler mHandler,int position) {
@@ -266,4 +290,17 @@ public class AppController {
 		}
 	
 	}
+
+	public void getSP(Handler mHandler) {
+
+		try {
+			service.getSP();
+			mHandler.obtainMessage(0).sendToTarget();
+		} catch (BusinessException e) {
+			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
+		}catch (Exception e) {
+		}
+			
+	}
+
 }

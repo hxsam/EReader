@@ -61,7 +61,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		tv_login_findpwd.setOnClickListener(this);
 		tv_login_register.setOnClickListener(this);
 		
-		et_login_username.setText("18514050726");
+		et_login_username.setText("18201017971");
 		et_login_password.setText("111111");
 	}
 

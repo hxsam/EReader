@@ -9,12 +9,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.ereader.client.R;
+import com.ereader.client.entities.Book;
 
 public class BuyCarAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
-	private List<String> mList ;
+	private List<Book> mList ;
 
-	public BuyCarAdapter(Context mContext,List<String>  list) {
+	public BuyCarAdapter(Context mContext,List<Book>  list) {
 		inflater=LayoutInflater.from(mContext);
 		mList = list;
 	}

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.ereader.client.entities.Login;
 import com.ereader.client.entities.SubCategory;
 import com.ereader.client.entities.json.SubCategoryResp;
 import com.ereader.common.exception.BusinessException;
@@ -149,6 +150,33 @@ public class AppSharedPref {
 		} catch (BusinessException e) {
 			e.printStackTrace();
 			return new  SubCategoryResp();
+		}
+	}
+
+	public void saveLogin(Login data) {
+
+
+		Editor e = sharedPreferences.edit();
+		try {
+			e.putString("LoginData", Json_U.objToJsonStr(data));
+		} catch (BusinessException e1) {
+			e1.printStackTrace();
+		}
+		e.commit();
+	}
+	
+
+	public Login getLogin() {
+		String  jsonStr = sharedPreferences.getString("LoginData", "");
+		try {
+			if(TextUtils.isEmpty(jsonStr)){
+				return null;
+			}else{
+				return Json_U.parseJsonToObj((jsonStr),Login.class);
+			}
+		} catch (BusinessException e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 	

@@ -13,17 +13,18 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ereader.client.R;
+import com.ereader.client.entities.Book;
 import com.ereader.client.service.AppController;
 import com.ereader.common.util.ProgressDialogUtil;
 import com.ereader.common.util.ToastUtil;
 
 public class CollectionAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
-	private List<String> mList ;
+	private List<Book> mList ;
 	private Context mContext;
 	private Handler mHandler;
 
-	public CollectionAdapter(Context mContext,Handler mHandler,List<String>  list) {
+	public CollectionAdapter(Context mContext,Handler mHandler,List<Book> list) {
 		inflater=LayoutInflater.from(mContext);
 		mList = list;
 		this.mContext = mContext;
@@ -47,6 +48,7 @@ public class CollectionAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
+		Book book = mList.get(position);
 		ViewHolder holder;
 		if(convertView == null){
 			convertView =inflater.inflate(R.layout.my_collection_item, null);
@@ -57,8 +59,11 @@ public class CollectionAdapter extends BaseAdapter {
 			holder=(ViewHolder) convertView.getTag();
 		}
 		
+		holder.tv_book_name.setText(book.getInfo().getName());
+		holder.tv_book_time.setText("收藏时间："+book.getUpdated_at());
+		holder.tv_book_price.setText("￥"+book.getPrice());
+		
 		holder.tv_order_delete.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 
@@ -70,8 +75,6 @@ public class CollectionAdapter extends BaseAdapter {
 						ProgressDialogUtil.closeProgressDialog();
 					}
 				}).start();
-			
-				
 			}
 		});
 		
@@ -88,9 +91,15 @@ public class CollectionAdapter extends BaseAdapter {
 	class ViewHolder{
 		private Button tv_collection_buycar;
 		private TextView tv_order_delete;
+		private TextView tv_book_name;
+		private TextView tv_book_time;
+		private TextView tv_book_price;
 		public void findView(View view){
 			tv_collection_buycar = (Button)view.findViewById(R.id.tv_collection_buycar);
 			tv_order_delete = (TextView)view.findViewById(R.id.tv_order_delete);
+			tv_book_name = (TextView)view.findViewById(R.id.tv_book_name);
+			tv_book_time = (TextView)view.findViewById(R.id.tv_book_time); 
+			tv_book_price = (TextView)view.findViewById(R.id.tv_book_price); 
 		}
 	}
 

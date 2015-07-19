@@ -3,6 +3,8 @@ package com.ereader.common.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 import android.app.Activity;
@@ -230,6 +232,18 @@ public class StringUtil {
 			validation = "内容不能为空"; 
 		}
 		return validation;
+	}
+	
+	/**
+	 * 验证手机号码是否合法
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static boolean isMoblieInput(String str) {
+		Pattern pattern = Pattern.compile("1[3,4,5,7,8]{1}\\d{9}");
+		Matcher invalid = pattern.matcher(str);
+		return invalid.matches();
 	}
 	
 }

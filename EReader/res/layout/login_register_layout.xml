@@ -8,7 +8,7 @@
     <include layout="@layout/main_top_layout" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/et_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -17,6 +17,9 @@
         android:textColor="@color/new_color_2"
         android:textColorHint="@color/new_color_4"
         android:textSize="@dimen/new_size_3"
+        android:maxLength="11"
+        android:singleLine="true"
+        android:inputType="number"
         android:hint="手机号/邮箱"
         android:ems="10" >
 
@@ -40,6 +43,9 @@
         android:textColorHint="@color/new_color_4"
         android:textSize="@dimen/new_size_3"
         android:hint="验证码"
+         android:maxLength="6"
+        android:singleLine="true"
+         android:inputType="number"
         android:ems="10" />
 
         <TextView

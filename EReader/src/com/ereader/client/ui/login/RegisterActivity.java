@@ -14,12 +14,15 @@ import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseActivity;
 import com.ereader.common.util.ProgressDialogUtil;
+import com.ereader.common.util.StringUtil;
+import com.ereader.common.util.ToastUtil;
 
 public class RegisterActivity extends BaseActivity implements OnClickListener {
 	private AppController controller;
 	private TextView tv_regisrer_code;
 	private Button bt_register;
 	private EditText et_register_code;
+	private EditText et_register;
 	
 	private RegisterCountDownTimer timer;
 	private boolean is_validate_tip = true;
@@ -59,6 +62,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		bt_register= (Button)findViewById(R.id.bt_register);
 		tv_regisrer_code = (TextView)findViewById(R.id.tv_regisrer_code);
 		et_register_code = (EditText)findViewById(R.id.et_register_code);
+		et_register = (EditText)findViewById(R.id.et_register);
 	}
 	
 
@@ -79,9 +83,29 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 
 		switch (v.getId()) {
 		case  R.id.tv_regisrer_code:
-			mHandler.obtainMessage(CODE_OK).sendToTarget();
+			if(!StringUtil.isMoblieInput(et_register.getText().toString())){
+				ToastUtil.showToast(RegisterActivity.this, "手机号码不合法", ToastUtil.LENGTH_LONG);
+				return;
+			}else{
+				controller.getContext().addBusinessData("regisrerPhone",et_register.getText().toString());
+			}
+			
+			ProgressDialogUtil.showProgressDialog(this, "通信中…", false);
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					controller.getCode(mHandler);
+					ProgressDialogUtil.closeProgressDialog();
+				}
+			}).start();
 			break;
 		case R.id.bt_register:
+			if(et_register_code.getText().toString().length() == 6){
+				controller.getContext().addBusinessData("code",et_register_code.getText().toString());
+			}else{
+				ToastUtil.showToast(RegisterActivity.this, "验证码位数不正确", ToastUtil.LENGTH_LONG);
+				return;
+			}
 				ProgressDialogUtil.showProgressDialog(this, "通信中…", false);
 				new Thread(new Runnable() {
 					@Override

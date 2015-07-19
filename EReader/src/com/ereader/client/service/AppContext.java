@@ -36,4 +36,8 @@ public class AppContext {
 		businessData.remove(key);
 	}
 
+	public String getStringData(String str) {
+		return (String)getBusinessData(str);
+	}
+
 }

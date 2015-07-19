@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.ereader.client.EReaderApplication;
 import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.adapter.MyBookAdapter;
@@ -69,12 +70,30 @@ public class MyBookFragment extends Fragment implements OnClickListener {
 		tv_main_top_title.setOnClickListener(this);
 		lv_mybook.setOnItemClickListener(bookItemListener);
 	}
+	
+	
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(EReaderApplication.getInstance().isLogin()){
+			tv_main_top_title.setText(EReaderApplication.getInstance().getLogin().getNickname());
+		}
+	}
+	
+	
+	
 
 	private OnItemClickListener bookItemListener = new OnItemClickListener() {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
+			
+			if(!EReaderApplication.getInstance().isLogin()){
+				IntentUtil.intent(mContext, LoginActivity.class);
+				return;
+			}
 			switch (position) {
 			case 0:
 				IntentUtil.intent(mContext, OrderActivity.class);
@@ -84,6 +103,7 @@ public class MyBookFragment extends Fragment implements OnClickListener {
 				break;
 			case 2:
 				IntentUtil.intent(mContext, RecommendActivity.class);
+				break;
 			case 3:
 				IntentUtil.intent(mContext, MySPActivity.class);
 				break;

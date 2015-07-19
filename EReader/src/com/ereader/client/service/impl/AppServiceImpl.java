@@ -10,9 +10,12 @@ import org.apache.http.message.BasicNameValuePair;
 import com.ereader.client.EReaderApplication;
 import com.ereader.client.entities.DisCategory;
 import com.ereader.client.entities.json.BaseResp;
+import com.ereader.client.entities.json.BookOnlyResp;
 import com.ereader.client.entities.json.BookResp;
 import com.ereader.client.entities.json.CategoryResp;
 import com.ereader.client.entities.json.DisCategoryResp;
+import com.ereader.client.entities.json.LoginResp;
+import com.ereader.client.entities.json.SPResp;
 import com.ereader.client.entities.json.SubCategoryResp;
 import com.ereader.client.service.AppContext;
 import com.ereader.client.service.AppService;
@@ -33,16 +36,18 @@ public class AppServiceImpl implements AppService {
 	public void login() throws Exception {
 		String account = (String)context.getBusinessData("user.account");
 		String password = (String)context.getBusinessData("user.password");
-		Request<BaseResp> request = new Request<BaseResp>();
+		Request<LoginResp> request = new Request<LoginResp>();
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		nameValuePairs.add(new BasicNameValuePair("password", password));
 		nameValuePairs.add(new BasicNameValuePair("loginname", account));
 		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
 		request.setUrl(Config.HTTP_LOGIN);
-		request.setR_calzz(BaseResp.class);
-		BaseResp resp = EReaderApplication.getAppSocket().shortConnect(request);
+		request.setR_calzz(LoginResp.class);
+		LoginResp resp = EReaderApplication.getAppSocket().shortConnect(request);
 		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
 			EReaderApplication.getInstance().setLogin(true);
+			resp.getData().setToken(resp.get_token_());
+			EReaderApplication.getInstance().saveLogin(resp.getData());
 			
 		} else {
 			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
@@ -51,23 +56,44 @@ public class AppServiceImpl implements AppService {
 	
 	@Override
 	public void register() throws Exception {
-
+		String phone = context.getStringData("regisrerPhone");
+		String code = context.getStringData("code");
 		Request<BaseResp> request = new Request<BaseResp>();
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-		nameValuePairs.add(new BasicNameValuePair("phone", "1820000001"));
+		nameValuePairs.add(new BasicNameValuePair("phone", phone));
 		nameValuePairs.add(new BasicNameValuePair("password", "111111"));
 		nameValuePairs.add(new BasicNameValuePair("email", "111111@163.com"));
-		nameValuePairs.add(new BasicNameValuePair("nickname", "111"));
+		nameValuePairs.add(new BasicNameValuePair("nickname", phone));
+		nameValuePairs.add(new BasicNameValuePair("vcode", code));
 		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
 		request.setUrl(Config.HTTP_REGISTER);
 		request.setR_calzz(BaseResp.class);
 		BaseResp resp = EReaderApplication.getAppSocket().shortConnect(request);
 		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
-			EReaderApplication.getInstance().setLogin(true);
+			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
+		} else {
+			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
+		}
+	}
+	
+	
+	@Override
+	public void getCode() throws Exception {
+		String phone = context.getStringData("regisrerPhone");
+		Request<BaseResp> request = new Request<BaseResp>();
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		nameValuePairs.add(new BasicNameValuePair("phone", phone));
+		nameValuePairs.add(new BasicNameValuePair("type", "reg"));
+		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
+		request.setUrl(Config.HTTP_CODE);
+		request.setR_calzz(BaseResp.class);
+		BaseResp resp = EReaderApplication.getAppSocket().shortConnect(request);
+		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
 		} else {
 			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
 		}
 	
+		
 	}
 	
 	@Override
@@ -159,26 +185,24 @@ public class AppServiceImpl implements AppService {
 	
 	@Override
 	public void getCollection() throws Exception {
-		String token = (String)context.getBusinessData("token");
-		Request<BookResp> request = new Request<BookResp>();
+		String token = EReaderApplication.getInstance().getLogin().getToken();
+		Request<BookOnlyResp> request = new Request<BookOnlyResp>();
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		nameValuePairs.add(new BasicNameValuePair("_token_", token));
 		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
 		request.setUrl(Config.HTTP_BOOK_COLLECTION);
-		request.setR_calzz(BookResp.class);
-		BookResp resp = EReaderApplication.getAppSocket().shortConnect(request);
+		request.setR_calzz(BookOnlyResp.class);
+		BookOnlyResp resp = EReaderApplication.getAppSocket().shortConnect(request);
 		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
-			context.addBusinessData("CollectionResp", resp);
+			context.addBusinessData("CollectionResp", resp.getData());
 		} else {
 			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
 		}
-	
-		
 	}
 	
 	@Override
 	public void deleteCollection() throws Exception {
-		String token = (String)context.getBusinessData("token");
+		String token = EReaderApplication.getInstance().getLogin().getToken();
 		String product_id = "";
 		Request<BookResp> request = new Request<BookResp>();
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -222,6 +246,42 @@ public class AppServiceImpl implements AppService {
 		BookResp resp = EReaderApplication.getAppSocket().shortConnect(request);
 		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
 			context.addBusinessData("SearchBookResp", resp.getData());
+		} else {
+			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
+		}
+	}
+	
+	
+	@Override
+	public void addCollection() throws Exception {
+		String token = EReaderApplication.getInstance().getLogin().getToken();
+		Request<BaseResp> request = new Request<BaseResp>();
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		nameValuePairs.add(new BasicNameValuePair("_token_", token));
+		nameValuePairs.add(new BasicNameValuePair("product_id", "2"));
+		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
+		request.setUrl(Config.HTTP_BOOK_ADD_COLLECTION);
+		request.setR_calzz(BaseResp.class);
+		BaseResp resp = EReaderApplication.getAppSocket().shortConnect(request);
+		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
+			
+		} else {
+			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
+		}
+	}
+	
+	@Override
+	public void getSP() throws Exception {
+		String token = EReaderApplication.getInstance().getLogin().getToken();
+		Request<SPResp> request = new Request<SPResp>();
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		nameValuePairs.add(new BasicNameValuePair("_token_", token));
+		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
+		request.setUrl(Config.HTTP_MY_SP);
+		request.setR_calzz(SPResp.class);
+		SPResp resp = EReaderApplication.getAppSocket().shortConnect(request);
+		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
+			context.addBusinessData("SPResp", resp);
 		} else {
 			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
 		}

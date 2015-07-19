@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ereader.client.R;
+import com.ereader.client.entities.Book;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseActivity;
 import com.ereader.client.ui.adapter.CollectionAdapter;
@@ -22,13 +23,13 @@ public class CollectionActivity extends BaseActivity implements OnClickListener 
 	private AppController controller;
 	private ListView lv_my_collection;
 	private CollectionAdapter adapter;
-	private List<String> mList = new ArrayList<String>();
+	private List<Book> mList = new ArrayList<Book>();
 	private Handler mHandler = new Handler(){
 		
 		public void handleMessage(android.os.Message msg) {
-			switch (msg.what) {
+			switch (msg.what) { 
 			case 0:
-				mList.addAll((List<String>)controller.getContext().getBusinessData("CollectionResp"));
+				mList.addAll((List<Book>)controller.getContext().getBusinessData("CollectionResp"));
 				adapter.notifyDataSetChanged();
 				break;
 			case 1: // 删除
@@ -77,13 +78,7 @@ public class CollectionActivity extends BaseActivity implements OnClickListener 
 	 */
 	private void initView() {
 		((TextView) findViewById(R.id.tv_main_top_title)).setText("我的收藏");
-		mList.add("");
-		mList.add("");
-		mList.add("");
-		mList.add("");
-		mList.add("");
-		mList.add("");
-		adapter = new CollectionAdapter(this,mHandler, mList);
+		adapter = new CollectionAdapter(this,mHandler,mList);
 		lv_my_collection.setAdapter(adapter);
 	}
 

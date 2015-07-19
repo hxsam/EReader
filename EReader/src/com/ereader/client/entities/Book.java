@@ -37,6 +37,14 @@ public class Book {
 	private String updated_at;
 	private BookExtra extra;
 	private BookInfo info;
+	private String image_url;
+	
+	public String getImage_url() {
+		return image_url;
+	}
+	public void setImage_url(String image_url) {
+		this.image_url = image_url;
+	}
 	
 	public String getCreated_at() {
 		return created_at;
