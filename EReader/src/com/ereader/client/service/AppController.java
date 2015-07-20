@@ -303,4 +303,32 @@ public class AppController {
 			
 	}
 
+	public void buyCar(Handler mHandler) {
+		try {
+			service.buyCar();
+			mHandler.obtainMessage(0).sendToTarget();
+		} catch (BusinessException e) {
+		}catch (Exception e) {
+		}
+	
+	}
+	public void deleteBuyCar(Handler mHandler) {
+		try {
+			service.deleteBuyCar();
+			mHandler.obtainMessage(0).sendToTarget();
+		} catch (BusinessException e) {
+		}catch (Exception e) {
+		}
+	
+	}
+	public void addBuyCar(Handler mHandler) {
+		try {
+			service.addBuyCar();
+			mHandler.obtainMessage(0).sendToTarget();
+		} catch (BusinessException e) {
+		}catch (Exception e) {
+		}
+	
+	}
+
 }

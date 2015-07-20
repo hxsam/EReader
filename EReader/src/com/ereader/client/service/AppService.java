@@ -1,5 +1,7 @@
 package com.ereader.client.service;
 
+import android.os.Handler;
+
 import com.ereader.client.entities.DisCategory;
 
 public interface AppService {
@@ -36,5 +38,11 @@ public interface AppService {
 	public void addCollection()throws Exception;
 	/**添我的书评**/
 	public void getSP()throws Exception;
+	/**我的购物车**/
+	public void buyCar()throws Exception;
+	/**添加购物车**/
+	public void addBuyCar()throws Exception;
+	/**删除购物车**/
+	public void deleteBuyCar()throws Exception;
 
 }

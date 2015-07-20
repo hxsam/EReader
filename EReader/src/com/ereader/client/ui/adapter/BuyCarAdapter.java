@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ereader.client.R;
 import com.ereader.client.entities.Book;
@@ -37,6 +39,7 @@ public class BuyCarAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		Book book = mList.get(position);
 		ViewHolder holder;
 		if(convertView == null){
 			convertView =inflater.inflate(R.layout.buy_car_item, null);
@@ -46,10 +49,19 @@ public class BuyCarAdapter extends BaseAdapter {
 		}else {
 			holder=(ViewHolder) convertView.getTag();
 		}	
+		holder.tv_book_name.setText(book.getInfo().getName());
+		holder.tv_book_money.setText("￥"+book.getPrice());
 		return convertView;
 	}
 	class ViewHolder{
+		private TextView tv_book_name; 
+		private TextView tv_book_money;
+		private ImageView iv_book;
+		
 		public void findView(View view){
+			tv_book_name = (TextView)view.findViewById(R.id.tv_book_name);
+			tv_book_money = (TextView)view.findViewById(R.id.tv_book_money);
+			iv_book = (ImageView)view.findViewById(R.id.iv_book);
 		}
 	}
 

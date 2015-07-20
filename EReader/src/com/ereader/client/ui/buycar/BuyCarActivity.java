@@ -20,13 +20,14 @@ import com.ereader.client.ui.BaseActivity;
 import com.ereader.client.ui.adapter.BuyCarAdapter;
 import com.ereader.client.ui.login.LoginActivity;
 import com.ereader.common.util.IntentUtil;
+import com.ereader.common.util.ProgressDialogUtil;
 
 // 购物车
 public class BuyCarActivity extends BaseActivity implements OnClickListener {
 	private AppController controller;
 	private TextView textView1;
 	private ListView lv_buy_car;
-	private List<Book> mList = new ArrayList<Book>();;
+	private List<Book> mList = new ArrayList<Book>();
 	private BuyCarAdapter adapter;
 	private Button bt_buy_go;
 	private Handler mHandler = new Handler(){
@@ -81,7 +82,15 @@ public class BuyCarActivity extends BaseActivity implements OnClickListener {
 			if(!EReaderApplication.getInstance().isLogin()){
 				IntentUtil.intent(BuyCarActivity.this, LoginActivity.class);
 			}else{
-				
+				ProgressDialogUtil.showProgressDialog(this, "通信中…", false);
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						controller.buyCar(mHandler);
+						ProgressDialogUtil.closeProgressDialog();
+					}
+				}).start();
+			
 			}
 			break;
 		default:

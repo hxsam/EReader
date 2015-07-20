@@ -48,4 +48,7 @@ public class Config {
 	public final static String HTTP_BOOK_CATEGORY= MY_SERVICE+ "/Api/product/category"; //  商品分类
 	public final static String HTTP_BOOK_SEARCH = MY_SERVICE+ "/api/product/search"; //  搜索列表
 	public final static String HTTP_MY_SP = MY_SERVICE+ "/api/user/comment"; //  我的评论
+	public final static String HTTP_BUY_CAR = MY_SERVICE+ "/api/product/cart"; //  我的购物车
+	public final static String HTTP_BUY_CAR_DELETE = MY_SERVICE+ "/api/product/delFromCart"; //  删除购物车
+	public final static String HTTP_BUY_CAR_ADD = MY_SERVICE+ "/api/product/addToCart"; //  添加购物车
 }
