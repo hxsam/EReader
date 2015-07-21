@@ -1,6 +1,12 @@
 package com.ereader.client.entities;
 
-public class BookExtra {
+import java.io.Serializable;
+
+public class BookExtra implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 /*	 "author": "神笔马良",
      "author_info": "从前，有个孩子名字叫马良。",
      "contents": "这里是目录",

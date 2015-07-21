@@ -1,6 +1,12 @@
 package com.ereader.client.entities;
 
-public class BookInfo {
+import java.io.Serializable;
+
+public class BookInfo implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/*
 	 * "product_id": 2, "name": "这是第二本书", "image": "", "meta_keywords":
 	 * "这是第二本书1", "meta_description": "这是第二本书2", "description": "这是第二本书3"

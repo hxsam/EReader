@@ -13,6 +13,7 @@ import com.ereader.client.entities.json.BaseResp;
 import com.ereader.client.entities.json.BookOnlyResp;
 import com.ereader.client.entities.json.BookResp;
 import com.ereader.client.entities.json.CategoryResp;
+import com.ereader.client.entities.json.CommentResp;
 import com.ereader.client.entities.json.DisCategoryResp;
 import com.ereader.client.entities.json.LoginResp;
 import com.ereader.client.entities.json.SPResp;
@@ -164,8 +165,6 @@ public class AppServiceImpl implements AppService {
 	
 	@Override
 	public void discountBook(DisCategory mDisCate) throws Exception {
-
-
 		Request<BookResp> request = new Request<BookResp>();
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		nameValuePairs.add(new BasicNameValuePair("min", mDisCate.getMin()));
@@ -253,12 +252,12 @@ public class AppServiceImpl implements AppService {
 	
 	
 	@Override
-	public void addCollection() throws Exception {
+	public void addCollection(String id) throws Exception {
 		String token = EReaderApplication.getInstance().getLogin().getToken();
 		Request<BaseResp> request = new Request<BaseResp>();
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		nameValuePairs.add(new BasicNameValuePair("_token_", token));
-		nameValuePairs.add(new BasicNameValuePair("product_id", "2"));
+		nameValuePairs.add(new BasicNameValuePair("product_id", id));
 		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
 		request.setUrl(Config.HTTP_BOOK_ADD_COLLECTION);
 		request.setR_calzz(BaseResp.class);
@@ -333,6 +332,25 @@ public class AppServiceImpl implements AppService {
 		request.setR_calzz(BaseResp.class);
 		BaseResp resp = EReaderApplication.getAppSocket().shortConnect(request);
 		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
+		} else {
+			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
+		}
+	}
+	
+	@Override
+	public void getComment(String id) throws Exception {
+		Request<CommentResp> request = new Request<CommentResp>();
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		nameValuePairs.add(new BasicNameValuePair("product_id", id));
+		nameValuePairs.add(new BasicNameValuePair("rank", "ALL"));
+		nameValuePairs.add(new BasicNameValuePair("page", "1"));
+		nameValuePairs.add(new BasicNameValuePair("per_page", "10"));
+		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
+		request.setUrl(Config.HTTP_BOOK_COMMENT);
+		request.setR_calzz(CommentResp.class);
+		CommentResp resp = EReaderApplication.getAppSocket().shortConnect(request);
+		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
+			context.addBusinessData("CommentResp", resp);
 		} else {
 			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
 		}
