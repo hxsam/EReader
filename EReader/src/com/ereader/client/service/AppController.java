@@ -239,9 +239,9 @@ public class AppController {
 	
 	}
 	
-	public void addCollection(Handler mHandler) {
+	public void addCollection(Handler mHandler,String id) {
 		try {
-			service.addCollection();
+			service.addCollection(id);
 			mHandler.obtainMessage(0).sendToTarget();
 		} catch (BusinessException e) {
 			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
@@ -329,6 +329,17 @@ public class AppController {
 		}catch (Exception e) {
 		}
 	
+	}
+
+	public void getComment(Handler mHandler,String id) {
+		try {
+			service.getComment(id);
+			mHandler.obtainMessage(0).sendToTarget();
+		} catch (BusinessException e) {
+			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
+		}catch (Exception e) {
+		}
+			
 	}
 
 }

@@ -35,7 +35,7 @@ public interface AppService {
 	/**获取验证码**/
 	public void getCode()throws Exception;
 	/**添加到收藏夹**/
-	public void addCollection()throws Exception;
+	public void addCollection(String id)throws Exception;
 	/**添我的书评**/
 	public void getSP()throws Exception;
 	/**我的购物车**/
@@ -44,5 +44,7 @@ public interface AppService {
 	public void addBuyCar()throws Exception;
 	/**删除购物车**/
 	public void deleteBuyCar()throws Exception;
+	/**商品书评**/
+	public void getComment(String id)throws Exception;
 
 }

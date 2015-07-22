@@ -5,13 +5,16 @@ import java.util.List;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.ereader.client.R;
+import com.ereader.client.entities.Book;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseFragmentActivity;
 import com.ereader.client.ui.adapter.BookDetailFragsAdapter;
@@ -20,6 +23,7 @@ import com.ereader.client.ui.buycar.BuyCarActivity;
 import com.ereader.client.ui.my.CollectionActivity;
 import com.ereader.client.ui.view.ScrollingTabsView;
 import com.ereader.common.util.IntentUtil;
+import com.ereader.common.util.ProgressDialogUtil;
 import com.ereader.common.util.ToastUtil;
 
 public class BookDetailActivity extends BaseFragmentActivity implements OnClickListener {
@@ -29,6 +33,24 @@ public class BookDetailActivity extends BaseFragmentActivity implements OnClickL
 	private Button main_top_right;
 	private List<String> mListTitle;
 	private TextView tv_book_collection;
+	private TextView tv_book_name;
+	private TextView tv_book_author;
+	private TextView tv_book_publish;
+	private RatingBar rb_book_star;
+	private TextView tv_book_price;
+	
+	private Handler mHandler = new Handler(){
+		
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case 0:
+				ToastUtil.showToast(BookDetailActivity.this, "收藏成功", ToastUtil.LENGTH_LONG);
+				break;
+			default:
+				break;
+			}
+		};
+	};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +71,11 @@ public class BookDetailActivity extends BaseFragmentActivity implements OnClickL
 		st_book_detail = (ScrollingTabsView)findViewById(R.id.st_book_detail);
 		vp_book_store = (ViewPager)findViewById(R.id.vp_book_store);
 		tv_book_collection = (TextView)findViewById(R.id.tv_book_collection);
+		tv_book_name = (TextView)findViewById(R.id.tv_book_name);
+		tv_book_author = (TextView)findViewById(R.id.tv_book_author);
+		tv_book_publish = (TextView)findViewById(R.id.tv_book_publish);
+		tv_book_price = (TextView)findViewById(R.id.tv_book_price);
+		rb_book_star = (RatingBar)findViewById(R.id.rb_book_star);
 	}
 	
 
@@ -59,6 +86,8 @@ public class BookDetailActivity extends BaseFragmentActivity implements OnClickL
 	  * @time: 2015-2-10 下午1:37:06
 	 */
 	private void initView() {
+		Book book = (Book)getIntent().getExtras().getSerializable("detailBook");
+		tv_book_collection.setTag(book.getInfo().getProduct_id());
 		((TextView) findViewById(R.id.tv_main_top_title)).setText("书城");
 		
 		main_top_right.setText("购物车(1)");
@@ -76,7 +105,7 @@ public class BookDetailActivity extends BaseFragmentActivity implements OnClickL
 		mListTitle.add("作者简介");
 		mListTitle.add("书评");
 		
-		BookDetailFragsAdapter pageAdapter = new BookDetailFragsAdapter(getSupportFragmentManager(),mListTitle.size());
+		BookDetailFragsAdapter pageAdapter = new BookDetailFragsAdapter(getSupportFragmentManager(),mListTitle.size(),book);
 		vp_book_store.setAdapter(pageAdapter);
 		
 		// 设置缓存fragment的数量
@@ -88,8 +117,16 @@ public class BookDetailActivity extends BaseFragmentActivity implements OnClickL
 		BookDetailTabsAdapter adapter = new BookDetailTabsAdapter(this,mListTitle);
 		st_book_detail.setAdapter(adapter);
 		st_book_detail.setViewPager(vp_book_store);
+		setBook(book);
 	}
 
+	private void setBook(Book book) {
+		tv_book_name.setText(book.getInfo().getName());
+		tv_book_author.setText("作者："+book.getExtra().getAuthor());
+		tv_book_publish.setText("出版社："+book.getExtra().getPress());
+		rb_book_star.setRating(4);
+		tv_book_price.setText("¥ "+book.getPrice());
+	}
 	@Override
 	public void onClick(View v) {
 
@@ -98,8 +135,15 @@ public class BookDetailActivity extends BaseFragmentActivity implements OnClickL
 			IntentUtil.intent(BookDetailActivity.this, BuyCarActivity.class);
 			break;
 		case R.id.tv_book_collection:
-			ToastUtil.showToast(BookDetailActivity.this, "收藏成功", ToastUtil.LENGTH_LONG);
-			IntentUtil.intent(BookDetailActivity.this, CollectionActivity.class);
+			
+				ProgressDialogUtil.showProgressDialog(this, "努力加载中…", false);
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						controller.addCollection(mHandler, tv_book_collection.getTag().toString());
+						ProgressDialogUtil.closeProgressDialog();
+					}
+				}).start();
 			break;
 		default:
 			break;

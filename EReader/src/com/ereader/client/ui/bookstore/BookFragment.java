@@ -120,7 +120,10 @@ OnHeaderRefreshListener, OnFooterRefreshListener{
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			IntentUtil.intent(mContext, BookDetailActivity.class);
+			Book book = mList.get(position);
+			Bundle bundle = new Bundle();
+			bundle.putSerializable("detailBook", book);
+			IntentUtil.intent(mContext, bundle,BookDetailActivity.class,false);
 		}
 	};
 	private void getBookList() {

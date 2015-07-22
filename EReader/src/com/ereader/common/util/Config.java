@@ -52,4 +52,5 @@ public class Config {
 	public final static String HTTP_BUY_CAR = MY_SERVICE+ "/api/product/cart"; //  我的购物车
 	public final static String HTTP_BUY_CAR_DELETE = MY_SERVICE+ "/api/product/delFromCart"; //  删除购物车
 	public final static String HTTP_BUY_CAR_ADD = MY_SERVICE+ "/api/product/addToCart"; //  添加购物车
+	public final static String HTTP_BOOK_COMMENT = MY_SERVICE+ "/api/product/comment"; // 商品书评
 }
