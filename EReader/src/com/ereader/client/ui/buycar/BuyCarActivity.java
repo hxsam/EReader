@@ -8,13 +8,15 @@ import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.ereader.client.EReaderApplication;
 import com.ereader.client.R;
 import com.ereader.client.entities.Book;
-import com.ereader.client.entities.json.SPResp;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseActivity;
 import com.ereader.client.ui.adapter.BuyCarAdapter;
@@ -30,6 +32,7 @@ public class BuyCarActivity extends BaseActivity implements OnClickListener {
 	private List<Book> mList = new ArrayList<Book>();
 	private BuyCarAdapter adapter;
 	private Button bt_buy_go;
+	private RadioButton rb_car_all;
 	private Handler mHandler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -80,6 +83,7 @@ public class BuyCarActivity extends BaseActivity implements OnClickListener {
 	private void findView() {
 		lv_buy_car = (ListView)findViewById(R.id.lv_buy_car);
 		bt_buy_go = (Button)findViewById(R.id.bt_buy_go);
+		rb_car_all = (RadioButton)findViewById(R.id.rb_car_all);
 	}
 	
 
@@ -94,13 +98,29 @@ public class BuyCarActivity extends BaseActivity implements OnClickListener {
 		bt_buy_go.setOnClickListener(this);
 		adapter = new BuyCarAdapter(this, mList);
 		lv_buy_car.setAdapter(adapter);
+		rb_car_all.setOnCheckedChangeListener(carAllListener);
 	}
+	private OnCheckedChangeListener carAllListener = new OnCheckedChangeListener() {
 
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView,
+				boolean isChecked) {
+				if(isChecked){
+					for (int i = 0; i < mList.size(); i++) {
+						mList.get(i).setSelect(true);
+					}
+					adapter.notifyDataSetChanged();
+				}
+		}
+	};
+   
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case  R.id.bt_buy_go:
 			
+			break;
+		case  R.id.rb_car_all:
 			break;
 		default:
 			break;

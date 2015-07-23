@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,6 +50,7 @@ public class BuyCarAdapter extends BaseAdapter {
 		}else {
 			holder=(ViewHolder) convertView.getTag();
 		}	
+		holder.cbox_buy_choose.setSelected(book.isSelect());
 		holder.tv_book_name.setText(book.getInfo().getName());
 		holder.tv_book_money.setText("￥"+book.getPrice());
 		return convertView;
@@ -57,11 +59,13 @@ public class BuyCarAdapter extends BaseAdapter {
 		private TextView tv_book_name; 
 		private TextView tv_book_money;
 		private ImageView iv_book;
+		private CheckBox cbox_buy_choose;
 		
 		public void findView(View view){
 			tv_book_name = (TextView)view.findViewById(R.id.tv_book_name);
 			tv_book_money = (TextView)view.findViewById(R.id.tv_book_money);
 			iv_book = (ImageView)view.findViewById(R.id.iv_book);
+			cbox_buy_choose = (CheckBox)view.findViewById(R.id.cbox_buy_choose);
 		}
 	}
 

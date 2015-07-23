@@ -44,6 +44,17 @@ public class Book implements Serializable {
 	private BookInfo info;
 	private String image_url;
 	
+	private boolean select; // 购物车用
+	
+	
+	public boolean isSelect() {
+		return select;
+	}
+	
+	public void setSelect(boolean select) {
+		this.select = select;
+	}
+	
 	public String getImage_url() {
 		return image_url;
 	}
