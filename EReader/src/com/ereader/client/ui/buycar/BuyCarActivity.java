@@ -34,7 +34,7 @@ public class BuyCarActivity extends BaseActivity implements OnClickListener {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case 0:
-				mList.addAll((List<Book>)controller.getContext().getBusinessData("SPResp"));
+				mList.addAll((List<Book>)controller.getContext().getBusinessData("BuyCarResp"));
 				adapter.notifyDataSetChanged();
 				break;
 			default:
@@ -49,6 +49,27 @@ public class BuyCarActivity extends BaseActivity implements OnClickListener {
 		controller = AppController.getController(this);
 		findView();
 		initView();
+	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		getCar();
+	}
+	private void getCar() {
+		if(!EReaderApplication.getInstance().isLogin()){
+			IntentUtil.intent(BuyCarActivity.this, LoginActivity.class);
+		}else{
+			ProgressDialogUtil.showProgressDialog(this, "通信中…", false);
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					controller.buyCar(mHandler);
+					ProgressDialogUtil.closeProgressDialog();
+				}
+			}).start();
+		}
 	}
 	/**
 	 * 
@@ -69,7 +90,7 @@ public class BuyCarActivity extends BaseActivity implements OnClickListener {
 	  * @time: 2015-2-10 下午1:37:06
 	 */
 	private void initView() {
-		((TextView) findViewById(R.id.tv_main_top_title)).setText("购物车(4)");
+		((TextView) findViewById(R.id.tv_main_top_title)).setText("购物车");
 		bt_buy_go.setOnClickListener(this);
 		adapter = new BuyCarAdapter(this, mList);
 		lv_buy_car.setAdapter(adapter);
@@ -79,19 +100,7 @@ public class BuyCarActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case  R.id.bt_buy_go:
-			if(!EReaderApplication.getInstance().isLogin()){
-				IntentUtil.intent(BuyCarActivity.this, LoginActivity.class);
-			}else{
-				ProgressDialogUtil.showProgressDialog(this, "通信中…", false);
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-						controller.buyCar(mHandler);
-						ProgressDialogUtil.closeProgressDialog();
-					}
-				}).start();
 			
-			}
 			break;
 		default:
 			break;

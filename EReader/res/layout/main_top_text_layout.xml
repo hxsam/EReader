@@ -36,6 +36,7 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/dimen_normal"
         android:background="@null"
+        android:onClick="goBuy"
         android:textColor="@drawable/text_top_xml"
         android:textSize="@dimen/new_size_4"
          />

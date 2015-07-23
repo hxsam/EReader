@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.ereader.client.EReaderApplication;
 import com.ereader.client.R;
 import com.ereader.client.entities.Book;
 import com.ereader.client.service.AppController;
@@ -20,6 +21,7 @@ import com.ereader.client.ui.BaseFragmentActivity;
 import com.ereader.client.ui.adapter.BookDetailFragsAdapter;
 import com.ereader.client.ui.adapter.BookDetailTabsAdapter;
 import com.ereader.client.ui.buycar.BuyCarActivity;
+import com.ereader.client.ui.login.LoginActivity;
 import com.ereader.client.ui.my.CollectionActivity;
 import com.ereader.client.ui.view.ScrollingTabsView;
 import com.ereader.common.util.IntentUtil;
@@ -31,6 +33,7 @@ public class BookDetailActivity extends BaseFragmentActivity implements OnClickL
 	private ViewPager vp_book_store;
 	private AppController controller;
 	private Button main_top_right;
+	private Button bt_book_add_buy;
 	private List<String> mListTitle;
 	private TextView tv_book_collection;
 	private TextView tv_book_name;
@@ -38,6 +41,7 @@ public class BookDetailActivity extends BaseFragmentActivity implements OnClickL
 	private TextView tv_book_publish;
 	private RatingBar rb_book_star;
 	private TextView tv_book_price;
+	private int buyNum = 0;
 	
 	private Handler mHandler = new Handler(){
 		
@@ -45,6 +49,11 @@ public class BookDetailActivity extends BaseFragmentActivity implements OnClickL
 			switch (msg.what) {
 			case 0:
 				ToastUtil.showToast(BookDetailActivity.this, "收藏成功", ToastUtil.LENGTH_LONG);
+				break;
+			case 1:
+				//TODO  改变购物车的数量
+				buyNum++;
+				main_top_right.setText("购物车("+buyNum+")");
 				break;
 			default:
 				break;
@@ -68,6 +77,7 @@ public class BookDetailActivity extends BaseFragmentActivity implements OnClickL
 	 */
 	private void findView() {
 		main_top_right = (Button)findViewById(R.id.main_top_right);
+		bt_book_add_buy = (Button)findViewById(R.id.bt_book_add_buy);
 		st_book_detail = (ScrollingTabsView)findViewById(R.id.st_book_detail);
 		vp_book_store = (ViewPager)findViewById(R.id.vp_book_store);
 		tv_book_collection = (TextView)findViewById(R.id.tv_book_collection);
@@ -90,7 +100,7 @@ public class BookDetailActivity extends BaseFragmentActivity implements OnClickL
 		tv_book_collection.setTag(book.getInfo().getProduct_id());
 		((TextView) findViewById(R.id.tv_main_top_title)).setText("书城");
 		
-		main_top_right.setText("购物车(1)");
+		main_top_right.setText("购物车");
 		Drawable drawable= getResources().getDrawable(R.drawable.b5_03);
 		/// 这一步必须要做,否则不会显示.
 		drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
@@ -98,7 +108,7 @@ public class BookDetailActivity extends BaseFragmentActivity implements OnClickL
 		main_top_right.setTextColor(getResources().getColor(R.color.white));
 		main_top_right.setOnClickListener(this);
 		tv_book_collection.setOnClickListener(this);
-
+		bt_book_add_buy.setOnClickListener(this);
 		mListTitle = new ArrayList<String>();
 		mListTitle.add("目录");
 		mListTitle.add("内容简介");
@@ -131,11 +141,28 @@ public class BookDetailActivity extends BaseFragmentActivity implements OnClickL
 	public void onClick(View v) {
 
 		switch (v.getId()) {
+		case R.id.bt_book_add_buy:
+			if(!EReaderApplication.getInstance().isLogin()){
+				IntentUtil.intent(BookDetailActivity.this, LoginActivity.class);
+				return;
+			}
+				ProgressDialogUtil.showProgressDialog(this, "努力加载中…", false);
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						controller.addBuyCar(mHandler, tv_book_collection.getTag().toString());
+						ProgressDialogUtil.closeProgressDialog();
+					}
+				}).start();
+			break;
 		case  R.id.main_top_right:
 			IntentUtil.intent(BookDetailActivity.this, BuyCarActivity.class);
 			break;
 		case R.id.tv_book_collection:
-			
+			if(!EReaderApplication.getInstance().isLogin()){
+				IntentUtil.intent(BookDetailActivity.this, LoginActivity.class);
+				return;
+			}
 				ProgressDialogUtil.showProgressDialog(this, "努力加载中…", false);
 				new Thread(new Runnable() {
 					@Override

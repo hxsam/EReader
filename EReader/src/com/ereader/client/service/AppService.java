@@ -41,10 +41,14 @@ public interface AppService {
 	/**我的购物车**/
 	public void buyCar()throws Exception;
 	/**添加购物车**/
-	public void addBuyCar()throws Exception;
+	public void addBuyCar(String id)throws Exception;
 	/**删除购物车**/
 	public void deleteBuyCar()throws Exception;
 	/**商品书评**/
 	public void getComment(String id)throws Exception;
+	/**我的好友**/
+	public void getFriends()throws Exception;
+	/**添加好友**/
+	public void addFriends(String id)throws Exception;
 
 }

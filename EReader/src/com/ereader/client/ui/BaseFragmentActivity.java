@@ -3,9 +3,12 @@ package com.ereader.client.ui;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.Button;
 
+import com.ereader.client.EReaderApplication;
 import com.ereader.client.service.AppController;
 import com.ereader.client.service.AppManager;
+import com.ereader.client.ui.login.LoginActivity;
 import com.ereader.common.util.IntentUtil;
 
 /**
@@ -25,6 +28,14 @@ public class BaseFragmentActivity extends FragmentActivity{
 	public void goBack(View view) {
 		this.finish();  
 		IntentUtil.popFromLeft(this);
+	}
+	
+	public void goBuy(View view) {
+		if(((Button)view).getText().toString().startsWith("购物车")){
+			if(!EReaderApplication.getInstance().isLogin()){
+				IntentUtil.intent(AppController.getController().getCurrentActivity(), LoginActivity.class);
+			}
+		}
 	}
 	
 	@Override

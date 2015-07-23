@@ -12,6 +12,7 @@ import com.ereader.client.ui.bookstore.BookActivity;
 import com.ereader.client.ui.bookstore.BookTitleActivity;
 import com.ereader.client.ui.dialog.DialogUtil;
 import com.ereader.client.ui.login.RegisterActivity;
+import com.ereader.client.ui.my.FriendsActivity;
 import com.ereader.common.exception.BusinessException;
 import com.ereader.common.util.IntentUtil;
 import com.ereader.common.util.LogUtil;
@@ -308,6 +309,7 @@ public class AppController {
 			service.buyCar();
 			mHandler.obtainMessage(0).sendToTarget();
 		} catch (BusinessException e) {
+			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
 		}catch (Exception e) {
 		}
 	
@@ -321,10 +323,11 @@ public class AppController {
 		}
 	
 	}
-	public void addBuyCar(Handler mHandler) {
+	public void addBuyCar(Handler mHandler,String id) {
 		try {
-			service.addBuyCar();
-			mHandler.obtainMessage(0).sendToTarget();
+			service.addBuyCar(id);
+			appHandler.obtainMessage(HANDLER_TOAST,"已加入购物车").sendToTarget();
+			mHandler.obtainMessage(1).sendToTarget();
 		} catch (BusinessException e) {
 		}catch (Exception e) {
 		}
@@ -339,6 +342,33 @@ public class AppController {
 			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
 		}catch (Exception e) {
 		}
+			
+	}
+
+	public void getFriends(Handler mHandler) {
+
+		try {
+			service.getFriends();
+			mHandler.obtainMessage(0).sendToTarget();
+		} catch (BusinessException e) {
+			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
+		}catch (Exception e) {
+		}
+			
+			
+	}
+
+	public void addFriends(Handler mHandler,String id) {
+		try {
+			service.addFriends(id);
+			mHandler.obtainMessage(1).sendToTarget();
+			ToastUtil.showToast(currentActivity, "添加成功！", ToastUtil.LENGTH_LONG);
+		} catch (BusinessException e) {
+			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
+		}catch (Exception e) {
+		}
+			
+			
 			
 	}
 
