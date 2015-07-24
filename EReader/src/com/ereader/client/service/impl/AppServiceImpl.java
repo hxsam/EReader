@@ -297,6 +297,7 @@ public class AppServiceImpl implements AppService {
 		request.setR_calzz(BookOnlyResp.class);
 		BookOnlyResp resp = EReaderApplication.getAppSocket().shortConnect(request);
 		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
+			EReaderApplication.getInstance().saveBuyCar(resp);
 			context.addBusinessData("BuyCarResp", resp.getData());
 		} else {
 			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));

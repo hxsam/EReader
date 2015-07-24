@@ -1,10 +1,14 @@
 package com.ereader.client;
 
+import java.util.List;
+
 import android.app.Application;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 
+import com.ereader.client.entities.Book;
 import com.ereader.client.entities.Login;
+import com.ereader.client.entities.json.BookOnlyResp;
 import com.ereader.client.entities.json.SubCategoryResp;
 import com.ereader.common.net.AppSocketInterface;
 import com.ereader.common.net.XUtilsSocketImpl;
@@ -134,5 +138,13 @@ public class EReaderApplication extends Application {
 	}
 	public Login getLogin() {
 		return AppSharedPref.getInstance(this).getLogin();
+	}
+
+	public void saveBuyCar(BookOnlyResp resp) {
+		AppSharedPref.getInstance(this).saveBuyCar(resp);
+	
+	}
+	public BookOnlyResp getBuyCar() {
+		return AppSharedPref.getInstance(this).getBuyCar();
 	}
 }

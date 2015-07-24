@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.ereader.client.EReaderApplication;
 import com.ereader.client.R;
 import com.ereader.client.entities.Book;
+import com.ereader.client.entities.json.BookOnlyResp;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseFragmentActivity;
 import com.ereader.client.ui.adapter.BookDetailFragsAdapter;
@@ -99,8 +100,13 @@ public class BookDetailActivity extends BaseFragmentActivity implements OnClickL
 		Book book = (Book)getIntent().getExtras().getSerializable("detailBook");
 		tv_book_collection.setTag(book.getInfo().getProduct_id());
 		((TextView) findViewById(R.id.tv_main_top_title)).setText("书城");
-		
+		BookOnlyResp resp  = (BookOnlyResp)EReaderApplication.getInstance().getBuyCar();
 		main_top_right.setText("购物车");
+		
+		if(resp != null){
+			buyNum = resp.getData().size();
+			main_top_right.setText("购物车("+buyNum+")");
+		}
 		Drawable drawable= getResources().getDrawable(R.drawable.b5_03);
 		/// 这一步必须要做,否则不会显示.
 		drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
@@ -128,6 +134,8 @@ public class BookDetailActivity extends BaseFragmentActivity implements OnClickL
 		st_book_detail.setAdapter(adapter);
 		st_book_detail.setViewPager(vp_book_store);
 		setBook(book);
+		
+		
 	}
 
 	private void setBook(Book book) {

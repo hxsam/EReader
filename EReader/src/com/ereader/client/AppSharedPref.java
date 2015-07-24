@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.ereader.client.entities.Login;
 import com.ereader.client.entities.SubCategory;
+import com.ereader.client.entities.json.BookOnlyResp;
 import com.ereader.client.entities.json.SubCategoryResp;
 import com.ereader.common.exception.BusinessException;
 import com.ereader.common.util.Json_U;
@@ -173,6 +174,32 @@ public class AppSharedPref {
 				return null;
 			}else{
 				return Json_U.parseJsonToObj((jsonStr),Login.class);
+			}
+		} catch (BusinessException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public void saveBuyCar(BookOnlyResp resp) {
+
+
+		Editor e = sharedPreferences.edit();
+		try {
+			e.putString("BuyCarData", Json_U.objToJsonStr(resp));
+		} catch (BusinessException e1) {
+			e1.printStackTrace();
+		}
+		e.commit();
+	}
+
+	public BookOnlyResp getBuyCar() {
+		String  jsonStr = sharedPreferences.getString("BuyCarData", "");
+		try {
+			if(TextUtils.isEmpty(jsonStr)){
+				return null;
+			}else{
+				return Json_U.parseJsonToObj((jsonStr),BookOnlyResp.class);
 			}
 		} catch (BusinessException e) {
 			e.printStackTrace();

@@ -1,5 +1,6 @@
 package com.ereader.common.util;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -245,5 +246,34 @@ public class StringUtil {
 		Matcher invalid = pattern.matcher(str);
 		return invalid.matches();
 	}
+	
+	/**
+	  * 方法描述：计算金额  减法
+	  * @param d1  减数
+	  * @param d2  被减数
+	  * @return
+	  * @author: why
+	  * @time: 2013-10-31 下午2:43:21
+	 */
+	public  static String subtractionMoney(String d1,String d2){
+		BigDecimal   b1   =   new   BigDecimal(d1);   
+		BigDecimal   b2   =   new   BigDecimal(d2);   
+		return b1.subtract(b2).toString();
+	}
+	
+	/**
+	 * 
+	  * 方法描述：计算金额  加法
+	  * @param d1
+	  * @param d2
+	  * @return
+	  * @author: why
+	  * @time: 2013-10-31 下午2:46:32
+	 */
+  public static String addMoney(String d1, String d2) {        // 进行加法运算
+           BigDecimal b1 = new BigDecimal(d1);
+           BigDecimal b2 = new BigDecimal(d2);
+          return b1.add(b2).toString();
+       }
 	
 }

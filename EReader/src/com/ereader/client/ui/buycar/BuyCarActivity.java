@@ -17,28 +17,35 @@ import android.widget.TextView;
 import com.ereader.client.EReaderApplication;
 import com.ereader.client.R;
 import com.ereader.client.entities.Book;
+import com.ereader.client.entities.json.BookOnlyResp;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseActivity;
 import com.ereader.client.ui.adapter.BuyCarAdapter;
 import com.ereader.client.ui.login.LoginActivity;
 import com.ereader.common.util.IntentUtil;
 import com.ereader.common.util.ProgressDialogUtil;
+import com.ereader.common.util.StringUtil;
 
 // 购物车
 public class BuyCarActivity extends BaseActivity implements OnClickListener {
 	private AppController controller;
-	private TextView textView1;
+	private TextView tv_buy_money;
 	private ListView lv_buy_car;
 	private List<Book> mList = new ArrayList<Book>();
 	private BuyCarAdapter adapter;
 	private Button bt_buy_go;
 	private RadioButton rb_car_all;
+	private int buyNum = 0;
+	private String money = "0";
 	private Handler mHandler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case 0:
+				mList.clear();
 				mList.addAll((List<Book>)controller.getContext().getBusinessData("BuyCarResp"));
 				adapter.notifyDataSetChanged();
+				break;
+			case 1:
 				break;
 			default:
 				break;
@@ -83,6 +90,7 @@ public class BuyCarActivity extends BaseActivity implements OnClickListener {
 	private void findView() {
 		lv_buy_car = (ListView)findViewById(R.id.lv_buy_car);
 		bt_buy_go = (Button)findViewById(R.id.bt_buy_go);
+		tv_buy_money = (TextView)findViewById(R.id.tv_buy_money);
 		rb_car_all = (RadioButton)findViewById(R.id.rb_car_all);
 	}
 	
@@ -96,9 +104,24 @@ public class BuyCarActivity extends BaseActivity implements OnClickListener {
 	private void initView() {
 		((TextView) findViewById(R.id.tv_main_top_title)).setText("购物车");
 		bt_buy_go.setOnClickListener(this);
-		adapter = new BuyCarAdapter(this, mList);
+		BookOnlyResp resp  = (BookOnlyResp)EReaderApplication.getInstance().getBuyCar();
+		if(resp != null){
+			mList.clear();
+			mList.addAll(resp.getData());
+
+			for (int i = 0; i < mList.size(); i++) {
+				if(mList.get(i).isSelect()){
+					buyNum++;
+					money = StringUtil.addMoney(money, mList.get(i).getPrice());
+				}
+			}
+		}
+		tv_buy_money.setText("¥ "+money);
+		bt_buy_go.setText("结算（"+buyNum+")");
+		adapter = new BuyCarAdapter(this, mList,mHandler);
 		lv_buy_car.setAdapter(adapter);
 		rb_car_all.setOnCheckedChangeListener(carAllListener);
+		rb_car_all.setOnClickListener(this);
 	}
 	private OnCheckedChangeListener carAllListener = new OnCheckedChangeListener() {
 
@@ -121,6 +144,18 @@ public class BuyCarActivity extends BaseActivity implements OnClickListener {
 			
 			break;
 		case  R.id.rb_car_all:
+			if(rb_car_all.isChecked()){
+				money = "0";
+				for (int i = 0; i < mList.size(); i++) {
+					buyNum++;
+					mList.get(i).setSelect(true);
+					money = StringUtil.addMoney(money, mList.get(i).getPrice());
+				}
+				tv_buy_money.setText("¥ "+money);
+				bt_buy_go.setText("结算（"+buyNum+")");
+				adapter.notifyDataSetChanged();
+			}
+	
 			break;
 		default:
 			break;
