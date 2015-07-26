@@ -314,10 +314,11 @@ public class AppController {
 		}
 	
 	}
-	public void deleteBuyCar(Handler mHandler) {
+	public void deleteBuyCar(Handler mHandler,String id) {
 		try {
-			service.deleteBuyCar();
-			mHandler.obtainMessage(0).sendToTarget();
+			service.deleteBuyCar(id);
+			mHandler.obtainMessage(3).sendToTarget();
+			appHandler.obtainMessage(HANDLER_TOAST,"删除成功").sendToTarget();
 		} catch (BusinessException e) {
 		}catch (Exception e) {
 		}

@@ -24,6 +24,7 @@ import com.ereader.common.exception.BusinessException;
 import com.ereader.common.exception.ErrorMessage;
 import com.ereader.common.net.Request;
 import com.ereader.common.util.Config;
+import com.ereader.common.util.StringUtil;
 
 public class AppServiceImpl implements AppService {
 	private AppContext context;
@@ -297,6 +298,9 @@ public class AppServiceImpl implements AppService {
 		request.setR_calzz(BookOnlyResp.class);
 		BookOnlyResp resp = EReaderApplication.getAppSocket().shortConnect(request);
 		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
+			for (int i = 0; i < resp.getData().size(); i++) {
+				resp.getData().get(i).setSelect(true);
+			}
 			EReaderApplication.getInstance().saveBuyCar(resp);
 			context.addBusinessData("BuyCarResp", resp.getData());
 		} else {
@@ -322,12 +326,12 @@ public class AppServiceImpl implements AppService {
 	}
 	
 	@Override
-	public void deleteBuyCar() throws Exception {
+	public void deleteBuyCar(String id) throws Exception {
 		String token = EReaderApplication.getInstance().getLogin().getToken();
 		Request<BaseResp> request = new Request<BaseResp>();
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		nameValuePairs.add(new BasicNameValuePair("_token_", token));
-		nameValuePairs.add(new BasicNameValuePair("product_id", "3"));
+		nameValuePairs.add(new BasicNameValuePair("product_id", id));
 		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
 		request.setUrl(Config.HTTP_BUY_CAR_DELETE);
 		request.setR_calzz(BaseResp.class);

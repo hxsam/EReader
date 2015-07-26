@@ -53,5 +53,4 @@ public class BookDetailFragment extends Fragment implements OnClickListener{
 	public void onClick(View v) {
 		
 	}
-
 }

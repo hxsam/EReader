@@ -64,6 +64,8 @@ public class BuyCarAdapter extends BaseAdapter {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if(isChecked){
 					mHandler.obtainMessage(1,position).sendToTarget();
+				}else{
+					mHandler.obtainMessage(2,position).sendToTarget();
 				}
 			}
 		});

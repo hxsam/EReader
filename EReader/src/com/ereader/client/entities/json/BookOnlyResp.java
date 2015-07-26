@@ -1,12 +1,13 @@
 package com.ereader.client.entities.json;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ereader.client.entities.Book;
 import com.ereader.client.entities.Page;
 
 public class BookOnlyResp extends BaseResp {
-	private List<Book> data;
+	private List<Book> data = new ArrayList<Book>();
 
 
 	/**

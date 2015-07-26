@@ -43,7 +43,7 @@ public interface AppService {
 	/**添加购物车**/
 	public void addBuyCar(String id)throws Exception;
 	/**删除购物车**/
-	public void deleteBuyCar()throws Exception;
+	public void deleteBuyCar(String id)throws Exception;
 	/**商品书评**/
 	public void getComment(String id)throws Exception;
 	/**我的好友**/

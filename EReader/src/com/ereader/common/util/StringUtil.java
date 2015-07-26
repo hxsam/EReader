@@ -275,5 +275,11 @@ public class StringUtil {
            BigDecimal b2 = new BigDecimal(d2);
           return b1.add(b2).toString();
        }
+
+
+
+	public static String clearY(String money) {
+		return money.replace("¥", "");
+	}
 	
 }
