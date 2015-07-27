@@ -25,6 +25,7 @@ public class PayActivity extends BaseActivity implements OnClickListener {
 	private TextView tv_pay_point_sum;
 	private Button main_top_right;
 	private String money;
+	private int point = 0;
 	
 	
 	private Handler mHandler = new Handler() {
@@ -79,9 +80,10 @@ public class PayActivity extends BaseActivity implements OnClickListener {
 		main_top_right.setOnClickListener(this);
 		main_top_right.setText("充值");
 		money = getIntent().getExtras().getString("money");
+		point = 60;
 		tv_pay_money.setText("¥ " + money);
 		tv_pay_all_money.setText("¥ " + money);
-		tv_pay_point.setText("(可用60点)");
+		tv_pay_point.setText("(可用"+point+"点)");
 		tv_pay_point_sum.setText("-¥ 0.00");
 	}
 
