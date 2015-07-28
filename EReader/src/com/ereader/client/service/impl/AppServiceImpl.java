@@ -59,20 +59,21 @@ public class AppServiceImpl implements AppService {
 	@Override
 	public void register() throws Exception {
 		String phone = context.getStringData("regisrerPhone");
+		String pwd = context.getStringData("regisrerPwd");
+		String email = context.getStringData("regisrerEmail");
 		String code = context.getStringData("code");
 		Request<BaseResp> request = new Request<BaseResp>();
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		nameValuePairs.add(new BasicNameValuePair("phone", phone));
-		nameValuePairs.add(new BasicNameValuePair("password", "111111"));
-		nameValuePairs.add(new BasicNameValuePair("email", "111111@163.com"));
-		nameValuePairs.add(new BasicNameValuePair("nickname", phone));
+		nameValuePairs.add(new BasicNameValuePair("password", pwd));
+		nameValuePairs.add(new BasicNameValuePair("email", email));
+		nameValuePairs.add(new BasicNameValuePair("nickname", phone ==null?email:phone));
 		nameValuePairs.add(new BasicNameValuePair("vcode", code));
 		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
 		request.setUrl(Config.HTTP_REGISTER);
 		request.setR_calzz(BaseResp.class);
 		BaseResp resp = EReaderApplication.getAppSocket().shortConnect(request);
 		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
-			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
 		} else {
 			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
 		}
@@ -201,13 +202,12 @@ public class AppServiceImpl implements AppService {
 	}
 	
 	@Override
-	public void deleteCollection() throws Exception {
+	public void deleteCollection(String id) throws Exception {
 		String token = EReaderApplication.getInstance().getLogin().getToken();
-		String product_id = "";
 		Request<BookResp> request = new Request<BookResp>();
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		nameValuePairs.add(new BasicNameValuePair("_token_", token));
-		nameValuePairs.add(new BasicNameValuePair("product_id", product_id));
+		nameValuePairs.add(new BasicNameValuePair("product_id", id));
 		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
 		request.setUrl(Config.HTTP_BOOK_DELETE_COLLECTION);
 		request.setR_calzz(BookResp.class);

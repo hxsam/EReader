@@ -16,7 +16,6 @@ import com.ereader.client.R;
 import com.ereader.client.entities.Book;
 import com.ereader.client.service.AppController;
 import com.ereader.common.util.ProgressDialogUtil;
-import com.ereader.common.util.ToastUtil;
 
 public class CollectionAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
@@ -48,7 +47,7 @@ public class CollectionAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		Book book = mList.get(position);
+		final Book book = mList.get(position);
 		ViewHolder holder;
 		if(convertView == null){
 			convertView =inflater.inflate(R.layout.my_collection_item, null);
@@ -71,7 +70,7 @@ public class CollectionAdapter extends BaseAdapter {
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
-						AppController.getController().deleteCollection(mHandler,position);
+						AppController.getController().deleteCollection(mHandler,position,book.getInfo().getProduct_id());
 						ProgressDialogUtil.closeProgressDialog();
 					}
 				}).start();
@@ -83,7 +82,16 @@ public class CollectionAdapter extends BaseAdapter {
 			
 			@Override
 			public void onClick(View v) {
-				ToastUtil.showToast(mContext, "添加购物车成功", ToastUtil.LENGTH_LONG);
+
+
+				ProgressDialogUtil.showProgressDialog(mContext, "添加中…", false);
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						AppController.getController().addBuyCar(mHandler,book.getInfo().getProduct_id());
+						ProgressDialogUtil.closeProgressDialog();
+					}
+				}).start();
 			}
 		});
 		return convertView;

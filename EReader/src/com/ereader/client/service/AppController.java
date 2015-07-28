@@ -172,6 +172,7 @@ public class AppController {
 
 		try {
 			service.register();
+			appHandler.obtainMessage(HANDLER_TOAST,"注册成功").sendToTarget();
 			currentActivity.finish();
 		} catch (BusinessException e) {
 			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
@@ -262,10 +263,10 @@ public class AppController {
 		}
 	}
 
-	public void deleteCollection(Handler mHandler,int position) {
+	public void deleteCollection(Handler mHandler,int position,String id) {
 		try {
+			service.deleteCollection(id);
 			mHandler.obtainMessage(1,position).sendToTarget();
-			service.deleteCollection();
 		} catch (BusinessException e) {
 			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
 		}catch (Exception e) {

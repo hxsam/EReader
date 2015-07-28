@@ -1,9 +1,11 @@
 package com.ereader.client.ui.dialog;
 
 import android.content.Context;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.ereader.client.EReaderApplication;
 import com.ereader.common.util.IntentUtil;
 
 /**
@@ -53,6 +55,25 @@ public class DialogUtil {
 			}
 		});
 	}
+	public static void exit(Context context,final Handler mHandler) {
+		final IOSStyleDialog dialog = new IOSStyleDialog(context, IOSStyleDialog.DIALOG_TWO);
+		dialog.setCancelable(false);
+		dialog.setMessage("确定退出此账号");
+		dialog.setRight("确定",new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				EReaderApplication.getInstance().setLogin(false);
+				mHandler.obtainMessage(0).sendToTarget();
+				dialog.closeDialog();
+				
+			}
+		});
+		dialog.setLeft("取消",new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialog.closeDialog();
+			}
+		});
 	
-	
+	}
 }

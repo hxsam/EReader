@@ -1,14 +1,17 @@
 package com.ereader.client.ui.more;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ereader.client.EReaderApplication;
 import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseActivity;
+import com.ereader.client.ui.dialog.DialogUtil;
 import com.ereader.common.util.IntentUtil;
 
 public class MoreActivity  extends BaseActivity implements OnClickListener {
@@ -16,6 +19,22 @@ public class MoreActivity  extends BaseActivity implements OnClickListener {
 	private RelativeLayout rl_more_update;
 	private RelativeLayout rl_more_help;
 	private RelativeLayout rl_more_exit;
+	
+	private Handler mHandler = new Handler(){
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case 0:
+				if(EReaderApplication.getInstance().isLogin()){
+					rl_more_exit.setVisibility(View.VISIBLE);
+				}else{
+					rl_more_exit.setVisibility(View.GONE);
+				}
+				break;
+			default:
+				break;
+			}
+		};
+	};
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,6 +67,18 @@ public class MoreActivity  extends BaseActivity implements OnClickListener {
 		rl_more_update.setOnClickListener(this);
 		rl_more_help.setOnClickListener(this);
 		rl_more_exit.setOnClickListener(this);
+		
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if(EReaderApplication.getInstance().isLogin()){
+			rl_more_exit.setVisibility(View.VISIBLE);
+		}else{
+			rl_more_exit.setVisibility(View.GONE);
+			
+		}
 	}
 
 	@Override
@@ -55,6 +86,9 @@ public class MoreActivity  extends BaseActivity implements OnClickListener {
 		switch (v.getId()) {
 		case  R.id.rl_more_help:
 			IntentUtil.intent(this, HelpActivity.class);
+			break;
+		case R.id.rl_more_exit:
+			DialogUtil.exit(MoreActivity.this,mHandler);
 			break;
 		default:
 			break;
