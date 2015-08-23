@@ -57,4 +57,27 @@ public class Config {
 	public final static String HTTP_MY_SP = MY_SERVICE+ "/api/user/comment"; //  我的评论
 	public final static String HTTP_MY_FRIENDS = MY_SERVICE+ "/api/user/friend"; //  我的好友
 	public final static String HTTP_MY_FRIENDS_ADD = MY_SERVICE+ "/api/user/addFriend"; //  添加好友
+	
+	//TODO  my
+	public final static String HTTP_LOGIN_EXIT = MY_SERVICE+ "/api/index/logout"; //  退出
+	public final static String HTTP_USER = MY_SERVICE+ "/api/user/user"; //  用户基本信息
+	public final static String HTTP_USER_WALLET = MY_SERVICE+ "/api/user/wallet"; //  我的钱包
+	public final static String HTTP_USER_BILL = MY_SERVICE+ "/api/user/bill"; //  我的账单列表
+	public final static String HTTP_USER_ORDER = MY_SERVICE+ "/api/user/order"; //  我的订单列表
+	public final static String HTTP_USER_GIFT= MY_SERVICE+ "/api/user/giftcard"; //  我的充值劵
+	public final static String HTTP_LOGIN_GIFT_USE = MY_SERVICE+ "/api/user/inpourFromGiftcard"; //  2.1.10.	使用充值券
+	
+	
+	//TODO  book
+	public final static String HTTP_BOOK_COMMENT_COUNT = MY_SERVICE+ "/api/product/commentCount"; //  商品评论数据
+	public final static String HTTP_BOOK_ADD_COMMENT = MY_SERVICE+ "/api/product/addToComment"; // 添加商品的评分评论
+	
+	//TODO pay
+	public final static String HTTP_PAY_OREDER = MY_SERVICE+ "/api/order/create"; //  创建订单
+	public final static String HTTP_PAY_TYPE = MY_SERVICE+ "/api/order/pay_type"; //  设置订单支付方式
+	public final static String HTTP_PAY = MY_SERVICE+ "/api/order/pay"; //  使用电子币支付
+	
+	
+	// TODO　reader
+	
 }

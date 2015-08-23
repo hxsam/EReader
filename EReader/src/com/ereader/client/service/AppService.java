@@ -50,5 +50,31 @@ public interface AppService {
 	public void getFriends()throws Exception;
 	/**添加好友**/
 	public void addFriends(String id)throws Exception;
+	
+	
+	// TODO
+	/***用户登出*/
+	public void loginExit() throws Exception;
+	/***用户基本信息*/
+	public void user() throws Exception;
+	/*** 我的钱包*/
+	public void wallet() throws Exception;
+	/***我的账单列表*/
+	public void bill() throws Exception;
+	/***我的订单列表*/
+	public void order() throws Exception;
+	/***我的充值劵*/
+	public void gift() throws Exception;
+	/***使用充值券*/
+	public void giftUse() throws Exception;
+	/***商品评论数据*/
+	public void commentCount() throws Exception;
+	
+	/***创建订单*/
+	public void createOrder() throws Exception;
+	/***2.4.2.	设置订单支付方式*/
+	public void payType() throws Exception;
+	/***使用电子币支付*/
+	public void pay() throws Exception;
 
 }

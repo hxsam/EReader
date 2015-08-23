@@ -397,4 +397,70 @@ public class AppServiceImpl implements AppService {
 	
 		
 	}
+
+	@Override
+	public void loginExit() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void user() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void wallet() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void bill() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void order() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void gift() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void giftUse() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void commentCount() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createOrder() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void payType() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pay() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 }
