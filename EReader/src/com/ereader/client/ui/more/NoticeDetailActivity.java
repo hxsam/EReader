@@ -6,12 +6,14 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.ereader.client.R;
+import com.ereader.client.entities.Article;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseActivity;
 
 public class NoticeDetailActivity extends BaseActivity implements OnClickListener {
 	private AppController controller;
-	private TextView textView1;
+	private TextView tv_notice_title;
+	private TextView tv_notice_detail;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,7 +29,8 @@ public class NoticeDetailActivity extends BaseActivity implements OnClickListene
 	  * @time: 2015-2-10 下午1:37:06
 	 */
 	private void findView() {
-		textView1 = (TextView)findViewById(R.id.textView1);
+		tv_notice_title = (TextView)findViewById(R.id.tv_notice_title);
+		tv_notice_detail = (TextView)findViewById(R.id.tv_notice_detail);
 	}
 	
 
@@ -38,8 +41,18 @@ public class NoticeDetailActivity extends BaseActivity implements OnClickListene
 	  * @time: 2015-2-10 下午1:37:06
 	 */
 	private void initView() {
-		((TextView) findViewById(R.id.tv_main_top_title)).setText("公告");
-		textView1.setOnClickListener(this);
+		Article article = (Article)controller.getContext().getBusinessData("ArticleDetailResp");
+		String title = "";
+		if("10".equals(article.getParent_id())){
+			title = "公告";
+		}else if("20".equals(article.getParent_id())){
+			title = "购物指南";
+		}else{
+			title = "支付方式";
+		}
+		((TextView) findViewById(R.id.tv_main_top_title)).setText(title);
+		tv_notice_title.setText(article.getTitle());
+		tv_notice_detail.setText(article.getContent());
 	}
 
 	@Override

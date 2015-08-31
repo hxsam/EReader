@@ -79,5 +79,8 @@ public class Config {
 	
 	
 	// TODO　reader
+	public final static String HTTP_MORE_HELP = MY_SERVICE+ "/api/article/lists"; //  帮助中心
+	public final static String HTTP_MORE_HELP_DETAIL = MY_SERVICE+ "/api/article/detail"; //  帮助中心内容详情
+	
 	
 }

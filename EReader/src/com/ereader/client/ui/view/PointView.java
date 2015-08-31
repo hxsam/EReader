@@ -12,7 +12,7 @@ import com.ereader.client.R;
  * ViewPager 计数点
  */
 public class PointView extends View {
-	private int with = 120;
+	private int with = 120;      
 	private int hight = 15;
 	private int mSize = 1;
 	private int mPosition = 0;

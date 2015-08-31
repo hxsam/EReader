@@ -12,6 +12,8 @@ import com.ereader.client.ui.bookstore.BookActivity;
 import com.ereader.client.ui.bookstore.BookTitleActivity;
 import com.ereader.client.ui.dialog.DialogUtil;
 import com.ereader.client.ui.login.RegisterActivity;
+import com.ereader.client.ui.more.NoticeActivity;
+import com.ereader.client.ui.more.NoticeDetailActivity;
 import com.ereader.client.ui.my.FriendsActivity;
 import com.ereader.common.exception.BusinessException;
 import com.ereader.common.util.IntentUtil;
@@ -310,6 +312,9 @@ public class AppController {
 			service.buyCar();
 			mHandler.obtainMessage(0).sendToTarget();
 		} catch (BusinessException e) {
+			if("1000".equals(e.getErrorMessage().getCode())){
+				return;
+			}
 			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
 		}catch (Exception e) {
 		}
@@ -321,6 +326,7 @@ public class AppController {
 			mHandler.obtainMessage(3).sendToTarget();
 			appHandler.obtainMessage(HANDLER_TOAST,"删除成功").sendToTarget();
 		} catch (BusinessException e) {
+			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
 		}catch (Exception e) {
 		}
 	
@@ -369,9 +375,29 @@ public class AppController {
 			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
 		}catch (Exception e) {
 		}
-			
-			
-			
 	}
 
+	public void getArticle(String id) {
+		try {
+			service.helpType(id);
+			Bundle bundle = new Bundle();
+			bundle.putString("id", id);
+			IntentUtil.intent(currentActivity, bundle,NoticeActivity.class,false);
+		} catch (BusinessException e) {
+			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
+		}catch (Exception e) {
+		}
+	}
+
+	public void getArticleDetail(String article_id) {
+
+		try {
+			service.helpDetail(article_id);
+			IntentUtil.intent(currentActivity,NoticeDetailActivity.class);
+		} catch (BusinessException e) {
+			appHandler.obtainMessage(HANDLER_TOAST,e.getErrorMessage().getMessage()).sendToTarget();
+		}catch (Exception e) {
+		}
+	
+	}
 }

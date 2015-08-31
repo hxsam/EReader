@@ -1,6 +1,7 @@
 package com.ereader.client.ui.more;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
@@ -10,6 +11,7 @@ import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseActivity;
 import com.ereader.common.util.IntentUtil;
+import com.ereader.common.util.ProgressDialogUtil;
 
 public class HelpActivity extends BaseActivity implements OnClickListener {
 	private AppController controller;
@@ -57,17 +59,26 @@ public class HelpActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.rl_help_info:
-			IntentUtil.intent(this, NoticeActivity.class);
+			getArticle("10"); 
 			break;
 		case R.id.rl_help_buy:
-			IntentUtil.intent(this, NoticeActivity.class);
+			getArticle("20"); 
 			break;
 		case R.id.rl_help_pay:
-			IntentUtil.intent(this, NoticeActivity.class);
+			getArticle("30"); 
 			break;
 		default:
 			break;
 		}
 	}
-
+	private void getArticle(final String id) {
+		ProgressDialogUtil.showProgressDialog(this, "通信中…", false);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				controller.getArticle(id);
+				ProgressDialogUtil.closeProgressDialog();
+			}
+		}).start();
+	}
 }

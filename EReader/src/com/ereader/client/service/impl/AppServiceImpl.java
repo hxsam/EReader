@@ -9,6 +9,8 @@ import org.apache.http.message.BasicNameValuePair;
 
 import com.ereader.client.EReaderApplication;
 import com.ereader.client.entities.DisCategory;
+import com.ereader.client.entities.json.ArticleDetailResp;
+import com.ereader.client.entities.json.ArticleResp;
 import com.ereader.client.entities.json.BaseResp;
 import com.ereader.client.entities.json.BookOnlyResp;
 import com.ereader.client.entities.json.BookResp;
@@ -24,7 +26,6 @@ import com.ereader.common.exception.BusinessException;
 import com.ereader.common.exception.ErrorMessage;
 import com.ereader.common.net.Request;
 import com.ereader.common.util.Config;
-import com.ereader.common.util.StringUtil;
 
 public class AppServiceImpl implements AppService {
 	private AppContext context;
@@ -462,5 +463,44 @@ public class AppServiceImpl implements AppService {
 	public void pay() throws Exception {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public void helpType(String type) throws Exception {
+		String token = EReaderApplication.getInstance().getLogin().getToken();
+		Request<ArticleResp> request = new Request<ArticleResp>();
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		nameValuePairs.add(new BasicNameValuePair("_token_", token));
+		nameValuePairs.add(new BasicNameValuePair("parent_id", type));
+		nameValuePairs.add(new BasicNameValuePair("page", "1"));
+		nameValuePairs.add(new BasicNameValuePair("per_page", "30"));
+		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
+		request.setUrl(Config.HTTP_MORE_HELP);
+		request.setR_calzz(ArticleResp.class);
+		ArticleResp resp = EReaderApplication.getAppSocket().shortConnect(request);
+		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
+			context.addBusinessData("ArticleResp", resp.getData());
+		} else {
+			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
+		}
+	}
+	
+	@Override
+	public void helpDetail(String id) throws Exception {
+
+		String token = EReaderApplication.getInstance().getLogin().getToken();
+		Request<ArticleDetailResp> request = new Request<ArticleDetailResp>();
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		nameValuePairs.add(new BasicNameValuePair("_token_", token));
+		nameValuePairs.add(new BasicNameValuePair("article_id", id));
+		request.addParameter(Request.AJAXPARAMS, nameValuePairs);
+		request.setUrl(Config.HTTP_MORE_HELP_DETAIL);
+		request.setR_calzz(ArticleDetailResp.class);
+		ArticleDetailResp resp = EReaderApplication.getAppSocket().shortConnect(request);
+		if (BaseResp.SUCCESS.equals(resp.getStatus())) {
+			context.addBusinessData("ArticleDetailResp", resp.getData());
+		} else {
+			throw new BusinessException(new ErrorMessage(resp.getStatus(), resp.getMessage()));
+		}
 	}
 }

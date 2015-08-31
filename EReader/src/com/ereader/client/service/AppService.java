@@ -76,5 +76,11 @@ public interface AppService {
 	public void payType() throws Exception;
 	/***使用电子币支付*/
 	public void pay() throws Exception;
-
+	
+	//other
+	/**帮助中心***/
+	public void helpType(String type)throws Exception;
+	/**帮助中心***/
+	public void helpDetail(String id)throws Exception;
+	
 }

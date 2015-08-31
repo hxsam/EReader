@@ -171,11 +171,19 @@ public class BuyCarActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.bt_buy_go:
+			if(mList.size() == 0){
+				ToastUtil.showToast(BuyCarActivity.this, "没有可支付商品", ToastUtil.LENGTH_LONG);
+				return;
+			}
 			Bundle bundle = new Bundle();
 			bundle.putString("money", money);
 			IntentUtil.intent(BuyCarActivity.this,bundle, PayActivity.class,false);
 			break;
 		case R.id.rb_car_all:
+			if(mList.size() == 0){
+				ToastUtil.showToast(BuyCarActivity.this, "没有可选择商品", ToastUtil.LENGTH_LONG);
+				return;
+			}
 			if (rb_car_all.isChecked()) {
 				money = "0";
 				buyNum = 0;
@@ -200,7 +208,6 @@ public class BuyCarActivity extends BaseActivity implements OnClickListener {
 				// 
 				deleteCar(deleteID.toString());
 			}
-			
 			break;
 		default:
 			break;
