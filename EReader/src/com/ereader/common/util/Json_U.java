@@ -1,4 +1,4 @@
-﻿package com.ereader.common.util;
+package com.ereader.common.util;
 
 import com.ereader.common.exception.BusinessException;
 import com.ereader.common.exception.ErrorMessage;
