@@ -12,6 +12,7 @@ import com.ereader.client.R;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseActivity;
 import com.ereader.client.ui.dialog.DialogUtil;
+import com.ereader.client.ui.login.LoginActivity;
 import com.ereader.common.util.IntentUtil;
 
 public class MoreActivity  extends BaseActivity implements OnClickListener {
@@ -29,6 +30,8 @@ public class MoreActivity  extends BaseActivity implements OnClickListener {
 				}else{
 					rl_more_exit.setVisibility(View.GONE);
 				}
+				IntentUtil.intent(MoreActivity.this, LoginActivity.class);
+				MoreActivity.this.finish();
 				break;
 			default:
 				break;

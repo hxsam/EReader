@@ -55,7 +55,19 @@ OnHeaderRefreshListener, OnFooterRefreshListener{
 			case BookActivity.BOOK:
 				// 更新页面数据
 				BookResp bookResp =  (BookResp)controller.getContext().getBusinessData("BookFeaturedResp");
-				mList.addAll(bookResp.getData());
+				for (int i = 0; i < bookResp.getData().size(); i++) {
+					boolean flag = true;
+					
+					for (int j = 0; j < mList.size(); j++) {
+						if(bookResp.getData().get(i).getInfo().getProduct_id().equals(mList.get(j).getInfo().getProduct_id())){
+							flag = false;
+						}
+					}
+					if(flag){
+						mList.add(bookResp.getData().get(i));
+					}
+				}
+				
 				page = bookResp.getPage();
 				adapter.notifyDataSetChanged();
 				pull_refresh_book.onHeaderRefreshComplete();
@@ -63,6 +75,7 @@ OnHeaderRefreshListener, OnFooterRefreshListener{
 				break;
 			case REFRESH_DOWN_OK:
 				ToastUtil.showToast(mContext, "刷新成功！", ToastUtil.LENGTH_LONG);
+				adapter.notifyDataSetChanged();
 				pull_refresh_book.onHeaderRefreshComplete();
 				pull_refresh_book.onFooterRefreshComplete();
 				break;

@@ -4,9 +4,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.ereader.client.EReaderApplication;
 import com.ereader.client.R;
+import com.ereader.client.entities.Login;
 import com.ereader.client.service.AppController;
 import com.ereader.client.ui.BaseActivity;
 import com.ereader.common.util.ToastUtil;
@@ -14,6 +17,7 @@ import com.ereader.common.util.ToastUtil;
 public class NameActivity extends BaseActivity implements OnClickListener {
 	private AppController controller;
 	private Button main_top_right;
+	private EditText et_account_name;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,6 +34,7 @@ public class NameActivity extends BaseActivity implements OnClickListener {
 	 */
 	private void findView() {
 		main_top_right = (Button)findViewById(R.id.main_top_right);
+		et_account_name = (EditText)findViewById(R.id.et_account_name);
 	}
 	
 
@@ -41,6 +46,10 @@ public class NameActivity extends BaseActivity implements OnClickListener {
 	 */
 	private void initView() {
 		((TextView) findViewById(R.id.tv_main_top_title)).setText("姓名");
+		Login login = EReaderApplication.getInstance().getLogin();
+		if(login != null){
+			et_account_name.setText(login.getRealname());
+		}
 		main_top_right.setText("保存");
 		main_top_right.setOnClickListener(this);
 	}

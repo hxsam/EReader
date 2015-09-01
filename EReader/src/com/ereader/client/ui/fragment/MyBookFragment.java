@@ -78,6 +78,8 @@ public class MyBookFragment extends Fragment implements OnClickListener {
 		super.onResume();
 		if(EReaderApplication.getInstance().isLogin()){
 			tv_main_top_title.setText(EReaderApplication.getInstance().getLogin().getNickname());
+		}else{
+			tv_main_top_title.setText("未登录");
 		}
 	}
 	
